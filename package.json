@@ -1,0 +1,29 @@
+{
+  "name": "swagger-spec-express",
+  "version": "0.0.1",
+  "description": "Allows you to programatically annotate your express routes with swagger info and then generate and validate your json spec file",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eXigentCoder/swagger-spec-express.git"
+  },
+  "keywords": [
+    "swagger",
+    "express",
+    "json",
+    "swagger-spec",
+    "specification",
+    "documentation",
+    "node",
+    "json-schema"
+  ],
+  "author": "Ryan Kotzen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eXigentCoder/swagger-spec-express/issues"
+  },
+  "homepage": "https://github.com/eXigentCoder/swagger-spec-express#readme"
+}
