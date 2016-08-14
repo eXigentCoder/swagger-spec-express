@@ -1,0 +1,31 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "The specification for what can go on the metadata",
+    "type": "object",
+    "required": [],
+    "additionalProperties": false,
+    "properties": {
+        "tags": {},
+        "summary": {},
+        "description": {},
+        "externalDocs": {},
+        "operationId": {},
+        "consumes": {},
+        "produces": {},
+        "parameters": {},
+        "responses": {},
+        "schemes": {},
+        "deprecated": {},
+        "security": {
+            "type": [
+                "array",
+                "string",
+                "object",
+                "null"
+            ]
+        },
+        "commonResponses": {},
+        "model": {},
+        "arrayOfModel": {}
+    }
+}
