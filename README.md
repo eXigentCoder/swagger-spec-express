@@ -4,3 +4,9 @@ Allows you to programmatically annotate your express routes with swagger info an
 
 ##NB##
 Please note that this module is still heavily under development, more information to come.
+
+##todo##
+validation of the add common item methods to ensure only the correct properties are added
+validation of the metadata add
+set in parameter etc when adding params
+throw error if last path wasn't found

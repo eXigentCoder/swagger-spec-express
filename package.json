@@ -1,39 +1,43 @@
 {
-    "name": "swagger-spec-express",
-    "version": "0.0.1",
-    "description": "Allows you to programatically annotate your express routes with swagger info and then generate and validate your json spec file",
-    "main": "lib/index.js",
-    "scripts": {
-        "test-no-cover": "mocha",
-        "lint": "eslint \"**/*.js\"",
-        "test": "node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha",
-        "report": "plato -r -d report -e .eslintrc lib"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/eXigentCoder/swagger-spec-express.git"
-    },
-    "keywords": [
-        "swagger",
-        "express",
-        "json",
-        "swagger-spec",
-        "specification",
-        "documentation",
-        "node",
-        "json-schema"
-    ],
-    "author": "Ryan Kotzen",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/eXigentCoder/swagger-spec-express/issues"
-    },
-    "homepage": "https://github.com/eXigentCoder/swagger-spec-express#readme",
-    "devDependencies": {
-        "chai": "3.5.0",
-        "dirty-chai": "1.2.2",
-        "eslint": "3.3.0",
-        "istanbul": "0.4.4",
-        "mocha": "3.0.2"
-    }
+  "name": "swagger-spec-express",
+  "version": "0.0.1",
+  "description": "Allows you to programatically annotate your express routes with swagger info and then generate and validate your json spec file",
+  "main": "lib/index.js",
+  "scripts": {
+    "test-no-cover": "mocha",
+    "lint": "eslint \"lib/**/*.js\" \"test/**/*.js\"",
+    "test": "node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha",
+    "report": "plato -r -d report -e .eslintrc lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eXigentCoder/swagger-spec-express.git"
+  },
+  "keywords": [
+    "swagger",
+    "express",
+    "json",
+    "swagger-spec",
+    "specification",
+    "documentation",
+    "node",
+    "json-schema"
+  ],
+  "author": "Ryan Kotzen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eXigentCoder/swagger-spec-express/issues"
+  },
+  "homepage": "https://github.com/eXigentCoder/swagger-spec-express#readme",
+  "devDependencies": {
+    "chai": "3.5.0",
+    "dirty-chai": "1.2.2",
+    "eslint": "3.3.0",
+    "istanbul": "0.4.4",
+    "mocha": "3.0.2"
+  },
+  "dependencies": {
+    "async": "2.0.1",
+    "lodash": "4.15.0"
+  }
 }
