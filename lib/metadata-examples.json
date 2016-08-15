@@ -45,8 +45,10 @@
                 "$ref": "#/definitions/appInfo"
             },
             "headers":{
-                "description": "The number of allowed requests in the current period",
-                "type": "integer"
+                "RequestRate" :{
+                    "description": "The number of allowed requests in the current period",
+                    "type": "integer"
+                }
             },
             "examples": {
                 "application/json": {
