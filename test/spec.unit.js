@@ -13,18 +13,18 @@ describe('Spec', function () {
     };
     var initOptions = {};
     describe('initialise', function () {
-        it('Should not return and error when called with the example arguments', function (done) {
+        it('Should not return an error when called with the example arguments', function (done) {
             swagger.initialise(app, initOptions, done);
         });
     });
     describe('compile', function () {
-        it('Should return and error when called before initialise', function (done) {
+        it('Should return an error when called before initialise', function (done) {
             swagger.compile(function (err) {
                 expect(err, "Should have thrown an error because initialise was not called").to.be.ok();
                 done();
             });
         });
-        it('Should not return and error when called after initialise', function (done) {
+        it('Should not return an error when called after initialise', function (done) {
             swagger.initialise(app, initOptions, function () {
                 swagger.compile(function (err) {
                     expect(err, "Should have thrown an error because initialise was not called").to.not.be.ok();
@@ -38,16 +38,16 @@ describe('Spec', function () {
             swagger.json();
         }
 
-        it('Should throw and error when called before initialise', function () {
+        it('Should throw an error when called before initialise', function () {
             expect(callJson).to.throw(Error);
         });
-        it('Should throw and error when called before compile but after initialise', function (done) {
+        it('Should throw an error when called before compile but after initialise', function (done) {
             swagger.initialise(app, initOptions, function () {
                 expect(callJson).to.throw(Error);
                 done();
             });
         });
-        it('Should not throw and error when called after initialise and compile', function (done) {
+        it('Should not throw an error when called after initialise and compile', function (done) {
             swagger.initialise(app, initOptions, function () {
                 swagger.compile(function () {
                     expect(callJson).to.not.throw(Error);
