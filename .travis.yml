@@ -3,6 +3,7 @@ node_js:
 - 6
 - 5
 before_script: npm run lint
+before_deploy: npm version patch
 deploy:
   provider: npm
   email: potz666@gmail.com
