@@ -6,6 +6,8 @@ branches:
   only:
   - master
   - develop
+install:
+- git checkout master
 before_script:
 - npm run lint
 - git config --global user.email "potz666@gmail.com"
@@ -14,7 +16,6 @@ before_deploy:
 - git config credential.helper "store --file=.git/credentials"
 - echo "https://$GH_TOKEN@github.com" > .git/credentials
 - npm version patch -m "Release %s of the library [skip ci]"
-- cat package.json
 - git status
 - git push https://$GH_TOKEN@github.com/eXigentCoder/swagger-spec-express.git --all
 deploy:
