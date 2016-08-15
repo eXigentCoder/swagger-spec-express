@@ -2,7 +2,6 @@ language: node_js
 node_js:
 - 6
 - 5
-# safelist
 branches:
   only:
   - master
@@ -18,5 +17,12 @@ deploy:
     branch: master
     repo: eXigentCoder/swagger-spec-express
 after_deploy:
+- git config --global user.email "potz666@gmail.com"
+- git config --global user.name "eXigentCoder-CI"
+- git config credential.helper "store --file=.git/credentials"
+- echo "https://${GH_TOKEN}:@github.com" > .git/credentials
 - npm version patch -m "Release %s of the library [skip ci]"
 - git push origin master
+env:
+  global:
+    secure: qOiJgzsJEaZ/kGUMADjd/MYLmGX8J6ngIjtw2/icFl/TfHqiARScKBQP7Tttx+PVliTW+cV2bl166P9TfK1BXlYlGy9N3gw+acFN92X4DK6KEoS+0tu5Bu0YlTtvQbzaEQJ/BQJf3cs2J9DxySJ55iEzy6mSDxmb2Z5ZYn8APbM3abtOgLvSWkYWeyOz6aE9XDjcqi8MUDbM4GqdV3t6pWTjCByHFl81ko9RFaDDuy4nU8TO/zwc8KPQxC8hVBIpM/BJvOU9NxEw3nHJJxCAGM5H2LBUGLWtK1WDA+YkDFnQC7Y/O74G33xSUQ4VTpv0bUsF5k3NQUUTIkH9dSapTnYpt3/3oX6gNqIi3nPuam6bnwRwBXZRR99WI1xDKOqd0fWCjFjmc6Sgko0NV+HGdjW0F/WdN7Af+cSSuaSw2apv92clVARRJqU9L8Tsbmx0bmtigmDPUDosmk7ycatXs7ZkegA5e1CDCiB4nJIu3RTt3rVODbyKTQ7CNI/UUKdziXnBZrmR7SLjxof1Cs0sOuT97cDTAyR8ykpsN7LiJ4ebCIrbn25sEhPPcaURQitQvlr/10Mak4pDADztcYpgTRqtRrFaIRIIUAv2dNCfdJfTh52kUR4WCGnLcbYDIaSwS9UxO/rGdtEjaYwzBFIcdUEAirgeXb61ksJZGlzYhpM=
