@@ -15,7 +15,8 @@ before_deploy:
 - echo "https://$GH_TOKEN@github.com" > .git/credentials
 - npm version patch -m "Release %s of the library [skip ci]"
 - cat package.json
-- git push https://$GH_TOKEN@github.com/eXigentCoder/swagger-spec-express.git master --all
+- git status
+- git push https://$GH_TOKEN@github.com/eXigentCoder/swagger-spec-express.git --all
 deploy:
   skip_cleanup: true
   provider: npm
