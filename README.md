@@ -12,3 +12,4 @@ set in parameter etc when adding params
 throw error if last path wasn't found
 update method signatures in map-metadata-to-operation
 for parameters, if there is a name conflict throw an error, since you could have filter in query or header etc
+check all responses for models

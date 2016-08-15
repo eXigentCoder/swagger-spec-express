@@ -62,7 +62,13 @@
             "required": [],
             "additionalProperties": false,
             "properties": {
-                "responses": {},
+                "responses": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "uniqueItems": true
+                },
                 "parameters": {
                     "type": "object",
                     "required": [],
@@ -74,9 +80,7 @@
                         "formData": {},
                         "path": {}
                     }
-                },
-                "model": {},
-                "arrayOfModel": {}
+                }
             }
         }
     },
