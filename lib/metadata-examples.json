@@ -1,0 +1,35 @@
+{
+    "tags": [
+        "Test"
+    ],
+    "summary": "Does cool stuff",
+    "description": "Longer description about how it does the cool stuff",
+    "externalDocs": {
+        "description": "Some examples of this operation used in the wild",
+        "url": "http://www.google.com"
+    },
+    "operationId": "5738bb0c61915c74176f65e8",
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "parameters": {},
+    "responses": {},
+    "schemes": {},
+    "deprecated": {},
+    "security": {
+        "type": [
+            "array",
+            "string",
+            "object",
+            "null"
+        ]
+    },
+    "common": {
+        "responses": {}
+    },
+    "model": {},
+    "arrayOfModel": {}
+}
