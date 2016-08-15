@@ -15,7 +15,7 @@
     "produces": [
         "application/json"
     ],
-    "parameters": {},
+    "parameters": [],
     "responses": {},
     "schemes": [
         "https"
