@@ -17,19 +17,21 @@
     ],
     "parameters": {},
     "responses": {},
-    "schemes": {},
-    "deprecated": {},
-    "security": {
-        "type": [
-            "array",
-            "string",
-            "object",
-            "null"
-        ]
-    },
+    "schemes": [
+        "https"
+    ],
+    "deprecated": false,
+    "security": true,
     "common": {
-        "responses": {}
-    },
-    "model": {},
-    "arrayOfModel": {}
+        "responses": {},
+        "parameters": {
+            "header": {},
+            "body": {},
+            "query": {},
+            "formData": {},
+            "path": {}
+        },
+        "model": {},
+        "arrayOfModel": {}
+    }
 }

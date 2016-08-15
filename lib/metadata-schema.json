@@ -50,13 +50,35 @@
             "default": false
         },
         "security": {
-            "$ref": "#/definitions/security"
+            "type": [
+                "array",
+                "string",
+                "object",
+                "null"
+            ]
         },
         "common": {
-            "responses": {}
-        },
-        "model": {},
-        "arrayOfModel": {}
+            "type": "object",
+            "required": [],
+            "additionalProperties": false,
+            "properties": {
+                "responses": {},
+                "parameters": {
+                    "type": "object",
+                    "required": [],
+                    "additionalProperties": false,
+                    "properties": {
+                        "header": {},
+                        "body": {},
+                        "query": {},
+                        "formData": {},
+                        "path": {}
+                    }
+                },
+                "model": {},
+                "arrayOfModel": {}
+            }
+        }
     },
     "definitions": {
         "definitions": {
