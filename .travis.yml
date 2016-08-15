@@ -18,5 +18,5 @@ deploy:
     branch: master
     repo: eXigentCoder/swagger-spec-express
 after_deploy:
-- npm version patch -m "Release %s of the library"
-- git push origin develop
+- npm version patch -m "Release %s of the library [skip ci]"
+- git push origin master
