@@ -6,8 +6,8 @@ branches:
   only:
   - master
   - develop
-install:
-- git checkout master
+before_install:
+- git checkout -qf master
 before_script:
 - npm run lint
 - git config --global user.email "potz666@gmail.com"
