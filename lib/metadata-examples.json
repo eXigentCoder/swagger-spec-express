@@ -70,14 +70,14 @@
     },
     "common": {
         "responses": [
-            "badRequest" //would be defined by calling root.addResponse
+            "badRequest" //would be defined by calling root.common.addResponse
         ],
         "parameters": {
-            "header": {},
-            "body": {},
-            "query": {},
-            "formData": {},
-            "path": {}
+            "header": [], //would be defined by calling root.common.parameters.addHeader
+            "body": [],//would be defined by calling root.common.parameters.addBody. Can contain model/arrayOfModel/Schema
+            "query": [],//would be defined by calling root.common.parameters.addQuery
+            "formData": [],//would be defined by calling root.common.parameters.addFormData
+            "path": [] //shouldn't need to set these, the code looks for :paramName in the path of the route and adds them here these are added to the code by calling root.common.parameters.addPath
         }
     }
 }

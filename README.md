@@ -6,13 +6,10 @@ Allows you to programmatically annotate your express routes with swagger info an
 Please note that this module is still heavily under development, more information to come.
 
 ##todo##
-validation of the add common item methods to ensure only the correct properties are added
-validation of the metadata add
-set in parameter etc when adding params
-throw error if last path wasn't found
-update method signatures in map-metadata-to-operation
-for parameters, if there is a name conflict throw an error, since you could have filter in query or header etc
-check all responses for models
-validate json after compile
-move common responses to the root.responses and reference from there rather than injecting it into the operation
-feature for common header responses
+Low - Currently populating rootDocument.responses but then injecting the responses directly into the operation. Should use the $ref
+Low - Currently populating rootDocument.parameters but then injecting the responses directly into the operation. Should use the $ref
+Low - validation of the add common item methods to ensure only the correct properties are added - will be okay if we validate the full doc and spit out the errors, check after
+Low - validation of the metadata add - will be okay if we validate the full doc and spit out the errors, check after
+Med - validate json after compile
+High - throw error if last path wasn't found
+High - feature for common header responses
