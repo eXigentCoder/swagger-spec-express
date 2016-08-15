@@ -44,6 +44,9 @@
             "schema": { //can only set one of these
                 "$ref": "#/definitions/appInfo"
             },
+            "commmonHeaders": [
+                "Correlation-Id" //would be defined by calling root.common.addResponseHeader
+            ],
             "headers":{
                 "RequestRate" :{
                     "description": "The number of allowed requests in the current period",
