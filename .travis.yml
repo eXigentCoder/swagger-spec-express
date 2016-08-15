@@ -11,7 +11,7 @@ before_deploy:
 - git config --global user.email "potz666@gmail.com"
 - git config --global user.name "eXigentCoder-CI"
 - git config credential.helper "store --file=.git/credentials"
-- echo "https://${process.env.GH_TOKEN}:@github.com" > .git/credentials
+- echo "https://${GH_TOKEN}:@github.com" > .git/credentials
 - npm version patch -m "Release %s of the library [skip ci]"
 - git push origin master
 deploy:
