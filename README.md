@@ -14,3 +14,5 @@ update method signatures in map-metadata-to-operation
 for parameters, if there is a name conflict throw an error, since you could have filter in query or header etc
 check all responses for models
 validate json after compile
+move common responses to the root.responses and reference from there rather than injecting it into the operation
+feature for common header responses

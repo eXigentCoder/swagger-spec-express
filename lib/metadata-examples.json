@@ -15,15 +15,63 @@
     "produces": [
         "application/json"
     ],
-    "parameters": [],
-    "responses": {},
+    "parameters": [
+        {
+            "name": "select",
+            "in": "query",
+            "description": "Specifies which fields to select. Use a comma without spaces to select multiple fields",
+            "type": "string",
+            "required": false
+        },
+        {
+            "name": "body",
+            "in": "body",
+            "model": "appInfo", //can only set one of these
+            "arrayOfModel": "appInfo", //can only set one of these
+            "schema": { //can only set one of these
+                "$ref": "#/definitions/appInfo"
+            },
+            "description": "The body of the request",
+            "type": "object",
+            "required": false
+        }
+    ],
+    "responses": {
+        "200": {
+            "description": "Success" //required
+            "model": "appInfo", //can only set one of these
+            "arrayOfModel": "appInfo", //can only set one of these
+            "schema": { //can only set one of these
+                "$ref": "#/definitions/appInfo"
+            },
+            "headers":{
+                "description": "The number of allowed requests in the current period",
+                "type": "integer"
+            },
+            "examples": {
+                "application/json": {
+                    "appName": "esb-facade",
+                    "version": "1.0.0",
+                    "deploymentDate": "2016-08-09T13:36:00.000Z",
+                    "environment": "development",
+                    "nodeVersion": "v5.9.1"
+                }
+            }
+        }
+    },
     "schemes": [
         "https"
     ],
     "deprecated": false,
     "security": true,
+    "security1": "api_key", //must be defined in the root of your swagger document at securityDefinitions
+    "security2":{
+        "api_key": [] //must be defined in the root of your swagger document at securityDefinitions
+    },
     "common": {
-        "responses": {},
+        "responses": [
+            "badRequest" //would be defined by calling root.addResponse
+        ],
         "parameters": {
             "header": {},
             "body": {},
