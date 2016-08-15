@@ -12,9 +12,9 @@ before_script:
 - git config --global user.name "eXigentCoder-CI"
 before_deploy:
 - git config credential.helper "store --file=.git/credentials"
-- echo "https://${GH_TOKEN}:@github.com" > .git/credentials
+- echo "https://$GH_TOKEN@github.com" > .git/credentials
 - npm version patch -m "Release %s of the library [skip ci]"
-- git push https://${GH_TOKEN}:@github.com/eXigentCoder/swagger-spec-express.git master
+- git push https://$GH_TOKEN@github.com/eXigentCoder/swagger-spec-express.git master
 deploy:
   skip_cleanup: true
   provider: npm
