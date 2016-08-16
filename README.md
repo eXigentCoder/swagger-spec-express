@@ -11,4 +11,6 @@ Low - Currently populating rootDocument.parameters but then injecting the respon
 Low - validation of the add common item methods to ensure only the correct properties are added - will be okay if we validate the full doc and spit out the errors, check after
 Low - validation of the metadata add - will be okay if we validate the full doc and spit out the errors, check after
 Med - validate json after compile
+Med - Ability to describe the app like a router (alternate to passing all the data into the init method).
+Med - Ability to manually specify routes.
 High - if a model has #/definitions, add those as models
