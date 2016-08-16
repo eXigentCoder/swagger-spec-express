@@ -44,7 +44,7 @@
             "schema": { //can only set one of these
                 "$ref": "#/definitions/appInfo"
             },
-            "commmonHeaders": [
+            "commonHeaders": [
                 "Correlation-Id" //would be defined by calling root.common.addResponseHeader
             ],
             "headers":{
