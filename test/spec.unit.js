@@ -65,4 +65,27 @@ describe('Spec', function () {
             expect(callReset).to.not.throw();
         });
     });
+    describe('validate', function () {
+        function callValidate() {
+            swagger.validate();
+        }
+
+        it('Should throw an error when called before initialise', function () {
+            expect(callValidate).to.throw(Error);
+        });
+        it('Should throw an error when called before compile but after initialise', function (done) {
+            swagger.initialise(app, initOptions, function () {
+                expect(callValidate).to.throw(Error);
+                done();
+            });
+        });
+        it('Should not throw an error when called after initialise and compile', function (done) {
+            swagger.initialise(app, initOptions, function () {
+                swagger.compile(function () {
+                    expect(callValidate).to.not.throw(Error);
+                    done();
+                });
+            });
+        });
+    });
 });
