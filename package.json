@@ -33,14 +33,14 @@
   "devDependencies": {
     "chai": "3.5.0",
     "dirty-chai": "1.2.2",
-    "eslint": "3.3.0",
-    "istanbul": "0.4.4",
+    "eslint": "3.4.0",
+    "istanbul": "0.4.5",
     "mocha": "3.0.2",
     "npm-check": "5.2.3",
     "plato": "1.7.0"
   },
   "dependencies": {
-    "ajv": "4.4.0",
+    "ajv": "4.5.0",
     "async": "2.0.1",
     "lodash": "4.15.0",
     "request": "2.74.0",
