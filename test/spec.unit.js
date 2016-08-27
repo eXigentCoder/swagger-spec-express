@@ -18,18 +18,17 @@ describe('Spec', function () {
         });
     });
     describe('compile', function () {
-        it('Should return an error when called before initialise', function (done) {
-            swagger.compile(function (err) {
-                expect(err, "Should have thrown an error because initialise was not called").to.be.ok();
-                done();
-            });
+        function callComplie() {
+            swagger.compile();
+        }
+
+        it('Should return an error when called before initialise', function () {
+            expect(callComplie, "Should have thrown an error because initialise was not called").to.throw();
         });
         it('Should not return an error when called after initialise', function (done) {
             swagger.initialise(app, initOptions, function () {
-                swagger.compile(function (err) {
-                    expect(err, "Should have thrown an error because initialise was not called").to.not.be.ok();
-                    done();
-                });
+                expect(callComplie, "Should have thrown an error because initialise was not called").to.not.throw();
+                return done();
             });
         });
     });
@@ -49,10 +48,9 @@ describe('Spec', function () {
         });
         it('Should not throw an error when called after initialise and compile', function (done) {
             swagger.initialise(app, initOptions, function () {
-                swagger.compile(function () {
-                    expect(callJson).to.not.throw(Error);
-                    done();
-                });
+                swagger.compile();
+                expect(callJson).to.not.throw(Error);
+                done();
             });
         });
     });
@@ -81,10 +79,9 @@ describe('Spec', function () {
         });
         it('Should not throw an error when called after initialise and compile', function (done) {
             swagger.initialise(app, initOptions, function () {
-                swagger.compile(function () {
-                    expect(callValidate).to.not.throw(Error);
-                    done();
-                });
+                swagger.compile();
+                expect(callValidate).to.not.throw(Error);
+                done();
             });
         });
     });
