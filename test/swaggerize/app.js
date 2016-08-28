@@ -1,6 +1,6 @@
 'use strict';
-require('./init');
-var swagger = require('../lib');
+require('./../init');
+var swagger = require('../../lib/index');
 var express = require('express');
 describe('Swaggerize app tests', function () {
     beforeEach(function () {
