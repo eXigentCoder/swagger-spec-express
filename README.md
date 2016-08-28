@@ -1,7 +1,7 @@
 # swagger-spec-express
 ![alt text](https://api.travis-ci.org/eXigentCoder/swagger-spec-express.svg "Build Status")
 
-A library that allows you to programmatically annotate your existing express api with [swagger](http://swagger.io/) info and then generate and validate your json spec file. All without completely starting over or changing the structure of your express routes.
+A library that allows you to programmatically annotate your existing express api with [swagger](http://swagger.io/) info and then generate and validate your json spec file. All without completely starting over or changing the structure of your express routes. Please note that this document is still being written.
 
 ## Why
 There are already a few libraries out there to add Swagger documentation to your [express](https://expressjs.com/) api, like [swagger-node-express](https://www.npmjs.com/package/swagger-node-express) and [swagger-node](https://github.com/swagger-api/swagger-node) which work really well, however they require you to either start from scratch or change your routes to work with their format. This libary is different and can easily be added to an existing and established express api using the normal patterns you are used to.
@@ -85,13 +85,16 @@ router.get('/one', function (req, res) {
 });
 ```
 
+
+## Adding the UI
+
+
 ## API Options
 
 ###Initialise & initialize
 Both British and American spelling supported.
 
-> initialise(app, options)
-> initialize(app, options)
+> initialise(app, options) | initialize(app, options)
 
 Will initialise your app with the required swaggers-spec information. In addition you can pass in some options which will be used when generating the swagger JSON document later on.
 
@@ -133,7 +136,7 @@ externalDocs| [object](http://swagger.io/specification/#externalDocumentationObj
 
 Returns nothing. Will gather together all your described app routes and compile them into a single document to be served up by your api. Can only be called once initialise has been called. Should only call this once you have completely finished describing your routes. Will throw an error if initialise wasn't called or if you don't yet have any routes defined or if there are certain errors in your metadata.
 
-###Compile
+###Validate
 
 > validate()
 
@@ -174,6 +177,12 @@ Returns the swagger specification as a json object. Throws an exception if calle
 ### common.parameters.addPath
 
 ### swaggerisedObject.describe
+
+## Reporting Bugs & Issues
+
+## Integrating to your tests
+
+## Awesome code reuse
 
 ## Roadmap
 ### Low
