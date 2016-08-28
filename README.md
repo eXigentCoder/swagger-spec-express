@@ -4,47 +4,86 @@
 A library that allows you to programmatically annotate your existing express api with [swagger](http://swagger.io/) info and then generate and validate your json spec file. All without completely starting over or changing the structure of your express routes.
 
 ## Why
-There are already a few libraries out there to add swagger documentation to your [express](https://expressjs.com/) api, like [swagger-node-express](https://www.npmjs.com/package/swagger-node-express) and [swagger-node](https://github.com/swagger-api/swagger-node) which work really well, however they require you to either start from scratch or change your routes to work with their format. This libary is different and can easily be added to an existing and established express api using the normal patterns you are used to.
+There are already a few libraries out there to add Swagger documentation to your [express](https://expressjs.com/) api, like [swagger-node-express](https://www.npmjs.com/package/swagger-node-express) and [swagger-node](https://github.com/swagger-api/swagger-node) which work really well, however they require you to either start from scratch or change your routes to work with their format. This libary is different and can easily be added to an existing and established express api using the normal patterns you are used to.
 
 ##Installation
+Requires Express 4.x
 
 Install the package:
 > npm install swagger-spec-express --save-exact
 
 Basic code example:
 
-    var express = require('express');
-    var swagger = require('swagger-spec-express');
-    var packageJson = require('./package.json');
+```javascript
+var express = require('express');
+var swagger = require('swagger-spec-express');
+var packageJson = require('./package.json');
 
-    var app = express();
-    app.get('/swagger.json', function (err, res) {
-        res.status(200).json(swagger.json());
-    });
-    var options = {
-        title: packageJson.title,
-        version: packageJson.version
-    };
-    swagger.initialise(app, options, swaggerInitialised);
+var app = express();
+var options = {
+    title: packageJson.title,
+    version: packageJson.version
+};
+swagger.initialise(app, options);
 
-    function swaggerInitialised(err) {
-        if (err) {
-            throw err;
-        }
-        swagger.compile();
-        var port = 3000;
-        app.listen(port, appListening);
-        function appListening() {
-            console.info(packageJson.name + ' is listening on port ' + port);
+app.get('/swagger.json', function (err, res) {
+    res.status(200).json(swagger.json());
+}).describe({
+    responses: {
+        200: {
+            description: "Returns the swagger.json document"
         }
     }
-This will create a very basic express app that serves up the swagger.json document when you navigate to **/swagger.json**
-See the api section below for the available options.
+});
+
+swagger.compile();
+var port = 3000;
+app.listen(port, appListening);
+function appListening() {
+    console.info(packageJson.name + ' is listening on port ' + port);
+}
+```
+
+This will create a very basic express app that serves up the swagger.json document when you navigate to **http://localhost:3000/swagger.json**
+
+The [JSON Schema](http://json-schema.org/) file that will be used to validate the supplied
+metadata on the route can be found [here](https://raw.githubusercontent.com/eXigentCoder/swagger-spec-express/master/lib/schemas/meta-data.json) in addition the fields are detailed below. Wherever possible the library tries to adhear to the official [Swagger Specification](http://swagger.io/specification/) so that is a good place to look for extra information about what you can specify.
+
 ## Describing Your Routes
-### using the app object
+As seen above, once you have called initialise on your app, the describe method is automatically added and can be added to routes you declare directly on your app object.
 
-### using the route object
+But what if you want to use the router object? In the above example code above add the following to the top of the page:
 
+```javascript
+var exampleRouter = require('./example-route');
+```
+
+And then after calling **swagger.initialise(app, options);** add the following:
+
+```javascript
+app.use(exampleRouter);
+```
+
+Code for the example router:
+
+```javascript
+'use strict';
+var express = require('express');
+var swagger = require('swagger-spec-express');
+var router = new express.Router();
+swagger.swaggerize(router);
+module.exports = router;
+
+router.get('/one', function (req, res) {
+    res.status(200).json({example: 1})
+}).describe({
+    responses: {
+        200: {
+            description: "Returns example 1"
+        }
+    }
+});
+```
 ## More Complex Setup
 
 ## API Options
