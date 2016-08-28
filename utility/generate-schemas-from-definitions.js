@@ -10,7 +10,8 @@ var schemasToGenerate = [
     {name: 'tag'},
     {name: 'schema', functions: [addNameProperty, markNameAsRequired]},
     {name: 'response', functions: [addNameProperty, markNameAsRequired]},
-    {name: 'header', functions: [addNameProperty, markNameAsRequired]}
+    {name: 'header', functions: [addNameProperty, markNameAsRequired]},
+    {name: 'operation'}
 ];
 var async = require('async');
 var fs = require('fs');

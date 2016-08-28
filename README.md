@@ -53,19 +53,13 @@ See the api section below for the available options.
 ### Low
 - Currently populating rootDocument.responses but then injecting the responses directly into the operation. Should use the $ref
 - Currently populating rootDocument.parameters but then injecting the responses directly into the operation. Should use the $ref
-- Validation of the add common item methods
 - Validation of the metadata add
 ### Medium
 - Ability to describe the app like a router (alternate to passing all the data into the init method).
 - Ability to manually specify routes.
-- Update document with how to use the library when closer to a definied standard.
 - More tests
 ### High
 - addResponse should look for model & arrayOfModel
 - Better error messages in general so you don't need to debug
 - Ability to inject certain things into parameters. E.g. many GET routes will have GET /thing/:identifier would be nice to inject the name in there
-- if I call addModel with an explicit name and there is a name in the doc, the name in the doc overwrites the specified name
 - if metadata is a function, throw error.
-- might be possible to set "lastRouter" in the state and then attach the route there, to prevent the need to pass in the router each time.
-
-- don't take in a name with the common items, just the schema. validate those against the item the actually are on the json schema file, ensure name is there
