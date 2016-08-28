@@ -1,0 +1,53 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "response",
+    "title": "Response",
+    "type": "object",
+    "required": [
+        "description"
+    ],
+    "properties": {
+        "description": {
+            "type": "string"
+        },
+        "schema": {
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/schema"
+                },
+                {
+                    "$ref": "#/definitions/fileSchema"
+                }
+            ]
+        },
+        "headers": {
+            "$ref": "#/definitions/headers"
+        },
+        "examples": {
+            "$ref": "#/definitions/examples"
+        }
+    },
+    "additionalProperties": false,
+    "patternProperties": {
+        "^x-": {
+            "$ref": "#/definitions/vendorExtension"
+        }
+    },
+    "definitions": {
+        "headers": {
+            "type": "object",
+            "additionalProperties": {
+                "$ref": "#/definitions/header"
+            }
+        },
+        "examples": {
+            "type": "object",
+            "additionalProperties": true
+        },
+        "vendorExtension": {
+            "description": "Any property starting with x- is valid.",
+            "additionalProperties": true,
+            "additionalItems": true
+        }
+    }
+}

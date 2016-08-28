@@ -1,5 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "path-parameter-sub-schema",
     "title": "Path parameter sub schema",
     "type": "object",
     "required": [
@@ -213,6 +214,11 @@
         },
         "multipleOf": {
             "$ref": "http://json-schema.org/draft-04/schema#/properties/multipleOf"
+        },
+        "vendorExtension": {
+            "description": "Any property starting with x- is valid.",
+            "additionalProperties": true,
+            "additionalItems": true
         }
     }
 }

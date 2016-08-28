@@ -1,44 +1,12 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "id": "body-parameter",
-    "title": "Body parameter",
+    "id": "definitions",
+    "title": "Definitions",
     "type": "object",
-    "required": [
-        "name",
-        "in",
-        "schema"
-    ],
-    "patternProperties": {
-        "^x-": {
-            "$ref": "#/definitions/vendorExtension"
-        }
+    "additionalProperties": {
+        "$ref": "#/definitions/schema"
     },
-    "properties": {
-        "description": {
-            "type": "string",
-            "description": "A brief description of the parameter. This could contain examples of use.  GitHub Flavored Markdown is allowed."
-        },
-        "name": {
-            "type": "string",
-            "description": "The name of the parameter."
-        },
-        "in": {
-            "type": "string",
-            "description": "Determines the location of the parameter.",
-            "enum": [
-                "body"
-            ]
-        },
-        "required": {
-            "type": "boolean",
-            "description": "Determines whether or not this parameter is required or optional.",
-            "default": false
-        },
-        "schema": {
-            "$ref": "#/definitions/schema"
-        }
-    },
-    "additionalProperties": false,
+    "description": "One or more JSON objects describing the schemas being consumed and produced by the API.",
     "definitions": {
         "schema": {
             "type": "object",
@@ -168,11 +136,6 @@
                 "example": {}
             },
             "additionalProperties": false
-        },
-        "vendorExtension": {
-            "description": "Any property starting with x- is valid.",
-            "additionalProperties": true,
-            "additionalItems": true
         }
     }
 }

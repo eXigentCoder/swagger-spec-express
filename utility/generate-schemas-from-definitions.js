@@ -6,7 +6,10 @@ var schemasToGenerate = [
     {name: 'queryParameterSubSchema', parent: 'nonBodyParameter'},
     {name: 'formDataParameterSubSchema', parent: 'nonBodyParameter'},
     {name: 'pathParameterSubSchema', parent: 'nonBodyParameter'},
-    {name: 'bodyParameter'}
+    {name: 'bodyParameter'},
+    {name: 'tag'},
+    {name: 'definitions'},
+    {name: 'response'}
 ];
 var async = require('async');
 var fs = require('fs');
@@ -21,6 +24,7 @@ function getSchemaForDefinition(schemaData, callback) {
     var definitionName = schemaData.name;
     var schemaToGenerate = {
         $schema: "http://json-schema.org/draft-04/schema#",
+        id: _.kebabCase(definitionName),
         title: _.capitalize(_.kebabCase(definitionName).split('-').join(' '))
     };
     if (schemaData.parent) {
@@ -39,12 +43,21 @@ function getSchemaForDefinition(schemaData, callback) {
     }
     schemaToGenerate.definitions = {};
     resolveDefinitions(schemaToGenerate, schemaToGenerate.definitions);
-    var filename = _.kebabCase(definitionName) + ".json";
+    var filename = schemaToGenerate.id + ".json";
     fs.writeFile('./lib/schemas/' + filename, JSON.stringify(schemaToGenerate, null, 4), null, callback);
 }
 
+
 function resolveDefinitions(schema, rootDefinitions) {
-    Object.keys(schema.properties).forEach(async.apply(checkPropertyForLinkedSchemas, schema, rootDefinitions));
+    if (schema.properties) {
+        Object.keys(schema.properties).forEach(async.apply(checkPropertyForLinkedSchemas, schema, rootDefinitions));
+    }
+    if (schema.additionalProperties && _.isObject(schema.additionalProperties)) {
+        Object.keys(schema.additionalProperties).forEach(async.apply(processAdditionalProperty, schema, rootDefinitions));
+    }
+    if (schema.patternProperties && _.isObject(schema.patternProperties)) {
+        Object.keys(schema.patternProperties).forEach(async.apply(processPatternProperties, schema, rootDefinitions));
+    }
 }
 
 function checkPropertyForLinkedSchemas(schema, rootDefinitions, propertyName) {
@@ -62,6 +75,10 @@ function checkPropertyForLinkedSchemas(schema, rootDefinitions, propertyName) {
         };
         return;
     }
+    add$refToDefinition($ref, rootDefinitions);
+}
+
+function add$refToDefinition($ref, rootDefinitions) {
     var searchString = "#/definitions/";
     if (!_.startsWith($ref, searchString)) {
         throw new Error("Unknown $ref format " + $ref);
@@ -72,4 +89,27 @@ function checkPropertyForLinkedSchemas(schema, rootDefinitions, propertyName) {
         throw new Error("Unable to find $ref " + $ref + " in the full schema");
     }
     rootDefinitions[definitionName] = definition;
+}
+
+function processAdditionalProperty(schema, rootDefinitions, propertyName) {
+    var property = schema.additionalProperties[propertyName];
+    if (propertyName === '$ref') {
+        if (_.startsWith(property, "http")) {
+            return;
+        }
+        return add$refToDefinition(property, rootDefinitions);
+    }
+    throw new Error("not implemented");
+}
+
+function processPatternProperties(schema, rootDefinitions, propertyName) {
+    var property = schema.patternProperties[propertyName];
+    var $ref = property.$ref;
+    if (!$ref) {
+        throw new Error("not implemented");
+    }
+    if (_.startsWith($ref, "http")) {
+        return;
+    }
+    add$refToDefinition($ref, rootDefinitions);
 }
