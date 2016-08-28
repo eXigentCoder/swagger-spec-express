@@ -9,7 +9,8 @@ var schemasToGenerate = [
     {name: 'bodyParameter'},
     {name: 'tag'},
     {name: 'definitions', functions: [addNameProperty, markNameAsRequired]},
-    {name: 'response', functions: [addNameProperty, markNameAsRequired]}
+    {name: 'response', functions: [addNameProperty, markNameAsRequired]},
+    {name: 'header', functions: [addNameProperty, markNameAsRequired]}
 ];
 var async = require('async');
 var fs = require('fs');
