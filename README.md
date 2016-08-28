@@ -84,9 +84,20 @@ router.get('/one', function (req, res) {
     }
 });
 ```
-## More Complex Setup
 
 ## API Options
+
+> initialise(app, options)
+> initialize(app, options)
+
+Will initialise your app with the required swaggers-spec information. In addition you can pass in some options which will be used when generating the swagger JSON document later on.
+
+####Parameters
+
+Name | Type | Description
+--- | --- | ---
+app | object | Your express app object to be swaggerized.
+options | object | the swagger spec options to be used when generating the swagger.json file.
 
 ## Roadmap
 ### Low
