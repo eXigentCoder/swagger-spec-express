@@ -8,7 +8,7 @@ There are already a few libraries out there to add swagger documentation to your
 
 ##Installation
 
-Install the package: 
+Install the package:
 > npm install swagger-spec-express --save-exact
 
 Basic code example:
@@ -16,7 +16,7 @@ Basic code example:
     var express = require('express');
     var swagger = require('swagger-spec-express');
     var packageJson = require('./package.json');
-    
+
     var app = express();
     app.get('/swagger.json', function (err, res) {
         res.status(200).json(swagger.json());
@@ -26,7 +26,7 @@ Basic code example:
         version: packageJson.version
     };
     swagger.initialise(app, options, swaggerInitialised);
-    
+
     function swaggerInitialised(err) {
         if (err) {
             throw err;
@@ -67,3 +67,5 @@ See the api section below for the available options.
 - if I call addModel with an explicit name and there is a name in the doc, the name in the doc overwrites the specified name
 - if metadata is a function, throw error.
 - might be possible to set "lastRouter" in the state and then attach the route there, to prevent the need to pass in the router each time.
+
+- don't take in a name with the common items, just the schema. validate those against the item the actually are on the json schema file, ensure name is there
