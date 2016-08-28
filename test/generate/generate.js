@@ -119,7 +119,6 @@ function allOptions() {
         externalDocs: {
             url: "https://www.google.co.za"
         },
-        defaultSecurity: "basicAuth",
         securityDefinitions: {
             basicAuth: {
                 type: "basic",
