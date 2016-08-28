@@ -23,6 +23,9 @@ describe('Spec', function () {
     it('Should throw an error if the router has no routes', function () {
         expect(callDescribe({})).to.throw();
     });
+    it('Should throw an error if no metadata', function () {
+        expect(callDescribe()).to.throw();
+    });
 });
 
 function exampleRoute(req, res) {
