@@ -8,7 +8,7 @@ var schemasToGenerate = [
     {name: 'pathParameterSubSchema', parent: 'nonBodyParameter', functions: [markNameAsRequired]},
     {name: 'bodyParameter'},
     {name: 'tag'},
-    {name: 'definitions', functions: [addNameProperty, markNameAsRequired]},
+    {name: 'schema', functions: [addNameProperty, markNameAsRequired]},
     {name: 'response', functions: [addNameProperty, markNameAsRequired]},
     {name: 'header', functions: [addNameProperty, markNameAsRequired]}
 ];
