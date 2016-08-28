@@ -40,6 +40,11 @@
     },
     "additionalProperties": false,
     "definitions": {
+        "vendorExtension": {
+            "description": "Any property starting with x- is valid.",
+            "additionalProperties": true,
+            "additionalItems": true
+        },
         "schema": {
             "type": "object",
             "description": "A deterministic version of a JSON Schema object.",
@@ -169,10 +174,55 @@
             },
             "additionalProperties": false
         },
-        "vendorExtension": {
-            "description": "Any property starting with x- is valid.",
-            "additionalProperties": true,
-            "additionalItems": true
+        "xml": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "namespace": {
+                    "type": "string"
+                },
+                "prefix": {
+                    "type": "string"
+                },
+                "attribute": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "wrapped": {
+                    "type": "boolean",
+                    "default": false
+                }
+            },
+            "patternProperties": {
+                "^x-": {
+                    "$ref": "#/definitions/vendorExtension"
+                }
+            }
+        },
+        "externalDocs": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "information about external documentation",
+            "required": [
+                "url"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string",
+                    "format": "uri"
+                }
+            },
+            "patternProperties": {
+                "^x-": {
+                    "$ref": "#/definitions/vendorExtension"
+                }
+            }
         }
     }
 }

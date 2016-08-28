@@ -100,6 +100,11 @@
         }
     },
     "definitions": {
+        "vendorExtension": {
+            "description": "Any property starting with x- is valid.",
+            "additionalProperties": true,
+            "additionalItems": true
+        },
         "primitivesItems": {
             "type": "object",
             "additionalProperties": false,
@@ -169,14 +174,13 @@
                 }
             }
         },
-        "collectionFormatWithMulti": {
+        "collectionFormat": {
             "type": "string",
             "enum": [
                 "csv",
                 "ssv",
                 "tsv",
-                "pipes",
-                "multi"
+                "pipes"
             ],
             "default": "csv"
         },
@@ -219,10 +223,16 @@
         "multipleOf": {
             "$ref": "http://json-schema.org/draft-04/schema#/properties/multipleOf"
         },
-        "vendorExtension": {
-            "description": "Any property starting with x- is valid.",
-            "additionalProperties": true,
-            "additionalItems": true
+        "collectionFormatWithMulti": {
+            "type": "string",
+            "enum": [
+                "csv",
+                "ssv",
+                "tsv",
+                "pipes",
+                "multi"
+            ],
+            "default": "csv"
         }
     }
 }

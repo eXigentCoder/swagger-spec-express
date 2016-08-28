@@ -49,67 +49,33 @@ function getSchemaForDefinition(schemaData, callback) {
 
 
 function resolveDefinitions(schema, rootDefinitions) {
-    if (schema.properties) {
-        Object.keys(schema.properties).forEach(async.apply(checkPropertyForLinkedSchemas, schema, rootDefinitions));
-    }
-    if (schema.additionalProperties && _.isObject(schema.additionalProperties)) {
-        Object.keys(schema.additionalProperties).forEach(async.apply(processAdditionalProperty, schema, rootDefinitions));
-    }
-    if (schema.patternProperties && _.isObject(schema.patternProperties)) {
-        Object.keys(schema.patternProperties).forEach(async.apply(processPatternProperties, schema, rootDefinitions));
-    }
-}
-
-function checkPropertyForLinkedSchemas(schema, rootDefinitions, propertyName) {
-    var property = schema.properties[propertyName];
-    if (property.type === 'object') {
-        return resolveDefinitions(property, rootDefinitions);
-    }
-    var $ref = property.$ref;
-    if (!$ref) {
-        return;
-    }
-    if (_.startsWith($ref, "http")) {
-        rootDefinitions[propertyName] = {
-            "$ref": $ref
-        };
-        return;
-    }
-    add$refToDefinition($ref, rootDefinitions);
-}
-
-function add$refToDefinition($ref, rootDefinitions) {
-    var searchString = "#/definitions/";
-    if (!_.startsWith($ref, searchString)) {
-        throw new Error("Unknown $ref format " + $ref);
-    }
-    var definitionName = $ref.toString().substring(searchString.length, $ref.length);
-    var definition = fullSchema.definitions[definitionName];
-    if (!definition) {
-        throw new Error("Unable to find $ref " + $ref + " in the full schema");
-    }
-    rootDefinitions[definitionName] = definition;
-}
-
-function processAdditionalProperty(schema, rootDefinitions, propertyName) {
-    var property = schema.additionalProperties[propertyName];
-    if (propertyName === '$ref') {
-        if (_.startsWith(property, "http")) {
+    var definitionNames = getDefinitionsNamesFromSchema(schema);
+    definitionNames.forEach(function (definitionName) {
+        if (rootDefinitions[definitionName]) {
             return;
         }
-        return add$refToDefinition(property, rootDefinitions);
-    }
-    throw new Error("not implemented");
+        rootDefinitions[definitionName] = fullSchema.definitions[definitionName];
+        resolveDefinitions(rootDefinitions[definitionName], rootDefinitions);
+    });
 }
 
-function processPatternProperties(schema, rootDefinitions, propertyName) {
-    var property = schema.patternProperties[propertyName];
-    var $ref = property.$ref;
-    if (!$ref) {
-        throw new Error("not implemented");
+function getDefinitionsNamesFromSchema(schema) {
+    var results = [];
+    var schemaString = JSON.stringify(schema, null, 4);
+    var searchString = '$ref": "#/definitions/';
+    var words = schemaString.split(searchString);
+    words.forEach(getDefinitionName);
+    function getDefinitionName(word) {
+        var endIndex = word.indexOf('"');
+        var name = word.substr(0, endIndex);
+        if (name && !_.startsWith(name, '{')) {
+            var definition = fullSchema.definitions[name];
+            if (!definition) {
+                throw new Error("Unable to find definition with name " + name + " in the full schema");
+            }
+            results.push(name);
+        }
     }
-    if (_.startsWith($ref, "http")) {
-        return;
-    }
-    add$refToDefinition($ref, rootDefinitions);
+
+    return results;
 }
