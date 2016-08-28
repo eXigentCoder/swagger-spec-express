@@ -134,7 +134,7 @@ externalDocs| [object](http://swagger.io/specification/#externalDocumentationObj
 
 > compile()
 
-Returns nothing. Will gather together all your described app routes and compile them into a single document to be served up by your api. Can only be called once initialise has been called. Should only call this once you have completely finished describing your routes. Will throw an error if initialise wasn't called or if you don't yet have any routes defined or if there are certain errors in your metadata.
+Returns nothing. Will gather together all your described app routes and compile them into a single document to be served up by your api when you call `json`. Can only be called once `initialise` has been called. Should only call this once you have completely finished describing your routes. Will throw an error if `initialise` wasn't called or if you don't yet have any routes defined or if there are certain errors in your metadata.
 
 ###Validate
 
@@ -152,6 +152,7 @@ message|string|A more user-friendly error message that can tell you what's wrong
 ### Json
 
 > json()
+
 Returns the swagger specification as a json object. Throws an exception if called before `compile` or `initialise`. You do not need to call `validate` first.
 
 ### reset
@@ -196,3 +197,4 @@ Returns the swagger specification as a json object. Throws an exception if calle
 - addResponse should look for model & arrayOfModel
 - Better error messages in general so you don't need to debug
 - Ability to inject certain things into parameters. E.g. many GET routes will have GET /thing/:identifier would be nice to inject the name in there
+- Add examples to this document
