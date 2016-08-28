@@ -6,6 +6,5 @@ node_modules/
 .eslintrc
 .editorconfig
 report/
-/lib/swagger-schema-2.0.json
-/lib/metadata-schema.json
-/lib/metadata-examples.json
+docs/
+utility/

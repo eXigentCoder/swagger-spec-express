@@ -1,0 +1,23 @@
+var swagger = require('swagger-spec-express');
+var express = require('express');
+var router = new express.Router();
+swagger.swaggerize(router);
+
+var queryDescription = require('../swagger/descriptions/query');
+var getByIdDescription= require('../swagger/descriptions/get-by-id');
+var postForProcessingDescription= require('../swagger/descriptions/post-for-processing');
+
+var entityName = "Exceptions";
+var entityNamePlural = entityName + "s";
+var modelName = _.camelCase(entityName) + "Model";
+var identifierName = "identifier";
+
+swagger.common.addTag({
+    name: entityName,
+    description: entityNamePlural
+});
+swagger.common.addModel(modelName, policyCreateSchema);
+
+.swagger.describe(router, queryDescription(entityName, entityNamePlural, modelName))
+.swagger.describe(router, postForProcessingDescription(entityName, modelName))
+.swagger.describe(router, getByIdDescription(entityName, modelName, identifierName))
