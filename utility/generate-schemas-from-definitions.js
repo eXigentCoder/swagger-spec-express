@@ -1,6 +1,9 @@
 'use strict';
 var _ = require('lodash');
 var fullSchema = require('swagger-schema-official/schema.json');
+var async = require('async');
+var fs = require('fs');
+
 var schemasToGenerate = [
     {name: 'headerParameterSubSchema', parent: 'nonBodyParameter'},
     {name: 'queryParameterSubSchema', parent: 'nonBodyParameter'},
@@ -13,14 +16,24 @@ var schemasToGenerate = [
     {name: 'header', functions: [addNameProperty, markNameAsRequired]},
     {name: 'operation'}
 ];
-var async = require('async');
-var fs = require('fs');
 
-async.each(schemasToGenerate, getSchemaForDefinition, function (err) {
+async.each(schemasToGenerate, getSchemaForDefinition, schemasGenerated);
+function schemasGenerated(err) {
     if (err) {
         throw err;
     }
-});
+    var operationSchema = require('../lib/schemas/operation.json');
+    var operationExtraDataSchema = require('../lib/schemas/operation-extra-data.json');
+    var schema = _.merge({}, operationSchema, operationExtraDataSchema);
+    schema.id = 'metadata';
+    fs.writeFile('./lib/schemas/meta-data.json', JSON.stringify(schema, null, 4), null, metaDataSchemaSaved);
+}
+
+function metaDataSchemaSaved(err) {
+    if (err) {
+        throw err;
+    }
+}
 
 function getSchemaForDefinition(schemaData, callback) {
     var definitionName = schemaData.name;
@@ -54,7 +67,6 @@ function getSchemaForDefinition(schemaData, callback) {
     fs.writeFile('./lib/schemas/' + filename, JSON.stringify(schemaToGenerate, null, 4), null, callback);
 }
 
-
 function resolveDefinitions(schema, rootDefinitions) {
     var definitionNames = getDefinitionsNamesFromSchema(schema);
     definitionNames.forEach(function (definitionName) {
@@ -86,6 +98,7 @@ function getDefinitionsNamesFromSchema(schema) {
 
     return results;
 }
+
 function addNameProperty(schema) {
     schema.properties = schema.properties || {};
     schema.properties.name = {
