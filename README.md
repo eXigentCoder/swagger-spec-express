@@ -127,7 +127,53 @@ defaultSecurity | string\|array\| [object](http://swagger.io/specification/#secu
 tags|\[ [object](http://swagger.io/specification/#tagObject) \]|A list of tags used by the specification with additional metadata. The order of the tags can be used to reflect on their order by the parsing tools. Not all tags that are used by the [Operation Object](swagger.io/specification/#operationObject) must be declared. The tags that are not declared may be organized randomly or based on the tools' logic. Each tag name in the list MUST be unique.
 externalDocs| [object](http://swagger.io/specification/#externalDocumentationObject) |Additional external documentation.
 
+###Compile
 
+> compile()
+
+Returns nothing. Will gather together all your described app routes and compile them into a single document to be served up by your api. Can only be called once initialise has been called. Should only call this once you have completely finished describing your routes. Will throw an error if initialise wasn't called or if you don't yet have any routes defined or if there are certain errors in your metadata.
+
+###Compile
+
+> validate()
+
+Returns a validationResult. Will validate the internal json document created by calling `compile`. This is done using the [ajv](https://www.npmjs.com/package/ajv) validator against the [official JSON schema](https://www.npmjs.com/package/swagger-schema-official). Throws an exception if called before `compile` or `initialise`.
+
+####validationResult
+Name | Type | Description
+--- | --- | ---
+valid|boolean| Tells you if the document is valid or not.
+errors|\[[object](https://www.npmjs.com/package/ajv#error-objects)\] | An array of ajv error objects containing information about why the validation failed.
+message|string|A more user-friendly error message that can tell you what's wrong. Generated using the [.errorsText](https://www.npmjs.com/package/ajv#errorstextarrayobject-errors--object-options---string) function
+
+### Json
+
+> json()
+Returns the swagger specification as a json object. Throws an exception if called before `compile` or `initialise`. You do not need to call `validate` first.
+
+### reset
+
+### swaggerise
+
+### common.addModel
+
+### common.addTag
+
+### common.addResponse
+
+### common.addResponseHeader
+
+### common.parameters.addHeader
+
+### common.parameters.addBody
+
+### common.parameters.addQuery
+
+### common.parameters.addFormData
+
+### common.parameters.addPath
+
+### swaggerisedObject.describe
 
 ## Roadmap
 ### Low
