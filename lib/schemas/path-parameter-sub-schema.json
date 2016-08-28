@@ -6,7 +6,8 @@
     "required": [
         "required",
         "in",
-        "type"
+        "type",
+        "name"
     ],
     "additionalProperties": false,
     "patternProperties": {

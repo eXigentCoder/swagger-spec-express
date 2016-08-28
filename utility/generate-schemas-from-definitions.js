@@ -5,11 +5,11 @@ var schemasToGenerate = [
     {name: 'headerParameterSubSchema', parent: 'nonBodyParameter'},
     {name: 'queryParameterSubSchema', parent: 'nonBodyParameter'},
     {name: 'formDataParameterSubSchema', parent: 'nonBodyParameter'},
-    {name: 'pathParameterSubSchema', parent: 'nonBodyParameter'},
+    {name: 'pathParameterSubSchema', parent: 'nonBodyParameter', functions: [markNameAsRequired]},
     {name: 'bodyParameter'},
     {name: 'tag'},
-    {name: 'definitions'},
-    {name: 'response'}
+    {name: 'definitions', functions: [addNameProperty, markNameAsRequired]},
+    {name: 'response', functions: [addNameProperty, markNameAsRequired]}
 ];
 var async = require('async');
 var fs = require('fs');
@@ -43,6 +43,11 @@ function getSchemaForDefinition(schemaData, callback) {
     }
     schemaToGenerate.definitions = {};
     resolveDefinitions(schemaToGenerate, schemaToGenerate.definitions);
+    if (schemaData.functions) {
+        schemaData.functions.forEach(function (fn) {
+            fn(schemaToGenerate);
+        });
+    }
     var filename = schemaToGenerate.id + ".json";
     fs.writeFile('./lib/schemas/' + filename, JSON.stringify(schemaToGenerate, null, 4), null, callback);
 }
@@ -78,4 +83,15 @@ function getDefinitionsNamesFromSchema(schema) {
     }
 
     return results;
+}
+function addNameProperty(schema) {
+    schema.properties = schema.properties || {};
+    schema.properties.name = {
+        "type": "string"
+    };
+}
+
+function markNameAsRequired(schema) {
+    schema.required = schema.required || [];
+    schema.required.push('name');
 }

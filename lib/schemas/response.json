@@ -4,7 +4,8 @@
     "title": "Response",
     "type": "object",
     "required": [
-        "description"
+        "description",
+        "name"
     ],
     "properties": {
         "description": {
@@ -25,6 +26,9 @@
         },
         "examples": {
             "$ref": "#/definitions/examples"
+        },
+        "name": {
+            "type": "string"
         }
     },
     "additionalProperties": false,
