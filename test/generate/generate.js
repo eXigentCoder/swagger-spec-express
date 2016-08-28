@@ -1,7 +1,8 @@
 'use strict';
 require('./../init');
 var generate = require('../../lib/generate');
-
+var express = require('express');
+var swagger = require('../../lib/index');
 describe('generate', function () {
     describe('_applyOptionsToDocument', function () {
         it('Should make an info property on the document if one is not provided', function () {
@@ -45,7 +46,32 @@ describe('generate', function () {
             generate._addToDocumentAsArray(models, document, 'tags2');
         });
     });
+    describe('generate', function () {
+        it('Should work if you pass in a valid sate', function () {
+            setupExampleApp();
+            swagger.compile();
+        });
+    });
 });
+
+function setupExampleApp() {
+    swagger.reset();
+    var app = express();
+    swagger.initialise(app, allOptions());
+    app.get('/', exampleRoute).describe(exampleMetadata());
+}
+function exampleRoute(req, res) {
+    res.status(200).json({test: true});
+}
+function exampleMetadata() {
+    return {
+        responses: {
+            200: {
+                description: "Success!"
+            }
+        }
+    };
+}
 
 function getModels() {
     return {
