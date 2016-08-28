@@ -1,6 +1,7 @@
 'use strict';
 require('./../init');
 var swagger = require('../../lib/index');
+var async = require('async');
 
 describe('Spec', function () {
     beforeEach(function () {
@@ -13,8 +14,15 @@ describe('Spec', function () {
     };
     var initOptions = {};
     describe('initialise', function () {
-        it('Should not return an error when called with the example arguments', function () {
+        it('Should not throw an error when called with the example arguments', function () {
+            expect(async.apply(swagger.initialise, app, initOptions)).to.not.throw();
+        });
+        it('Should throw an error when app is null', function () {
+            expect(async.apply(swagger.initialise, null, initOptions)).to.throw();
+        });
+        it('Should throw an error if already initialised', function () {
             swagger.initialise(app, initOptions);
+            expect(async.apply(swagger.initialise, app, initOptions)).to.throw();
         });
     });
     describe('compile', function () {
@@ -22,12 +30,16 @@ describe('Spec', function () {
             swagger.compile();
         }
 
-        it('Should return an error when called before initialise', function () {
+        it('Should throw an error when called before initialise', function () {
             expect(callComplie, "Should have thrown an error because initialise was not called").to.throw();
         });
-        it('Should not return an error when called after initialise', function () {
+        it('Should not throw an error when called after initialise', function () {
             swagger.initialise(app, initOptions);
             expect(callComplie, "Should have thrown an error because initialise was not called").to.not.throw();
+        });
+        it('Should throw an error if app_router is null', function () {
+            swagger.initialise({}, initOptions);
+            expect(callComplie, "Should have thrown an error because initialise was not called").to.throw();
         });
     });
     describe('json', function () {
