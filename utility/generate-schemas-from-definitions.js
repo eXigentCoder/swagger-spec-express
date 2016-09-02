@@ -1,8 +1,23 @@
 'use strict';
+//var request = require('request');
+// var Ajv = require('ajv');
+// var ajv = new Ajv({
+//     removeAdditional: "failing",
+//     useDefaults: true,
+//     coerceTypes: true,
+//     allErrors: true,
+//     verbose: true,
+//     format: "full"
+// });
+//var $RefParser = require('json-schema-ref-parser');
 var _ = require('lodash');
+var jsonSchemaSchema = require('../lib/schemas/json-schema-4.0.json');
 var fullSchema = require('swagger-schema-official/schema.json');
 var async = require('async');
 var fs = require('fs');
+var baseUrl = 'http://json-schema.org/draft-04/schema#/';
+var propertiesSearchString = baseUrl + 'properties/';
+var definitionsSearchString = baseUrl + 'definitions/';
 var schemasToGenerate = [
     {name: 'headerParameterSubSchema', parent: 'nonBodyParameter'},
     {name: 'queryParameterSubSchema', parent: 'nonBodyParameter'},
@@ -17,7 +32,10 @@ var schemasToGenerate = [
 ];
 var schemaNames = _.map(schemasToGenerate, 'name');
 var nameRequiredForCommon = ['schema', 'response', 'header'];
+
 async.waterfall([
+    replaceHttpReferences,
+    //resolveRefs,
     generateSchemas,
     writeMetaDataFile
 ], waterfallComplete);
@@ -27,6 +45,81 @@ function waterfallComplete(err) {
         throw err;
     }
 }
+
+
+function replaceHttpReferences(callback) {
+    localise(fullSchema, fullSchema);
+    callback();
+}
+
+
+function localise(currentSchemaItem, fullSchema, parent) {
+    if (_.isString(currentSchemaItem)) {
+        return;
+    }
+    Object.keys(currentSchemaItem).forEach(function (key) {
+        var value = currentSchemaItem[key];
+        if (_.isArray(value)) {
+            value.forEach(function (item) {
+                localise(item, fullSchema, key);
+            });
+            return;
+        }
+        if (_.isObject(value)) {
+            localise(value, fullSchema, key);
+            return;
+        }
+        if (key !== '$ref') {
+            return;
+        }
+        var propertiesIndex = value.indexOf(propertiesSearchString);
+        var definitionsIndex = value.indexOf(definitionsSearchString);
+        if (propertiesIndex < 0 && definitionsIndex < 0) {
+            return;
+        }
+        if (propertiesIndex > 0 && definitionsIndex > 0) {
+            throw new Error("Both search strings found items, unhandled");
+        }
+        if (!parent) {
+            throw new Error("not implemented");
+        }
+        var name = getNameFrom$refString(value, propertiesIndex);
+        if (propertiesIndex > 0) {
+            var property = getJsonSchemaProperty(name);
+            parent[name] = property;
+            return;
+        }
+        var definition = getJsonSchemaDefiniton(name);
+        if (definition.definitions[name]) {
+            console.warn('already has definition ' + name + ", overwriting");
+        }
+        definition.definitions[name] = definition;
+        currentSchemaItem[key] = '#/definitions/' + name;
+        return;
+    });
+}
+
+function getNameFrom$refString(value, propertiesIndex) {
+
+}
+
+function getJsonSchemaProperty(string, index) {
+
+}
+
+function getJsonSchemaDefiniton(string, index) {
+
+}
+
+// function resolveRefs(callback) {
+//     $RefParser.bundle(fullSchema, function (err, bundled) {
+//         if (err) {
+//             return callback(err);
+//         }
+//         fullSchema = bundled;
+//         return callback();
+//     });
+// }
 
 function generateSchemas(callback) {
     async.each(schemasToGenerate, getSchemaForDefinition, callback);
