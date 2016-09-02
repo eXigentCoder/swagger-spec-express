@@ -129,12 +129,8 @@
             ]
         },
         "bodyParameter": {
+            "title": "Body parameter",
             "type": "object",
-            "required": [
-                "name",
-                "in",
-                "schema"
-            ],
             "patternProperties": {
                 "^x-": {
                     "$ref": "#/definitions/vendorExtension"
@@ -163,11 +159,47 @@
                 },
                 "schema": {
                     "$ref": "#/definitions/schema"
+                },
+                "model": {
+                    "type": "string",
+                    "description": "The name of the model produced or consumed."
+                },
+                "arrayOfModel": {
+                    "type": "string",
+                    "description": "The name of the model produced or consumed as an array."
                 }
             },
-            "additionalProperties": false
+            "additionalProperties": false,
+            "allOf": [
+                {
+                    "required": [
+                        "name",
+                        "in"
+                    ]
+                },
+                {
+                    "anyOf": [
+                        {
+                            "required": [
+                                "schema"
+                            ]
+                        },
+                        {
+                            "required": [
+                                "model"
+                            ]
+                        },
+                        {
+                            "required": [
+                                "arrayOfModel"
+                            ]
+                        }
+                    ]
+                }
+            ]
         },
         "schema": {
+            "title": "Schema",
             "type": "object",
             "description": "A deterministic version of a JSON Schema object.",
             "patternProperties": {
@@ -347,6 +379,13 @@
             ]
         },
         "headerParameterSubSchema": {
+            "title": "Header parameter sub schema",
+            "type": "object",
+            "required": [
+                "name",
+                "in",
+                "type"
+            ],
             "additionalProperties": false,
             "patternProperties": {
                 "^x-": {
@@ -553,6 +592,13 @@
             "$ref": "http://json-schema.org/draft-04/schema#/properties/multipleOf"
         },
         "formDataParameterSubSchema": {
+            "title": "Form data parameter sub schema",
+            "type": "object",
+            "required": [
+                "name",
+                "in",
+                "type"
+            ],
             "additionalProperties": false,
             "patternProperties": {
                 "^x-": {
@@ -658,6 +704,13 @@
             "default": "csv"
         },
         "queryParameterSubSchema": {
+            "title": "Query parameter sub schema",
+            "type": "object",
+            "required": [
+                "name",
+                "in",
+                "type"
+            ],
             "additionalProperties": false,
             "patternProperties": {
                 "^x-": {
@@ -751,15 +804,20 @@
             }
         },
         "pathParameterSubSchema": {
+            "title": "Path parameter sub schema",
+            "type": "object",
+            "required": [
+                "required",
+                "in",
+                "type",
+                "name"
+            ],
             "additionalProperties": false,
             "patternProperties": {
                 "^x-": {
                     "$ref": "#/definitions/vendorExtension"
                 }
             },
-            "required": [
-                "required"
-            ],
             "properties": {
                 "required": {
                     "type": "boolean",
@@ -889,6 +947,7 @@
             ]
         },
         "response": {
+            "title": "Response",
             "type": "object",
             "required": [
                 "description"
@@ -987,6 +1046,7 @@
             }
         },
         "header": {
+            "title": "Header",
             "type": "object",
             "additionalProperties": false,
             "required": [

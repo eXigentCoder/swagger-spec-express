@@ -15,7 +15,8 @@ var schemasToGenerate = [
     {name: 'header', functions: [addNameProperty, markNameAsRequired]},
     {name: 'operation'}
 ];
-
+var schemaNames = _.map(schemasToGenerate, 'name');
+var nameRequiredForCommon = ['schema', 'response', 'header'];
 async.waterfall([
     generateSchemas,
     writeMetaDataFile
@@ -33,6 +34,27 @@ function generateSchemas(callback) {
 
 function writeMetaDataFile(callback) {
     var operationSchema = require('../lib/schemas/operation.json');
+    Object.keys(operationSchema.definitions).forEach(function (definitionName) {
+        if (schemaNames.indexOf(definitionName) < 0) {
+            return;
+        }
+        var customisedSchema = _.cloneDeep(require('../lib/schemas/' + _.kebabCase(definitionName).toLowerCase() + '.json'));
+        delete customisedSchema.definitions;
+        delete customisedSchema.$schema;
+        delete customisedSchema.id;
+        if (nameRequiredForCommon.indexOf(definitionName) >= 0) {
+            delete customisedSchema.properties.name;
+            if (customisedSchema.required) {
+                _.remove(customisedSchema.required, function (propertyName) {
+                    return propertyName === 'name';
+                });
+                if (customisedSchema.required.length === 0) {
+                    delete customisedSchema.required;
+                }
+            }
+        }
+        operationSchema.definitions[definitionName] = customisedSchema;
+    });
     var operationExtraDataSchema = require('../lib/schemas/operation-extra-data.json');
     var schema = _.merge({}, operationSchema, operationExtraDataSchema);
     schema.id = 'metadata';
