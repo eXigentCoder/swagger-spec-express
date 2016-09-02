@@ -35,6 +35,7 @@ var nameRequiredForCommon = ['schema', 'response', 'header'];
 
 async.waterfall([
     replaceHttpReferences,
+    writeMainSchemaToFile,
     //resolveRefs,
     generateSchemas,
     writeMetaDataFile
@@ -51,7 +52,9 @@ function replaceHttpReferences(callback) {
     localise(fullSchema, fullSchema);
     callback();
 }
-
+function writeMainSchemaToFile(callback) {
+    fs.writeFile('./lib/schemas/base.json', JSON.stringify(fullSchema, null, 4), null, callback);
+}
 
 function localise(currentSchemaItem, fullSchema, parent) {
     if (_.isString(currentSchemaItem)) {
@@ -83,32 +86,44 @@ function localise(currentSchemaItem, fullSchema, parent) {
         if (!parent) {
             throw new Error("not implemented");
         }
-        var name = getNameFrom$refString(value, propertiesIndex);
-        if (propertiesIndex > 0) {
+        var name;
+        if (propertiesIndex >= 0) {
+            name = getNameFrom$refString(value, propertiesSearchString);
             var property = getJsonSchemaProperty(name);
-            parent[name] = property;
+            delete currentSchemaItem.$ref;
+            Object.keys(property).forEach(function (propKey) {
+                currentSchemaItem[propKey] = property[propKey];
+            });
             return;
         }
+        name = getNameFrom$refString(value, definitionsSearchString);
         var definition = getJsonSchemaDefiniton(name);
-        if (definition.definitions[name]) {
+        if (fullSchema.definitions[name]) {
             console.warn('already has definition ' + name + ", overwriting");
         }
-        definition.definitions[name] = definition;
+        fullSchema.definitions[name] = definition;
         currentSchemaItem[key] = '#/definitions/' + name;
-        return;
     });
 }
 
-function getNameFrom$refString(value, propertiesIndex) {
-
+function getNameFrom$refString(value, prefix) {
+    return value.replace(prefix, '');
 }
 
-function getJsonSchemaProperty(string, index) {
-
+function getJsonSchemaProperty(name) {
+    var property = jsonSchemaSchema.properties[name];
+    if (!property) {
+        throw new Error("Json Schema 4.0 didn't have property " + name);
+    }
+    return property;
 }
 
-function getJsonSchemaDefiniton(string, index) {
-
+function getJsonSchemaDefiniton(name) {
+    var definition = jsonSchemaSchema.definitions[name];
+    if (!definition) {
+        throw new Error("Json Schema 4.0 didn't have definition " + name);
+    }
+    return definition;
 }
 
 // function resolveRefs(callback) {
