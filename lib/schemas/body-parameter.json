@@ -3,11 +3,6 @@
     "id": "body-parameter",
     "title": "Body parameter",
     "type": "object",
-    "required": [
-        "name",
-        "in",
-        "schema"
-    ],
     "patternProperties": {
         "^x-": {
             "$ref": "#/definitions/vendorExtension"
@@ -36,6 +31,14 @@
         },
         "schema": {
             "$ref": "#/definitions/schema"
+        },
+        "model": {
+            "type": "string",
+            "description": "The name of the model produced or consumed."
+        },
+        "arrayOfModel": {
+            "type": "string",
+            "description": "The name of the model produced or consumed as an array."
         }
     },
     "additionalProperties": false,
@@ -224,5 +227,26 @@
                 }
             }
         }
-    }
+    },
+    "allOf": [
+        {
+            "required": [
+                "name",
+                "in"
+            ]
+        },
+        {
+            "anyOf": [
+                {
+                    "required": "schema"
+                },
+                {
+                    "required": "model"
+                },
+                {
+                    "required": "arrayOfModel"
+                }
+            ]
+        }
+    ]
 }

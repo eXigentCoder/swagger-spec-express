@@ -3,13 +3,12 @@ var _ = require('lodash');
 var fullSchema = require('swagger-schema-official/schema.json');
 var async = require('async');
 var fs = require('fs');
-
 var schemasToGenerate = [
     {name: 'headerParameterSubSchema', parent: 'nonBodyParameter'},
     {name: 'queryParameterSubSchema', parent: 'nonBodyParameter'},
     {name: 'formDataParameterSubSchema', parent: 'nonBodyParameter'},
     {name: 'pathParameterSubSchema', parent: 'nonBodyParameter', functions: [markNameAsRequired]},
-    {name: 'bodyParameter'},
+    {name: 'bodyParameter', functions: [addModels]},
     {name: 'tag'},
     {name: 'schema', functions: [addNameProperty, markNameAsRequired]},
     {name: 'response', functions: [addNameProperty, markNameAsRequired]},
@@ -17,22 +16,27 @@ var schemasToGenerate = [
     {name: 'operation'}
 ];
 
-async.each(schemasToGenerate, getSchemaForDefinition, schemasGenerated);
-function schemasGenerated(err) {
+async.waterfall([
+    generateSchemas,
+    writeMetaDataFile
+], waterfallComplete);
+
+function waterfallComplete(err) {
     if (err) {
         throw err;
     }
+}
+
+function generateSchemas(callback) {
+    async.each(schemasToGenerate, getSchemaForDefinition, callback);
+}
+
+function writeMetaDataFile(callback) {
     var operationSchema = require('../lib/schemas/operation.json');
     var operationExtraDataSchema = require('../lib/schemas/operation-extra-data.json');
     var schema = _.merge({}, operationSchema, operationExtraDataSchema);
     schema.id = 'metadata';
-    fs.writeFile('./lib/schemas/meta-data.json', JSON.stringify(schema, null, 4), null, metaDataSchemaSaved);
-}
-
-function metaDataSchemaSaved(err) {
-    if (err) {
-        throw err;
-    }
+    fs.writeFile('./lib/schemas/meta-data.json', JSON.stringify(schema, null, 4), null, callback);
 }
 
 function getSchemaForDefinition(schemaData, callback) {
@@ -109,4 +113,33 @@ function addNameProperty(schema) {
 function markNameAsRequired(schema) {
     schema.required = schema.required || [];
     schema.required.push('name');
+}
+
+function addModels(schema) {
+    schema.properties = schema.properties || {};
+    schema.properties.model = {
+        "type": "string",
+        "description": "The name of the model produced or consumed."
+    };
+    schema.properties.arrayOfModel = {
+        "type": "string",
+        "description": "The name of the model produced or consumed as an array."
+    };
+    schema.required = schema.required || [];
+    var schemaIndex = schema.required.indexOf('schema');
+    if (schemaIndex < 0) {
+        return;
+    }
+    var oldRequired = schema.required;
+    oldRequired.splice(schemaIndex, 1);
+    delete schema.required;
+    schema.allOf = schema.allOf || [];
+    schema.allOf.push({required: oldRequired});
+    schema.allOf.push({
+        anyOf: [
+            {required: 'schema'},
+            {required: 'model'},
+            {required: 'arrayOfModel'}
+        ]
+    });
 }
