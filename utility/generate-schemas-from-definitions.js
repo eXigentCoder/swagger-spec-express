@@ -137,9 +137,9 @@ function addModels(schema) {
     schema.allOf.push({required: oldRequired});
     schema.allOf.push({
         anyOf: [
-            {required: 'schema'},
-            {required: 'model'},
-            {required: 'arrayOfModel'}
+            {required: ['schema']},
+            {required: ['model']},
+            {required: ['arrayOfModel']}
         ]
     });
 }

@@ -238,13 +238,19 @@
         {
             "anyOf": [
                 {
-                    "required": "schema"
+                    "required": [
+                        "schema"
+                    ]
                 },
                 {
-                    "required": "model"
+                    "required": [
+                        "model"
+                    ]
                 },
                 {
-                    "required": "arrayOfModel"
+                    "required": [
+                        "arrayOfModel"
+                    ]
                 }
             ]
         }
