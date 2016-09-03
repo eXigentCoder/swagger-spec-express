@@ -1,41 +1,42 @@
 'use strict';
 require('../init');
 var _validate = require('../../lib/common')._validate;
+var schemaIds = require('../../lib/schema-ids');
 describe('Common', function () {
     describe('_validate', function () {
-        runCommonTestsForType('body', 'body-parameter', validBody);
-        runCommonTestsForType('formData', 'form-data-parameter-sub-schema', validFormDataParameter);
-        runCommonTestsForType('header', 'header-parameter-sub-schema', validHeaderParameter);
-        runCommonTestsForType('path', 'path-parameter-sub-schema', validPathParameter);
-        runCommonTestsForType('query', 'query-parameter-sub-schema', validQueryParameter);
-        runCommonTestsForType('model', 'schema', validModel);
-        runCommonTestsForType('response', 'response', validResponse);
-        runCommonTestsForType('tag', 'tag', validTag);
-        runCommonTestsForType('header', 'header', validHeader);
+        runCommonTestsForType('body', schemaIds.parameter.body, validBody);
+        runCommonTestsForType('formData', schemaIds.parameter.formData, validFormDataParameter);
+        runCommonTestsForType('headerParameter', schemaIds.parameter.header, validHeaderParameter);
+        runCommonTestsForType('path', schemaIds.parameter.path, validPathParameter);
+        runCommonTestsForType('query', schemaIds.parameter.query, validQueryParameter);
+        runCommonTestsForType('model', schemaIds.schema, validModel);
+        runCommonTestsForType('response', schemaIds.response, validResponse);
+        runCommonTestsForType('tag', schemaIds.tag, validTag);
+        runCommonTestsForType('header', schemaIds.header, validHeader);
 
     });
 });
 
-function runCommonTestsForType(name, schemaName, fn) {
+function runCommonTestsForType(name, schemaId, fn) {
     describe(name, function () {
         it('Should not throw an exception if validOptions are supplied', function () {
-            expect(validate(schemaName, fn()), name).to.not.throw();
+            expect(validate(schemaId, fn()), name).to.not.throw();
         });
         it('Should throw an exception if no object is supplied', function () {
-            expect(validate(schemaName, null), name).to.throw();
+            expect(validate(schemaId, null), name).to.throw();
         });
         it('Should throw an exception if an empty object is supplied', function () {
-            expect(validate(schemaName, {}), name).to.throw();
+            expect(validate(schemaId, {}), name).to.throw();
         });
-        it('Should throw an exception if extra parameters are supplied', function () {
+        it('Should throw an exception if extra parameters are supplied (removeAdditional:false)', function () {
             var object = fn();
             object.spacePotato = true;
-            expect(validate(schemaName, object), name).to.throw();
+            expect(validate(schemaId, object), name).to.throw();
         });
         it('Should throw an exception if name is missing', function () {
             var object = fn();
             delete object.name;
-            expect(validate(schemaName, object), name).to.throw();
+            expect(validate(schemaId, object), name).to.throw();
         });
     });
 }

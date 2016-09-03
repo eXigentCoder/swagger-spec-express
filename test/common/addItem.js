@@ -49,7 +49,10 @@ function runCommonTestsForType(name, addFn, dataFn) {
                     test: {
                         type: "object",
                         properties: {
-                            isTest: true
+                            isTest: {
+                                type: 'boolean',
+                                default: true
+                            }
                         },
                         additionalProperties: false,
                         required: [
@@ -57,7 +60,7 @@ function runCommonTestsForType(name, addFn, dataFn) {
                         ]
                     }
                 };
-                expect(callAddFn(addFn, model), name).to.throw();
+                expect(callAddFn(addFn, model), name).to.not.throw();
             });
         }
     });
