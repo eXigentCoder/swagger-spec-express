@@ -28,10 +28,10 @@ function runCommonTestsForType(name, schemaId, fn) {
         it('Should throw an exception if an empty object is supplied', function () {
             expect(validate(schemaId, {}), name).to.throw();
         });
-        it('Should throw an exception if extra parameters are supplied', function () {
+        it('Should not throw an exception if extra parameters are supplied (removeAdditional)', function () {
             var object = fn();
             object.spacePotato = true;
-            expect(validate(schemaId, object), name).to.throw();
+            expect(validate(schemaId, object), name).to.not.throw();
         });
         it('Should throw an exception if name is missing', function () {
             var object = fn();

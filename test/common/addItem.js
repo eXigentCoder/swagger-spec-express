@@ -57,7 +57,7 @@ function runCommonTestsForType(name, addFn, dataFn) {
                         ]
                     }
                 };
-                expect(callAddFn(addFn, model), name).to.throw();
+                expect(callAddFn(addFn, model), name).to.not.throw();
             });
         }
     });
