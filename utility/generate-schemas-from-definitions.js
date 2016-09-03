@@ -11,13 +11,9 @@
 // });
 //var $RefParser = require('json-schema-ref-parser');
 var _ = require('lodash');
-var jsonSchemaSchema = require('../lib/schemas/json-schema-4.0.json');
-var fullSchema = require('swagger-schema-official/schema.json');
 var async = require('async');
 var fs = require('fs');
-var baseUrl = 'http://json-schema.org/draft-04/schema#/';
-var propertiesSearchString = baseUrl + 'properties/';
-var definitionsSearchString = baseUrl + 'definitions/';
+var removeRemoteUrlsFromSchema =require('./remove-remote-urls-from-schema');
 var schemasToGenerate = [
     {name: 'headerParameterSubSchema', parent: 'nonBodyParameter'},
     {name: 'queryParameterSubSchema', parent: 'nonBodyParameter'},
@@ -34,7 +30,7 @@ var schemaNames = _.map(schemasToGenerate, 'name');
 var nameRequiredForCommon = ['schema', 'response', 'header'];
 
 async.waterfall([
-    replaceHttpReferences,
+    removeRemoteUrlsFromSchema,
     writeMainSchemaToFile,
     //resolveRefs,
     generateSchemas,
@@ -48,83 +44,11 @@ function waterfallComplete(err) {
 }
 
 
-function replaceHttpReferences(callback) {
-    localise(fullSchema, fullSchema);
-    callback();
-}
-function writeMainSchemaToFile(callback) {
-    fs.writeFile('./lib/schemas/base.json', JSON.stringify(fullSchema, null, 4), null, callback);
+
+function writeMainSchemaToFile(schema, callback) {
+    fs.writeFile('./lib/schemas/base.json', JSON.stringify(schema, null, 4), null, callback);
 }
 
-function localise(currentSchemaItem, fullSchema, parent) {
-    if (_.isString(currentSchemaItem)) {
-        return;
-    }
-    Object.keys(currentSchemaItem).forEach(function (key) {
-        var value = currentSchemaItem[key];
-        if (_.isArray(value)) {
-            value.forEach(function (item) {
-                localise(item, fullSchema, key);
-            });
-            return;
-        }
-        if (_.isObject(value)) {
-            localise(value, fullSchema, key);
-            return;
-        }
-        if (key !== '$ref') {
-            return;
-        }
-        var propertiesIndex = value.indexOf(propertiesSearchString);
-        var definitionsIndex = value.indexOf(definitionsSearchString);
-        if (propertiesIndex < 0 && definitionsIndex < 0) {
-            return;
-        }
-        if (propertiesIndex > 0 && definitionsIndex > 0) {
-            throw new Error("Both search strings found items, unhandled");
-        }
-        if (!parent) {
-            throw new Error("not implemented");
-        }
-        var name;
-        if (propertiesIndex >= 0) {
-            name = getNameFrom$refString(value, propertiesSearchString);
-            var property = getJsonSchemaProperty(name);
-            delete currentSchemaItem.$ref;
-            Object.keys(property).forEach(function (propKey) {
-                currentSchemaItem[propKey] = property[propKey];
-            });
-            return;
-        }
-        name = getNameFrom$refString(value, definitionsSearchString);
-        var definition = getJsonSchemaDefiniton(name);
-        if (fullSchema.definitions[name]) {
-            console.warn('already has definition ' + name + ", overwriting");
-        }
-        fullSchema.definitions[name] = definition;
-        currentSchemaItem[key] = '#/definitions/' + name;
-    });
-}
-
-function getNameFrom$refString(value, prefix) {
-    return value.replace(prefix, '');
-}
-
-function getJsonSchemaProperty(name) {
-    var property = jsonSchemaSchema.properties[name];
-    if (!property) {
-        throw new Error("Json Schema 4.0 didn't have property " + name);
-    }
-    return property;
-}
-
-function getJsonSchemaDefiniton(name) {
-    var definition = jsonSchemaSchema.definitions[name];
-    if (!definition) {
-        throw new Error("Json Schema 4.0 didn't have definition " + name);
-    }
-    return definition;
-}
 
 // function resolveRefs(callback) {
 //     $RefParser.bundle(fullSchema, function (err, bundled) {
