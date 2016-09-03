@@ -2,13 +2,14 @@
 var _ = require('lodash');
 var fs = require('fs');
 var async = require('async');
+var schemaIds = require('../lib/schema-ids');
 
 module.exports = function getSchemaForDefinition(data, schemaRules, callback) {
     var definitionName = schemaRules.name;
     var fileName = _.kebabCase(definitionName) + ".json";
     var schemaToGenerate = {
         $schema: "http://json-schema.org/draft-04/schema#",
-        id: "https://raw.githubusercontent.com/eXigentCoder/swagger-spec-express/master/lib/schemas/" + fileName,
+        id: schemaIds.prefix + fileName,
         title: _.capitalize(_.kebabCase(definitionName).split('-').join(' '))
     };
     if (schemaRules.parent) {

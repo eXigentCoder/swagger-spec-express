@@ -2,6 +2,7 @@
 var fs = require('fs');
 var schemas = require('./schemas-to-generate');
 var _ = require('lodash');
+var schemaIds = require('../lib/schema-ids');
 
 module.exports = function writeMetaDataFile(data, callback) {
     var operationSchema = require('../lib/schemas/operation.json');
@@ -28,8 +29,9 @@ module.exports = function writeMetaDataFile(data, callback) {
     });
     var operationExtraDataSchema = require('../lib/schemas/operation-extra-data.json');
     var schema = _.merge({}, operationSchema, operationExtraDataSchema);
-    schema.id = 'metadata';
-    fs.writeFile('./lib/schemas/meta-data.json', JSON.stringify(schema, null, 4), null, function (err) {
+    var fileName = 'meta-data.json';
+    schema.id = schemaIds.prefix + fileName;
+    fs.writeFile('./lib/schemas/' + fileName, JSON.stringify(schema, null, 4), null, function (err) {
         return callback(err, data);
     });
 };

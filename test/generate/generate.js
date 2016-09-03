@@ -3,13 +3,15 @@ require('./../init');
 var generate = require('../../lib/generate');
 var express = require('express');
 var swagger = require('../../lib/index');
+var state = require('../../lib/state');
+
 describe('generate', function () {
     describe('_applyOptionsToDocument', function () {
         it('Should make an info property on the document if one is not provided', function () {
             generate._applyOptionsToDocument({}, {});
         });
         it('Should make a document if one is not provided', function () {
-            generate._applyOptionsToDocument(allOptions(), generate._defaultDocument());
+            generate._applyOptionsToDocument(allOptions(), state().document);
         });
     });
     describe('_addToDocument', function () {
@@ -66,8 +68,18 @@ function exampleRoute(req, res) {
 function exampleMetadata() {
     return {
         responses: {
-            200: {
-                description: "Success!"
+            "200" : {
+                "examples" : {
+                    "appName" : "esb-facade",
+                    "version" : "1.0.0",
+                    "deploymentDate" : "2016-08-09T13:36:00.000Z",
+                    "environment" : "development",
+                    "nodeVersion" : "v5.9.1"
+                },
+                "description" : "OK",
+                "schema" : {
+                    "$ref" : "#/definitions/appInfo"
+                }
             }
         }
     };
@@ -85,7 +97,7 @@ function getModels() {
 }
 
 function getDocument() {
-    var document = generate._defaultDocument();
+    var document = state().document;
     generate._applyOptionsToDocument(allOptions(), document);
     return document;
 }
