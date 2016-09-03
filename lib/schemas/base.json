@@ -1630,6 +1630,24 @@
             },
             "minItems": 1,
             "uniqueItems": true
+        },
+        "schemaArray": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "$ref": "#"
+            }
+        },
+        "simpleTypes": {
+            "enum": [
+                "array",
+                "boolean",
+                "integer",
+                "null",
+                "number",
+                "object",
+                "string"
+            ]
         }
     }
 }
