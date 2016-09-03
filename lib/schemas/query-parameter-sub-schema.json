@@ -200,34 +200,20 @@
             "default": false
         },
         "maxLength": {
-            "$ref": "#/definitions/positiveInteger"
-        },
-        "positiveInteger": {
-            "type": "integer",
-            "minimum": 0
+            "$ref": "http://json-schema.org/draft-04/schema#/definitions/positiveInteger"
         },
         "minLength": {
-            "$ref": "#/definitions/positiveIntegerDefault0"
-        },
-        "positiveIntegerDefault0": {
-            "allOf": [
-                {
-                    "$ref": "#/definitions/positiveInteger"
-                },
-                {
-                    "default": 0
-                }
-            ]
+            "$ref": "http://json-schema.org/draft-04/schema#/definitions/positiveIntegerDefault0"
         },
         "pattern": {
             "type": "string",
             "format": "regex"
         },
         "maxItems": {
-            "$ref": "#/definitions/positiveInteger"
+            "$ref": "http://json-schema.org/draft-04/schema#/definitions/positiveInteger"
         },
         "minItems": {
-            "$ref": "#/definitions/positiveIntegerDefault0"
+            "$ref": "http://json-schema.org/draft-04/schema#/definitions/positiveIntegerDefault0"
         },
         "uniqueItems": {
             "type": "boolean",

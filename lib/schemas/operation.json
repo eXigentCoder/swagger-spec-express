@@ -216,20 +216,20 @@
                     "format": "regex"
                 },
                 "maxItems": {
-                    "$ref": "#/definitions/positiveInteger"
+                    "$ref": "http://json-schema.org/draft-04/schema#/definitions/positiveInteger"
                 },
                 "minItems": {
-                    "$ref": "#/definitions/positiveIntegerDefault0"
+                    "$ref": "http://json-schema.org/draft-04/schema#/definitions/positiveIntegerDefault0"
                 },
                 "uniqueItems": {
                     "type": "boolean",
                     "default": false
                 },
                 "maxProperties": {
-                    "$ref": "#/definitions/positiveInteger"
+                    "$ref": "http://json-schema.org/draft-04/schema#/definitions/positiveInteger"
                 },
                 "minProperties": {
-                    "$ref": "#/definitions/positiveIntegerDefault0"
+                    "$ref": "http://json-schema.org/draft-04/schema#/definitions/positiveIntegerDefault0"
                 },
                 "required": {
                     "$ref": "#/definitions/stringArray"
@@ -577,20 +577,20 @@
             "default": false
         },
         "maxLength": {
-            "$ref": "#/definitions/positiveInteger"
+            "$ref": "http://json-schema.org/draft-04/schema#/definitions/positiveInteger"
         },
         "minLength": {
-            "$ref": "#/definitions/positiveIntegerDefault0"
+            "$ref": "http://json-schema.org/draft-04/schema#/definitions/positiveIntegerDefault0"
         },
         "pattern": {
             "type": "string",
             "format": "regex"
         },
         "maxItems": {
-            "$ref": "#/definitions/positiveInteger"
+            "$ref": "http://json-schema.org/draft-04/schema#/definitions/positiveInteger"
         },
         "minItems": {
-            "$ref": "#/definitions/positiveIntegerDefault0"
+            "$ref": "http://json-schema.org/draft-04/schema#/definitions/positiveIntegerDefault0"
         },
         "uniqueItems": {
             "type": "boolean",
@@ -998,7 +998,7 @@
                 },
                 "default": {},
                 "required": {
-                    "$ref": "#/definitions/stringArray"
+                    "$ref": "http://json-schema.org/draft-04/schema#/definitions/stringArray"
                 },
                 "type": {
                     "type": "string",

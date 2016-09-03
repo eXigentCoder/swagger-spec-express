@@ -57,8 +57,7 @@ function localise$ref(property, parent, root, propertyName) {
         throw new Error("Both search strings found items, unhandled");
     }
     if (propertiesIndex >= 0) {
-        setProperty(property, parent);
-        return;
+        return setProperty(property, parent);
     }
     setDefinition(property, root, parent, propertyName);
 }
@@ -76,11 +75,13 @@ function setDefinition(property, root, parent, propertyName) {
     var name = getNameFrom$refString(property, definitionsSearchString);
     var definitionFromJsonSchema = getJsonSchemaDefinition(name);
     if (root.definitions[name]) {
-        console.warn('already has definition ' + name + ", overwriting");
+        if (_.isMatch(root.definitions[name], definitionFromJsonSchema)) {
+            return;
+        }
+        throw new Error('Already has property ' + name + ' which is not a match');
     }
     root.definitions[name] = definitionFromJsonSchema;
     parent[propertyName] = '#/definitions/' + name;
-    return name;
 }
 
 function getNameFrom$refString(value, prefix) {

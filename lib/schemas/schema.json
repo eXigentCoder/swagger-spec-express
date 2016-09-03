@@ -53,20 +53,20 @@
             "format": "regex"
         },
         "maxItems": {
-            "$ref": "#/definitions/positiveInteger"
+            "$ref": "http://json-schema.org/draft-04/schema#/definitions/positiveInteger"
         },
         "minItems": {
-            "$ref": "#/definitions/positiveIntegerDefault0"
+            "$ref": "http://json-schema.org/draft-04/schema#/definitions/positiveIntegerDefault0"
         },
         "uniqueItems": {
             "type": "boolean",
             "default": false
         },
         "maxProperties": {
-            "$ref": "#/definitions/positiveInteger"
+            "$ref": "http://json-schema.org/draft-04/schema#/definitions/positiveInteger"
         },
         "minProperties": {
-            "$ref": "#/definitions/positiveIntegerDefault0"
+            "$ref": "http://json-schema.org/draft-04/schema#/definitions/positiveIntegerDefault0"
         },
         "required": {
             "$ref": "#/definitions/stringArray"
@@ -230,20 +230,20 @@
                     "format": "regex"
                 },
                 "maxItems": {
-                    "$ref": "#/definitions/positiveInteger"
+                    "$ref": "http://json-schema.org/draft-04/schema#/definitions/positiveInteger"
                 },
                 "minItems": {
-                    "$ref": "#/definitions/positiveIntegerDefault0"
+                    "$ref": "http://json-schema.org/draft-04/schema#/definitions/positiveIntegerDefault0"
                 },
                 "uniqueItems": {
                     "type": "boolean",
                     "default": false
                 },
                 "maxProperties": {
-                    "$ref": "#/definitions/positiveInteger"
+                    "$ref": "http://json-schema.org/draft-04/schema#/definitions/positiveInteger"
                 },
                 "minProperties": {
-                    "$ref": "#/definitions/positiveIntegerDefault0"
+                    "$ref": "http://json-schema.org/draft-04/schema#/definitions/positiveIntegerDefault0"
                 },
                 "required": {
                     "$ref": "#/definitions/stringArray"
