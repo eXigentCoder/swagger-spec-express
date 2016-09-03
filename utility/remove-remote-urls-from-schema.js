@@ -11,11 +11,12 @@ module.exports = function replaceHttpReferences(callback) {
     var schema = _.cloneDeep(fullSchema);
     try {
         localise(schema);
+        copyDefinitions(schema);
     }
     catch (err) {
         return callback(err);
     }
-    callback(null, schema);
+    callback(null, {baseSchema: schema});
 };
 
 
@@ -100,4 +101,16 @@ function getJsonSchemaDefinition(name) {
         throw new Error("Json Schema 4.0 didn't have definition " + name);
     }
     return definition;
+}
+
+function copyDefinitions(schema) {
+    Object.keys(jsonSchemaSchema.definitions).forEach(function (definitionName) {
+        if (schema.definitions[definitionName]) {
+            if (_.isMatch(schema.definitions[definitionName], jsonSchemaSchema.definitions[definitionName])) {
+                return;
+            }
+            throw new Error('Already has definition for ' + definitionName + ' which is not a match');
+        }
+        schema.definitions[definitionName] = jsonSchemaSchema.definitions[definitionName];
+    });
 }
