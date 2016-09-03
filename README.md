@@ -200,3 +200,5 @@ Returns the swagger specification as a json object. Throws an exception if calle
 - Add examples to this document
 - replace to-title-case.js with _.startCase
 - when using arrayOfModel the schema doesn't have an id, so makes it harder to use ajv. Currently we just wrapping in {items:}
+- custom fields not on all schemas.
+- validator options need to be passed in at the top, in init
