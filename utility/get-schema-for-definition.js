@@ -5,9 +5,10 @@ var async = require('async');
 
 module.exports = function getSchemaForDefinition(data, schemaRules, callback) {
     var definitionName = schemaRules.name;
+    var fileName = _.kebabCase(definitionName) + ".json";
     var schemaToGenerate = {
         $schema: "http://json-schema.org/draft-04/schema#",
-        id: _.kebabCase(definitionName),
+        id: "https://raw.githubusercontent.com/eXigentCoder/swagger-spec-express/master/lib/schemas/" + fileName,
         title: _.capitalize(_.kebabCase(definitionName).split('-').join(' '))
     };
     if (schemaRules.parent) {
@@ -31,8 +32,7 @@ module.exports = function getSchemaForDefinition(data, schemaRules, callback) {
             fn(schemaToGenerate);
         });
     }
-    var filename = schemaToGenerate.id + ".json";
-    fs.writeFile('./lib/schemas/' + filename, JSON.stringify(schemaToGenerate, null, 4), null, callback);
+    fs.writeFile('./lib/schemas/' + fileName, JSON.stringify(schemaToGenerate, null, 4), null, callback);
 };
 
 function resolveDefinitions(data, schema, rootDefinitions) {

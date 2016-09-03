@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "id": "operation",
+    "id": "https://raw.githubusercontent.com/eXigentCoder/swagger-spec-express/master/lib/schemas/operation.json",
     "title": "Operation",
     "type": "object",
     "required": [

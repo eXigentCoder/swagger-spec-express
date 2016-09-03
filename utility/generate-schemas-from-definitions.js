@@ -27,8 +27,8 @@ function writeMainSchemaToFile(data, callback) {
 }
 
 function generateSchemas(data, callback) {
-    async.each(schemas.schemasToGenerate, async.apply(getSchemaForDefinition, data), allSchemasWritten);
-    function allSchemasWritten(err) {
+    async.each(schemas.schemasToGenerate, async.apply(getSchemaForDefinition, data), allSchemasGenerated);
+    function allSchemasGenerated(err) {
         return callback(err, data);
     }
 }
