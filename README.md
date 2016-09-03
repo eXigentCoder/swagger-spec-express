@@ -198,7 +198,5 @@ Returns the swagger specification as a json object. Throws an exception if calle
 - Better error messages in general so you don't need to debug
 - Ability to inject certain things into parameters. E.g. many GET routes will have GET /thing/:identifier would be nice to inject the name in there
 - Add examples to this document
-- replace to-title-case.js with _.startCase
-- when using arrayOfModel the schema doesn't have an id, so makes it harder to use ajv. Currently we just wrapping in {items:}
-- custom fields not on all schemas.
-- validator options need to be passed in at the top, in init
+- when using arrayOfModel the schema doesn't have an id, so makes it harder to use ajv. Currently we just wrapping in {items:}. Still an issue?
+- custom fields not on all schemas?

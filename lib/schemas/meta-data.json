@@ -1031,10 +1031,12 @@
                 },
                 "model": {
                     "type": "string",
+                    "description": "The name of the model produced or consumed.",
                     "minLength": 1
                 },
                 "arrayOfModel": {
                     "type": "string",
+                    "description": "The name of the model produced or consumed as an array.",
                     "minLength": 1
                 },
                 "commonHeaders": {

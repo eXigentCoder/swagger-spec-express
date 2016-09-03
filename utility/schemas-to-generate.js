@@ -9,7 +9,7 @@ var schemasToGenerate = [
     {name: 'bodyParameter', functions: [addModels]},
     {name: 'tag'},
     {name: 'schema', functions: [addNameProperty, markNameAsRequired]},
-    {name: 'response', functions: [addNameProperty, markNameAsRequired]},
+    {name: 'response', functions: [addNameProperty, markNameAsRequired, addModels]},
     {name: 'header', functions: [addNameProperty, markNameAsRequired]},
     {name: 'operation'}
 ];
