@@ -49,7 +49,10 @@ function runCommonTestsForType(name, addFn, dataFn) {
                     test: {
                         type: "object",
                         properties: {
-                            isTest: true
+                            isTest: {
+                                type: 'boolean',
+                                default: true
+                            }
                         },
                         additionalProperties: false,
                         required: [
