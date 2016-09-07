@@ -1,5 +1,10 @@
 # swagger-spec-express
-![alt text](https://api.travis-ci.org/eXigentCoder/swagger-spec-express.svg "Build Status")
+
+> Programmatically generate your Swagger specification (JSON) file.
+
+[![NPM][spe-npm-icon] ][spe-npm-url]
+
+[![Build status][spe-ci-image] ][spe-ci-url]
 
 A library that allows you to programmatically annotate your existing express api with [swagger](http://swagger.io/) info and then generate and validate your json spec file. All without completely starting over or changing the structure of your express routes. Please note that this document is still being written.
 
@@ -200,3 +205,8 @@ Returns the swagger specification as a json object. Throws an exception if calle
 - Add examples to this document
 - when using arrayOfModel the schema doesn't have an id, so makes it harder to use ajv. Currently we just wrapping in {items:}. Still an issue?
 - custom fields not on all schemas?
+
+[spe-npm-icon]: https://nodei.co/npm/swagger-spec-express.svg
+[spe-npm-url]: https://npmjs.org/package/swagger-spec-express
+[spe-ci-image]: https://travis-ci.org/eXigentCoder/swagger-spec-express.svg?branch=master
+[spe-ci-url]: https://travis-ci.org/eXigentCoder/swagger-spec-express
