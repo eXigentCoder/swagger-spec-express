@@ -22,9 +22,6 @@ function runCommonTestsForType(name, addFn, dataFn) {
         it('Should not throw an exception if validOptions are supplied', function () {
             expect(callAddFn(addFn, dataFn()), name).to.not.throw();
         });
-        it('Should throw an exception if you try add the same item again', function () {
-            expect(callAddFn(addFn, dataFn()), name).to.throw();
-        });
         it('Should throw an exception if no object is supplied', function () {
             expect(callAddFn(addFn, null), name).to.throw();
         });
