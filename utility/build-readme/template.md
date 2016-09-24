@@ -160,6 +160,8 @@ message|string|A more user-friendly error message that can tell you what's wrong
 
 Returns the swagger specification as a json object. Throws an exception if called before `compile` or `initialise`. You do not need to call `validate` first.
 
+{{sourceDocs}}
+
 ### reset
 
 ### swaggerise

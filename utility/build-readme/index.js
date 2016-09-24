@@ -66,7 +66,11 @@ function loadTemplate(data, callback) {
 }
 
 function injectDocuments(data, callback) {
-    data.output = data.template;
+    var mergedSource = '';
+    data.sources.forEach(function (src) {
+        mergedSource += src.content;
+    });
+    data.output = data.template.replace('{{sourceDocs}}', mergedSource);
     return callback(null, data);
 }
 
