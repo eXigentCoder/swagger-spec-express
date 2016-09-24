@@ -5,7 +5,7 @@ var fs = require('fs');
 var _ = require('lodash');
 var generatedSourceDocsOutputDir = './docs/generated/';
 var outputDir = './README.md';
-var filesToInclude = ['index.md'];
+var filesToInclude = ['index.md', 'initialise.md'];
 
 async.waterfall([
     generateMDForSourceCode,

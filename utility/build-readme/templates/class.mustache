@@ -3,8 +3,10 @@
 {{/name}}
 {{#description}}{{{description}}}{{/description}}
 
+Name | Type | Description
+--- | --- | ---
 {{#members}}
-**{{name}}**: {{#typesString}}`{{typesString}}`{{/typesString}} {{#description}}, {{{description}}}{{/description}}
+{{name}} | {{#typesString}}`{{typesString}}`{{/typesString}} | {{#description}} {{{description}}}{{/description}}
 {{/members}}
 {{#methods}}
 {{> function}}
