@@ -38,7 +38,7 @@
     ],
     "responses": {
         "200": {
-            "description": "Success" //required
+            "description": "Success", //required
             "model": "appInfo", //can only set one of these
             "arrayOfModel": "appInfo", //can only set one of these
             "schema": { //can only set one of these

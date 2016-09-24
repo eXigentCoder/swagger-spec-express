@@ -8,7 +8,8 @@
     "lint": "eslint \"lib/**/*.js\" \"test/**/*.js\"",
     "test": "node_modules/.bin/istanbul --include-all-sources cover node_modules/mocha/bin/_mocha test/**/*.js",
     "report": "plato -r -d report -e .eslintrc lib",
-    "check-dependencies": "npm-check -Eu"
+    "check-dependencies": "npm-check -Eu",
+    "flow": "flow"
   },
   "repository": {
     "type": "git",
@@ -42,9 +43,11 @@
     "dirty-chai": "1.2.2",
     "eslint": "3.4.0",
     "express": "4.14.0",
+    "flow-bin": "0.32.0",
     "istanbul": "0.4.5",
     "json-schema-ref-parser": "3.1.2",
     "mocha": "3.0.2",
+    "mox": "0.0.16",
     "npm-check": "5.2.3",
     "plato": "1.7.0",
     "request": "2.74.0"
