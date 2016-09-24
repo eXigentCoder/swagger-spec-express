@@ -5,6 +5,8 @@ var fs = require('fs');
 var _ = require('lodash');
 var generatedSourceDocsOutputDir = './docs/generated/';
 var outputDir = './README.md';
+var filesToInclude = ['index.md'];
+
 async.waterfall([
     generateMDForSourceCode,
     loadGeneratedFileNames,
@@ -49,7 +51,7 @@ function loadFileData(data, fileName, callback) {
             return callback(err);
         }
         content = content.trim();
-        if (content !== '* * *') {
+        if (content !== '* * *' && filesToInclude.indexOf(fileName) >= 0) {
             fileName = fileName.replace(/\.md$/i, '');
             fileName = _.startCase(fileName);
             data.sources.push({name: fileName, content: content});
