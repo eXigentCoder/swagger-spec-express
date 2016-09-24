@@ -3,13 +3,15 @@ var async = require('async');
 let jsdox = require("jsdox");
 var fs = require('fs');
 var _ = require('lodash');
-
-var outputDir = './docs/generated/';
+var generatedSourceDocsOutputDir = './docs/generated/';
+var outputDir = './README.md';
 async.waterfall([
     generateMDForSourceCode,
     loadGeneratedFileNames,
     loadGeneratedFileData,
-    loadTemplate
+    loadTemplate,
+    injectDocuments,
+    writeFile
 ], docsGenerated);
 
 function docsGenerated(err) {
@@ -19,11 +21,11 @@ function docsGenerated(err) {
 }
 
 function generateMDForSourceCode(callback) {
-    jsdox.generateForDir('./lib', outputDir, './utility/build-readme/templates/', callback, null);
+    jsdox.generateForDir('./lib', generatedSourceDocsOutputDir, './utility/build-readme/templates/', callback, null);
 }
 
 function loadGeneratedFileNames(callback) {
-    fs.readdir(outputDir, null, function (err, fileNames) {
+    fs.readdir(generatedSourceDocsOutputDir, null, function (err, fileNames) {
         var data = {
             fileNames: fileNames
         };
@@ -41,7 +43,7 @@ function loadGeneratedFileData(data, callback) {
 }
 
 function loadFileData(data, fileName, callback) {
-    fs.readFile(outputDir + fileName, {encoding: 'utf8'}, fileLoaded);
+    fs.readFile(generatedSourceDocsOutputDir + fileName, {encoding: 'utf8'}, fileLoaded);
     function fileLoaded(err, content) {
         if (err) {
             return callback(err);
@@ -57,7 +59,17 @@ function loadFileData(data, fileName, callback) {
 }
 
 function loadTemplate(data, callback) {
-    fs.readFile('./utility/build-readme/template.md', null, function (err) {
+    fs.readFile('./utility/build-readme/template.md', {encoding: 'utf8'}, function (err, content) {
+        data.template = content;
         callback(err, data);
     });
+}
+
+function injectDocuments(data, callback) {
+    data.output = data.template;
+    return callback(null, data);
+}
+
+function writeFile(data, callback) {
+    fs.writeFile(outputDir, data.output, {encoding: 'utf8'}, callback);
 }
