@@ -19,7 +19,7 @@ function docsGenerated(err) {
 }
 
 function generateMDForSourceCode(callback) {
-    jsdox.generateForDir('./lib', outputDir, null, callback, null);
+    jsdox.generateForDir('./lib', outputDir, './utility/build-readme/templates/', callback, null);
 }
 
 function loadGeneratedFileNames(callback) {
