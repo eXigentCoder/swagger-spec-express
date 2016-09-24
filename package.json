@@ -45,9 +45,9 @@
     "express": "4.14.0",
     "flow-bin": "0.32.0",
     "istanbul": "0.4.5",
+    "jsdox": "0.4.10",
     "json-schema-ref-parser": "3.1.2",
     "mocha": "3.0.2",
-    "mox": "0.0.16",
     "npm-check": "5.2.3",
     "plato": "1.7.0",
     "request": "2.74.0"
