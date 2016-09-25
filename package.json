@@ -10,7 +10,8 @@
     "report": "plato -r -d report -e .eslintrc lib",
     "check-dependencies": "npm-check -Eu",
     "flow": "flow",
-    "jsdoc": "node_modules/.bin/jsdoc \"./lib/index.js\" --destination \"./docs/generated/jsdoc/\" --readme \"./README.md\""
+    "jsdoc": "node_modules/.bin/jsdoc \"./lib/index.js\" --configure \"./jsdoc-config.json\" --destination \"./docs/generated/jsdoc/\" --readme \"./README.md\"",
+    "documentation": "node_modules/.bin/documentation --format=\"md\" --github=true"
   },
   "repository": {
     "type": "git",
@@ -42,6 +43,7 @@
   "devDependencies": {
     "chai": "3.5.0",
     "dirty-chai": "1.2.2",
+    "documentation": "4.0.0-beta10",
     "eslint": "3.4.0",
     "express": "4.14.0",
     "flow-bin": "0.32.0",
