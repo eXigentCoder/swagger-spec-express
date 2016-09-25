@@ -103,6 +103,8 @@ _todo_
 
 ### compile
 
+[lib/index.js:41-48](https://github.com/eXigentCoder/swagger-spec-express/blob/3e69035d9ac4e7ceb59956168f6829ddc28f7009/lib/index.js#L41-L48 "Source code on GitHub")
+
 Will gather together all your described app routes and compile them into a single document to be served up by your api when you call `json`.
 Can only be called once `initialise` has been called. Should only call this once you have completely finished describing your routes.
 
@@ -112,12 +114,16 @@ Returns **void**
 
 ### validate
 
+[lib/index.js:56-58](https://github.com/eXigentCoder/swagger-spec-express/blob/3e69035d9ac4e7ceb59956168f6829ddc28f7009/lib/index.js#L56-L58 "Source code on GitHub")
+
 Will validate the internal json document created by calling `compile`.
 This is done using the [ajv](https://www.npmjs.com/package/ajv) validator against the [official JSON schema](https://www.npmjs.com/package/swagger-schema-official). \* @throws {Error} Throws an exception if called before `compile` or `initialise`.
 
 Returns **{valid: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean), errors: [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)>, message: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)}** The result of the validation
 
 ### json
+
+[lib/index.js:65-69](https://github.com/eXigentCoder/swagger-spec-express/blob/3e69035d9ac4e7ceb59956168f6829ddc28f7009/lib/index.js#L65-L69 "Source code on GitHub")
 
 Returns the swagger specification as a json object.
 
@@ -126,6 +132,8 @@ Returns the swagger specification as a json object.
 Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** The Swagger JSON object describing your api
 
 ### initialise
+
+[lib/initialise.js:14-27](https://github.com/eXigentCoder/swagger-spec-express/blob/3e69035d9ac4e7ceb59956168f6829ddc28f7009/lib/initialise.js#L14-L27 "Source code on GitHub")
 
 Will initialise your app with the required swaggers-spec information.
 In addition you can pass in some options which will be used when generating the swagger JSON document later on.
@@ -138,7 +146,19 @@ Both British and American spelling supported.
 
 Returns **void** 
 
+### DefinitionsObject
+
+[lib/initialise.js:36-39](https://github.com/eXigentCoder/swagger-spec-express/blob/3e69035d9ac4e7ceb59956168f6829ddc28f7009/lib/initialise.js#L36-L39 "Source code on GitHub")
+
+### PathsObject
+
+[lib/initialise.js:36-39](https://github.com/eXigentCoder/swagger-spec-express/blob/3e69035d9ac4e7ceb59956168f6829ddc28f7009/lib/initialise.js#L36-L39 "Source code on GitHub")
+
 ### InitialisationOptions
+
+[lib/initialise.js:36-39](https://github.com/eXigentCoder/swagger-spec-express/blob/3e69035d9ac4e7ceb59956168f6829ddc28f7009/lib/initialise.js#L36-L39 "Source code on GitHub")
+
+The options used to setup the rules for the swagger spec
 
 **Properties**
 
@@ -146,15 +166,15 @@ Returns **void**
 -   `title` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The title of the application.
 -   `description` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** A short description of the application. [GFM syntax](<A short description of the application. GFM syntax can be used for rich text representation.>) can be used for rich text representation.
 -   `termsOfServiceThe` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Terms of Service for the API.
--   `contact` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** The contact information for the exposed API.
--   `license` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** The license information for the exposed API.
+-   `contact` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** The contact information for the exposed API. See <http://swagger.io/specification/#contactObject>.
+-   `license` **[LicenseObject](#licenseobject)** The license information for the exposed API.
 -   `version` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Provides the version of the application API.
 -   `host` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The host (name or ip) serving the API. This MUST be the host only and does not include the scheme nor sub-paths. It MAY include a port. If the host is not included, the host serving the documentation is to be used (including the port). The host does not support [path templating](http://swagger.io/specification/#pathTemplating).
 -   `basePath` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The base path on which the API is served, which is relative to the host. If it is not included, the API is served directly under the host. The value MUST start with a leading slash (/). The basePath does not support [path templating](http://swagger.io/specification/#pathTemplating). Default '/'
 -   `schemes` **[array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** The transfer protocol of the API. Values MUST be from the list: "http", "https", "ws", "wss". If the schemes is not included, the default scheme to be used is the one used to access the Swagger definition itself.
 -   `consumes` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** A list of MIME types the APIs can consume. This is global to all APIs but can be overridden on specific API calls. Value MUST be as described under [Mime Types](http://swagger.io/specification/#mimeTypes).
 -   `produces` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** A list of MIME types the APIs can produce. This is global to all APIs but can be overridden on specific API calls. Value MUST be as described under [Mime Types](http://swagger.io/specification/#mimeTypes).
--   `paths` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** The available paths and operations for the API.
+-   `paths` **[PathsObject](#pathsobject)** The available paths and operations for the API.
 -   `definitions` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** An object to hold data types produced and consumed by operations.
 -   `parameters` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** An object to hold parameters that can be used across operations. This property does not define global parameters for all operations.
 -   `responses` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** An object to hold responses that can be used across operations. This property does not define global responses for all operations.
@@ -163,6 +183,10 @@ Returns **void**
 -   `defaultSecurity` **([string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array))** The default security schema to use on a route when the security parameter is set to **true**
 -   `tags` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** A list of tags used by the specification with additional metadata. The order of the tags can be used to reflect on their order by the parsing tools. Not all tags that are used by the [Operation Object](swagger.io/specification/#operationObject) must be declared. The tags that are not declared may be organized randomly or based on the tools' logic. Each tag name in the list MUST be unique.
 -   `externalDocs` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Additional external documentation.
+
+### LicenseObject
+
+[lib/initialise.js:36-39](https://github.com/eXigentCoder/swagger-spec-express/blob/3e69035d9ac4e7ceb59956168f6829ddc28f7009/lib/initialise.js#L36-L39 "Source code on GitHub")
 
 ## Reporting Bugs & Issues
 
