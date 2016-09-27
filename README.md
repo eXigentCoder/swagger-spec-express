@@ -103,7 +103,7 @@ _todo_
 
 ### compile
 
-[lib/index.js:41-48](https://github.com/eXigentCoder/swagger-spec-express/blob/14b07da37ff795affe232fd1e93bba072a326adb/lib/index.js#L41-L48 "Source code on GitHub")
+[lib/index.js:41-48](https://github.com/eXigentCoder/swagger-spec-express/blob/31c421f05a3b862083fec8ed7e11400635e2a9aa/lib/index.js#L41-L48 "Source code on GitHub")
 
 Will gather together all your described app routes and compile them into a single document to be served up by your api when you call `json`.
 Can only be called once `initialise` has been called. Should only call this once you have completely finished describing your routes.
@@ -114,7 +114,7 @@ Returns **void**
 
 ### validate
 
-[lib/index.js:56-58](https://github.com/eXigentCoder/swagger-spec-express/blob/14b07da37ff795affe232fd1e93bba072a326adb/lib/index.js#L56-L58 "Source code on GitHub")
+[lib/index.js:56-58](https://github.com/eXigentCoder/swagger-spec-express/blob/31c421f05a3b862083fec8ed7e11400635e2a9aa/lib/index.js#L56-L58 "Source code on GitHub")
 
 Will validate the internal json document created by calling `compile`.
 This is done using the [ajv](https://www.npmjs.com/package/ajv) validator against the [official JSON schema](https://www.npmjs.com/package/swagger-schema-official). \* @throws {Error} Throws an exception if called before `compile` or `initialise`.
@@ -123,7 +123,7 @@ Returns **{valid: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScr
 
 ### json
 
-[lib/index.js:65-69](https://github.com/eXigentCoder/swagger-spec-express/blob/14b07da37ff795affe232fd1e93bba072a326adb/lib/index.js#L65-L69 "Source code on GitHub")
+[lib/index.js:65-69](https://github.com/eXigentCoder/swagger-spec-express/blob/31c421f05a3b862083fec8ed7e11400635e2a9aa/lib/index.js#L65-L69 "Source code on GitHub")
 
 Returns the swagger specification as a json object.
 
@@ -133,7 +133,7 @@ Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 
 ### initialise
 
-[lib/initialise.js:41-57](https://github.com/eXigentCoder/swagger-spec-express/blob/14b07da37ff795affe232fd1e93bba072a326adb/lib/initialise.js#L41-L57 "Source code on GitHub")
+[lib/initialise.js:41-57](https://github.com/eXigentCoder/swagger-spec-express/blob/31c421f05a3b862083fec8ed7e11400635e2a9aa/lib/initialise.js#L41-L57 "Source code on GitHub")
 
 Will initialise your app with the required swaggers-spec information.
 In addition you can pass in some options which will be used when generating the swagger JSON document later on.
@@ -177,7 +177,7 @@ Returns **void**
 
 ### InitialisationOptions
 
-[lib/initialise.js:66-69](https://github.com/eXigentCoder/swagger-spec-express/blob/14b07da37ff795affe232fd1e93bba072a326adb/lib/initialise.js#L66-L69 "Source code on GitHub")
+[lib/initialise.js:66-69](https://github.com/eXigentCoder/swagger-spec-express/blob/31c421f05a3b862083fec8ed7e11400635e2a9aa/lib/initialise.js#L66-L69 "Source code on GitHub")
 
 The options used to setup the rules for the swagger spec
 
