@@ -1,11 +1,9 @@
 'use strict';
 var fs = require('fs');
-var os = require('os');
 var async = require('async');
 var _ = require('lodash');
 var $RefParser = require('json-schema-ref-parser');
-
-var eol = os.EOL;
+var generateComment = require('./generate-comment');
 
 /**
  * Takes a json schema file and injects the information as a jsdoc comment at the target
@@ -13,12 +11,13 @@ var eol = os.EOL;
  * @param {object} options.schema The schema object to use to generate the comment string
  * @param {string} options.filePath The path to the file where the jsdoc comment should be injected
  * @param {string} options.target The line to search for in the file. The jsdoc comment will get added above this.
+ * @param {string} options.indentation The indentation to use. Default : ' * '
  * @param {function} callback the callback to call when done.
  * @return {void}
  */
 module.exports = function injectSchema(options, callback) {
     async.waterfall([
-        validateOptions,
+        async.apply(validateOptions, options),
         derefSchema,
         loadFile,
         generateComment,
@@ -58,13 +57,10 @@ function derefSchema(options, callback) {
         if (err) {
             return callback(err);
         }
-        options.derefedSchema = fullSchema;
+        options.schema = fullSchema;
+        delete options.schema.definitions;
         return callback(null, options);
     });
-}
-
-function generateComment(options, callback) {
-    callback(null, options);
 }
 
 function writeFile(options, callback) {
