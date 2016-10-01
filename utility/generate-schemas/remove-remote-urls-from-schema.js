@@ -1,5 +1,5 @@
 'use strict';
-var jsonSchemaSchema = require('../lib/schemas/json-schema-4.0.json');
+var jsonSchemaSchema = require('../../lib/schemas/json-schema-4.0.json');
 var fullSchema = require('swagger-schema-official/schema.json');
 var _ = require('lodash');
 var async = require('async');

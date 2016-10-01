@@ -2,7 +2,7 @@
 var _ = require('lodash');
 var fs = require('fs');
 var async = require('async');
-var schemaIds = require('../lib/schema-ids');
+var schemaIds = require('../../lib/schema-ids');
 
 module.exports = function getSchemaForDefinition(data, schemaRules, callback) {
     var definitionName = schemaRules.name;
