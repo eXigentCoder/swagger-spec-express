@@ -1,4 +1,5 @@
 {
+    "description": "Metadata about a route",
     "properties": {
         "common": {
             "$ref": "#/definitions/common"
