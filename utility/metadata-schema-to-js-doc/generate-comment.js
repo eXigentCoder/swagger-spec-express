@@ -25,11 +25,14 @@ module.exports = function generateComment(options, callback) {
         Object.keys(properties).forEach(function (key) {
             var value = properties[key];
             var description = value.description || 'todo-description';
-            var type = value.type || 'todo-type';
+            if (!value.type) {
+                throw new Error("todo");
+            }
+            var type = value.type;
             if (type === 'array') {
                 if (!value.items.type) {
                     if (key === 'parameters') {
-                        type = ['object', 'string']
+                        type = ['object', 'string'];
                     } else {
                         throw new Error("todo");
                     }

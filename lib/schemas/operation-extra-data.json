@@ -4,6 +4,12 @@
         "tags": {
             "description": "A list of tags used by the specification with additional metadata. The order of the tags can be used to reflect on their order by the parsing tools. Not all tags that are used by the [Operation Object](swagger.io/specification/#operationObject) must be declared. The tags that are not declared may be organized randomly or based on the tools' logic. Each tag name in the list MUST be unique. See {@link http://swagger.io/specification/#tagObject Tag Object}."
         },
+        "deprecated": {
+            "description": "Declares this operation to be deprecated. Usage of the declared operation should be refrained. Default value is false."
+        },
+        "security": {
+            "description": "A declaration of which security schemes are applied for the API as a whole. The list of values describes alternative security schemes that can be used (that is, there is a logical OR between the security requirements). Individual operations can override this definition. See {@link http://swagger.io/specification/#securityRequirementObject Security Requirement Object}."
+        },
         "common": {
             "$ref": "#/definitions/common"
         }
@@ -36,6 +42,7 @@
             ]
         },
         "common": {
+            "description": "A collection of common data to include in this route.",
             "type": "object",
             "additionalProperties": false,
             "properties": {
@@ -44,10 +51,12 @@
                     "items": {
                         "type": "string"
                     },
+                    "description": "Common responses as added by calling common.addResponse",
                     "uniqueItems": true
                 },
                 "parameters": {
                     "type": "object",
+                    "description": "A collection of common parameters to use for this route.",
                     "additionalProperties": false,
                     "properties": {
                         "header": {
@@ -55,6 +64,7 @@
                             "items": {
                                 "type": "string"
                             },
+                            "description": "A common header parameter as added by calling common.parameters.addHeader",
                             "uniqueItems": true
                         },
                         "body": {
@@ -62,6 +72,7 @@
                             "items": {
                                 "type": "string"
                             },
+                            "description": "A common body parameter as added by calling common.parameters.addBody",
                             "uniqueItems": true
                         },
                         "query": {
@@ -69,6 +80,7 @@
                             "items": {
                                 "type": "string"
                             },
+                            "description": "A common query string parameter as added by calling common.parameters.addQuery",
                             "uniqueItems": true
                         },
                         "formData": {
@@ -76,6 +88,7 @@
                             "items": {
                                 "type": "string"
                             },
+                            "description": "A common form data parameter as added by calling common.parameters.addFormData",
                             "uniqueItems": true
                         },
                         "path": {
@@ -83,11 +96,25 @@
                             "items": {
                                 "type": "string"
                             },
+                            "description": "A common path parameter as added by calling common.parameters.addPath",
                             "uniqueItems": true
                         }
                     }
                 }
             }
+        },
+        "externalDocs": {
+            "properties": {
+                "description": {
+                    "description": "A short description of the target documentation. GFM syntax can be used for rich text representation."
+                },
+                "url": {
+                    "description": "Required. The URL for the target documentation. Value MUST be in the format of a URL."
+                }
+            }
+        },
+        "parametersList": {
+            "description": "An object to hold parameters that can be used across operations. This property does not define global parameters for all operations. See {@link http://swagger.io/specification/#parametersDefinitionsObject Parameter Definitions Object}."
         }
     }
 }
