@@ -11,7 +11,7 @@ module.exports = function generateComment(options, callback) {
     if (options.schema.description) {
         add(options.schema.description);
     }
-    addProperties(options.schema.properties);
+    addProperties(options.schema.properties, null, options.schema.required);
     add(' */', 0);
     return callback(null, options);
 
@@ -19,8 +19,9 @@ module.exports = function generateComment(options, callback) {
         addComment(options, message, indentLevel);
     }
 
-    function addProperties(properties, prefix) {
+    function addProperties(properties, prefix, required) {
         prefix = prefix || '';
+        required = required || [];
         Object.keys(properties).forEach(function (key) {
             var value = properties[key];
             var description = value.description || 'todo-description';
@@ -40,6 +41,9 @@ module.exports = function generateComment(options, callback) {
                 type = type.join('|');
             }
             var optional = false;
+            if (required.indexOf(key) < 0) {
+                optional = true;
+            }
             var name = prefix + key;
             var nameToPrint;
             if (optional) {
@@ -49,7 +53,7 @@ module.exports = function generateComment(options, callback) {
             }
             add(util.format('@param {%s} %s %s', type, nameToPrint, description));
             if (value.properties) {
-                addProperties(value.properties, name + '.');
+                addProperties(value.properties, name + '.', value.required);
             }
         });
     }
