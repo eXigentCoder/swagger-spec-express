@@ -103,7 +103,7 @@ _todo_
 
 ### compile
 
-[lib/index.js:41-48](https://github.com/eXigentCoder/swagger-spec-express/blob/cda89bf972c2b6d05dea98920686dcfbd7129fce/lib/index.js#L41-L48 "Source code on GitHub")
+[lib/index.js:41-48](https://github.com/eXigentCoder/swagger-spec-express/blob/21813ddef404814b3abe48ad6f782f562849dd49/lib/index.js#L41-L48 "Source code on GitHub")
 
 Will gather together all your described app routes and compile them into a single document to be served up by your api when you call `json`.
 Can only be called once `initialise` has been called. Should only call this once you have completely finished describing your routes.
@@ -114,7 +114,7 @@ Returns **void**
 
 ### validate
 
-[lib/index.js:56-58](https://github.com/eXigentCoder/swagger-spec-express/blob/cda89bf972c2b6d05dea98920686dcfbd7129fce/lib/index.js#L56-L58 "Source code on GitHub")
+[lib/index.js:56-58](https://github.com/eXigentCoder/swagger-spec-express/blob/21813ddef404814b3abe48ad6f782f562849dd49/lib/index.js#L56-L58 "Source code on GitHub")
 
 Will validate the internal json document created by calling `compile`.
 This is done using the [ajv](https://www.npmjs.com/package/ajv) validator against the [official JSON schema](https://www.npmjs.com/package/swagger-schema-official). \* @throws {Error} Throws an exception if called before `compile` or `initialise`.
@@ -123,17 +123,41 @@ Returns **{valid: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScr
 
 ### json
 
-[lib/index.js:65-69](https://github.com/eXigentCoder/swagger-spec-express/blob/cda89bf972c2b6d05dea98920686dcfbd7129fce/lib/index.js#L65-L69 "Source code on GitHub")
+[lib/index.js:67-71](https://github.com/eXigentCoder/swagger-spec-express/blob/21813ddef404814b3abe48ad6f782f562849dd49/lib/index.js#L67-L71 "Source code on GitHub")
 
 Returns the swagger specification as a json object.
 
 -   Throws **[Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)** Throws an exception if called before `compile` or `initialise`. You do not need to call `validate` first.
 
-Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** The Swagger JSON object describing your api
+Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** The Swagger JSON object describing your api. See <http://swagger.io/specification/>.
+
+### swaggerise
+
+[lib/swaggerise.js:10-23](https://github.com/eXigentCoder/swagger-spec-express/blob/21813ddef404814b3abe48ad6f782f562849dd49/lib/swaggerise.js#L10-L23 "Source code on GitHub")
+
+Adds the .describe function onto the provided object. The object should either be an express app or express router.
+
+**Parameters**
+
+-   `item` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** the item to apply
+
+Returns **void** 
+
+### describe
+
+[lib/swaggerise.js:17-22](https://github.com/eXigentCoder/swagger-spec-express/blob/21813ddef404814b3abe48ad6f782f562849dd49/lib/swaggerise.js#L17-L22 "Source code on GitHub")
+
+Allows you describe an app our router route.
+
+**Parameters**
+
+-   `metaData` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Provides the information about this route.
+
+Returns **void** 
 
 ### initialise
 
-[lib/initialise.js:120-136](https://github.com/eXigentCoder/swagger-spec-express/blob/cda89bf972c2b6d05dea98920686dcfbd7129fce/lib/initialise.js#L120-L136 "Source code on GitHub")
+[lib/initialise.js:120-136](https://github.com/eXigentCoder/swagger-spec-express/blob/21813ddef404814b3abe48ad6f782f562849dd49/lib/initialise.js#L120-L136 "Source code on GitHub")
 
 Will initialise your app with the required swaggers-spec information.
 In addition you can pass in some options which will be used when generating the swagger JSON document later on.
