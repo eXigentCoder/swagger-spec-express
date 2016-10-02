@@ -27,7 +27,7 @@ module.exports = function writeMetaDataFile(data, callback) {
         }
         operationSchema.definitions[definitionName] = customisedSchema;
     });
-    var operationExtraDataSchema = require('./operation-extra-data.json');
+    var operationExtraDataSchema = require('./schemas/operation-extra-data.json');
     var schema = _.merge({}, operationSchema, operationExtraDataSchema);
     schema.title = "Metadata";
     var fileName = 'meta-data.json';

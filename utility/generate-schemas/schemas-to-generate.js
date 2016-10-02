@@ -2,16 +2,16 @@
 var _ = require('lodash');
 
 var schemasToGenerate = [
-    {name: 'headerParameterSubSchema', parent: 'nonBodyParameter'},
-    {name: 'queryParameterSubSchema', parent: 'nonBodyParameter'},
-    {name: 'formDataParameterSubSchema', parent: 'nonBodyParameter'},
-    {name: 'pathParameterSubSchema', parent: 'nonBodyParameter', functions: [markNameAsRequired]},
-    {name: 'bodyParameter', functions: [addModels]},
-    {name: 'tag', extraSchemaInfo: require('./tag.json')},
-    {name: 'schema', functions: [addNameProperty, markNameAsRequired]},
-    {name: 'response', functions: [addNameProperty, markNameAsRequired, addModels]},
-    {name: 'header', functions: [addNameProperty, markNameAsRequired]},
-    {name: 'operation'}
+    {name: 'headerParameterSubSchema', parent: 'nonBodyParameter', extraSchemaInfo: require('./schemas/header-parameter-sub-schema.json')},
+    {name: 'queryParameterSubSchema', parent: 'nonBodyParameter', extraSchemaInfo: require('./schemas/query-parameter-sub-schema.json')},
+    {name: 'formDataParameterSubSchema', parent: 'nonBodyParameter', extraSchemaInfo: require('./schemas/form-data-parameter-sub-schema.json')},
+    {name: 'pathParameterSubSchema', parent: 'nonBodyParameter', functions: [markNameAsRequired], extraSchemaInfo: require('./schemas/path-parameter-sub-schema.json')},
+    {name: 'bodyParameter', functions: [addModels], extraSchemaInfo: require('./schemas/body-parameter.json')},
+    {name: 'tag', extraSchemaInfo: require('./schemas/tag.json')},
+    {name: 'schema', functions: [addNameProperty, markNameAsRequired], extraSchemaInfo: require('./schemas/schema.json')},
+    {name: 'response', functions: [addNameProperty, markNameAsRequired, addModels], extraSchemaInfo: require('./schemas/response.json')},
+    {name: 'header', functions: [addNameProperty, markNameAsRequired], extraSchemaInfo: require('./schemas/header.json')},
+    {name: 'operation', extraSchemaInfo: require('./schemas/operation.json')}
 ];
 
 module.exports = {
