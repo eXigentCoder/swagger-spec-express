@@ -143,6 +143,27 @@ function generateComment(options, callback) {
 
 function addGeneratedComment(options, callback) {
     var generatedLines = options.generatedComment.split(os.EOL);
+    var addingGenerated = false;
+    var searchString = util.format('* @paramSchema %s %s', options.paramName, options.schemaPath);
+    var pramNameRegExString = options.paramName + '\\..+';
+    var paramNameWithOrWithoutBrackets = '((\\[' + pramNameRegExString + '\\])|(' + pramNameRegExString + '))';
+    var regEx = new RegExp('^\\s*\\*\\s@param\\s((\\{.*\\}\\s' + paramNameWithOrWithoutBrackets + ')|' + paramNameWithOrWithoutBrackets + ')\\s((\\s)|(.))*', 'i');
+    _.remove(options.lines, function (line, index) {
+        return regEx.test(line);
+    });
+    options.lines.forEach(function (line, index) {
+        if (addingGenerated) {
+            var res = regEx.test(line);
+            if (res) {
+
+            }
+        }
+        if (line.indexOf(searchString) < 0) {
+            return;
+        }
+        addingGenerated = true;
+        options.lines.splice.apply(options.lines, [index, 0].concat(generatedLines));
+    });
     //options.lines.splice(options.insertAfterIndex, 0)
     return callback(null, options);
 }
