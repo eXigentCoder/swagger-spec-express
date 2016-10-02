@@ -10,4 +10,5 @@ function injectionComplete(err) {
     if (err) {
         throw err;
     }
+    process.exit(0);
 }
