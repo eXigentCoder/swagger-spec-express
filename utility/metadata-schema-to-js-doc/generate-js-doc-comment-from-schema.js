@@ -37,12 +37,12 @@ function addComment(message, eol, indentLevel) {
     }
     return prefix + message + eol;
 }
-const dontDigInto = ['header.items'];
+const dontDigInto = ['header.items', 'path.items', 'query.items', 'formData.items'];
 
 function generateJsDocCommentForProperties(properties, prefix, requiredFields, eol, loopCounter) {
     loopCounter++;
     if (loopCounter > 20) {
-        return new Error(util.format("Too many loops, probably a circular schema %s", prefix));
+        throw new Error(util.format("Too many loops, probably a circular schema %s", prefix));
     }
     let comment = '';
     prefix = prefix || '';
@@ -96,7 +96,9 @@ function generateJsDocCommentForProperty(propertyName, property, requiredFields,
         }
     }
     if (_.isArray(type)) {
-        type = _.uniq(type).join('|');
+        type = _.uniq(type).map(mapType).join('|');
+    } else {
+        type = mapType(type);
     }
     var optional = false;
     if (requiredFields.indexOf(propertyName) < 0) {
@@ -115,4 +117,11 @@ function generateJsDocCommentForProperty(propertyName, property, requiredFields,
         comment += generateJsDocCommentForProperties(property.properties, newPrefix, property.required, eol, loopCounter);
     }
     return comment;
+}
+
+function mapType(type) {
+    if (type === 'integer') {
+        return 'number';
+    }
+    return type;
 }
