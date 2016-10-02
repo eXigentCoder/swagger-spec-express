@@ -78,7 +78,7 @@ function generateJsDocCommentForProperty(propertyName, property, requiredFields,
     } else {
         nameToPrint = name;
     }
-    comment += addComment(util.format('@param {%s} %s %s', type, nameToPrint, description));
+    comment += addComment(util.format('@param {%s} %s - %s', type, nameToPrint, description));
     if (property.properties) {
         let newPrefix = name + '.';
         comment += generateJsDocCommentForProperties(property.properties, newPrefix, property.required);
