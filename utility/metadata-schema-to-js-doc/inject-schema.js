@@ -8,6 +8,7 @@ var os = require('os');
 var esprima = require('esprima');
 var escodegen = require('escodegen');
 var estreeWalker = require('estree-walker');
+var util = require("util");
 
 /**
  * Takes a json schema file and injects the information as a jsdoc comment at the target
@@ -74,7 +75,23 @@ function parseFile(options, callback) {
 }
 
 function generateComments(options, callback) {
-    // todo call generateComment where appropriate
+    options.parsedFile.comments.forEach(function (comment) {
+        if (comment.value.indexOf('@paramSchema') < 0) {
+            return;
+        }
+        var commentsToGenerate = {};
+        var lines = comment.split(os.EOL);
+        lines.forEach(function (line, index) {
+            if (line.indexOf('@paramSchema') < 0) {
+                return;
+            }
+            var parts = line.trim().splint(' ');
+            if (parts.length !== 4) {
+                throw new Error(util.format("Invalid @paramSchema format, should have had 4 parts after splitting on spaces but was %s. Line : %s. Full comment block %s", parts.length, line, comment));
+            }
+        });
+        //comment.value = generateComment(options.schema);
+    });
     return callback(null, options);
 }
 
