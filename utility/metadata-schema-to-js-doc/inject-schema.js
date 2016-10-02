@@ -95,8 +95,7 @@ function generateOutput(options, callback) {
 }
 
 function writeFile(options, callback) {
-    fs.writeFile(options.filePath, options.fileOutput, {encoding: 'utf8'}, function (err, content) {
-        options.fileContent = content;
+    fs.writeFile(options.filePath, options.fileOutput, {encoding: 'utf8'}, function (err) {
         callback(err, options);
     });
 }
