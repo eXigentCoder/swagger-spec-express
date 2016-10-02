@@ -66,8 +66,18 @@ function generateJsDocCommentForProperty(propertyName, property, requiredFields,
         if (property.allOf) {
             property = _.merge.apply(null, [{}].concat(property.allOf));
         }
+        if (property.anyOf) {
+            property.type = property.anyOf.map(function (item) {
+                return item.type;
+            });
+        }
+        if (property.oneOf) {
+            property.type = property.oneOf.map(function (item) {
+                return item.type;
+            });
+        }
         if (!property.type) {
-            throw new Error(util.format("if (!property.type) todo : %j", property, propertyName, prefix));
+            throw new Error(util.format("Todo : %j", property, propertyName, prefix));
         }
     }
     var type = property.type;
@@ -86,7 +96,7 @@ function generateJsDocCommentForProperty(propertyName, property, requiredFields,
         }
     }
     if (_.isArray(type)) {
-        type = type.join('|');
+        type = _.uniq(type).join('|');
     }
     var optional = false;
     if (requiredFields.indexOf(propertyName) < 0) {
