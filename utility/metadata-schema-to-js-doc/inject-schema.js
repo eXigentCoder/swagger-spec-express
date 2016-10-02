@@ -230,22 +230,27 @@ function removeDuplicateComments(ast) {
 }
 
 function replaceComments(rootDocument) {
-    estreeWalker.walk(rootDocument, {
-        enter: visitNode
+    var rootComments = _.filter(rootDocument.comments, 'generatedComment');
+    var leadingComments = _.filter(rootDocument.body, function (item) {
+        if (!item.leadingComments) {
+            return false;
+        }
+        var hasParamSchema = false;
+        item.leadingComments.forEach(function (comment) {
+            if (comment.value.indexOf('@paramSchema') >= 0) {
+                hasParamSchema = true;
+            }
+        });
+        return hasParamSchema;
     });
 
-    function visitNode(node) {
-        if (!node.value || node.type !== 'Block' || node.generatedComment) {
-            return;
-        }
-        rootDocument.comments.forEach(function (rootComment) {
-            if (rootComment.value !== node.value) {
-                return;
-            }
-            if (!rootComment.generatedComment) {
-                return;
-            }
-            node.value = rootComment.generatedComment;
+    leadingComments.forEach(function (leadingComment) {
+        leadingComment.leadingComments.forEach(function (comment) {
+            rootComments.forEach(function (rootComment) {
+                if (comment.value === rootComment.value && rootComment.generatedComment) {
+                    comment.value = rootComment.generatedComment;
+                }
+            });
         });
-    }
+    });
 }
