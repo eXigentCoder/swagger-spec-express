@@ -4,6 +4,10 @@ var async = require('async');
 var _ = require('lodash');
 var $RefParser = require('json-schema-ref-parser');
 var generateComment = require('./generate-comment');
+var os = require('os');
+var esprima = require('esprima');
+var escodegen = require('escodegen');
+var estreeWalker = require('estree-walker');
 
 /**
  * Takes a json schema file and injects the information as a jsdoc comment at the target
@@ -20,6 +24,7 @@ module.exports = function injectSchema(options, callback) {
         async.apply(validateOptions, options),
         derefSchema,
         loadFile,
+        findTarget,
         generateComment,
         writeFile
     ], callback);
@@ -52,6 +57,28 @@ function loadFile(options, callback) {
         callback(err, options);
     });
 }
+function findTarget(options, callback) {
+    var parserOptions = {
+        sourceType: 'module',
+        comment: false,
+        attachComment: true
+    };
+    var parsed = esprima.parse(options.fileContent, parserOptions);
+    removeDuplicateComments(parsed);
+    var generateOptions = {
+        format: {
+            newline: os.EOL,
+            indent: {
+                adjustMultilineComment: true
+            },
+            quotes: 'single'
+        },
+        parse: esprima.parse,
+        comment: true
+    };
+    var newCode = escodegen.generate(parsed, generateOptions);
+    return callback(options);
+}
 function derefSchema(options, callback) {
     $RefParser.dereference(options.schema, function (err, fullSchema) {
         if (err) {
@@ -65,4 +92,31 @@ function derefSchema(options, callback) {
 
 function writeFile(options, callback) {
     callback(null, options);
+}
+
+//https://github.com/estools/escodegen/issues/239
+function removeDuplicateComments(ast) {
+    // Some comments are duplicated as both the leadingComment for one node,
+    // and the trailing comment for another. Every comment's range is unique,
+    // so two comments with the same range are talking about the same comment.
+    // So we'll just remove all trailing comments which are also a leading
+    // comment somewhere.
+    const rangesInLeadingComments = new Set();
+    estreeWalker.walk(ast, {
+        enter: (node) => {
+            for (let leadingComment of node.leadingComments || []) {
+                rangesInLeadingComments.add(leadingComment.range.join(','));
+            }
+        }
+    });
+    estreeWalker.walk(ast, {
+        enter: (node) => {
+            if (!node.trailingComments) {
+                return;
+            }
+            node.trailingComments = node.trailingComments.filter((comment) => {
+                return !rangesInLeadingComments.has(comment.range.join(','));
+            });
+        }
+    });
 }
