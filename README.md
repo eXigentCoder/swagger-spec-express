@@ -95,7 +95,7 @@ router.get('/one', function (req, res) {
 
 ## Adding the UI
 
-_todo_
+Simply follow the [instructions for the official Swagger UI project.](https://github.com/swagger-api/swagger-ui) or use your favourite, alternative Swagger UI theme.
 
 ## API
 
@@ -110,7 +110,7 @@ Can only be called once `initialise` has been called. Should only call this once
 
 -   Throws **[Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)** Will throw an error if `initialise` wasn't called or if you don't yet have any routes defined or if there are certain errors in your metadata
 
-Returns **void** 
+Returns **void**
 
 ### validate
 
@@ -141,7 +141,7 @@ Adds the .describe function onto the provided object. The object should either b
 
 -   `item` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** the item to apply
 
-Returns **void** 
+Returns **void**
 
 ### describe
 
@@ -175,7 +175,7 @@ Allows you describe an app our router route.
     -   `metaData.responses` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Response objects names can either be any valid HTTP status code or 'default'. (Generated)
 -   `metaData.common.parameters.path` **\[[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>]** A common path parameter as added by calling common.parameters.addPath (Generated)
 
-Returns **void** 
+Returns **void**
 
 ### initialise
 
@@ -307,13 +307,17 @@ swagger.initialise(app, options);
 -   Throws **[Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)** if no app object provided
 -   Throws **[Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)** if no options object provided
 
-Returns **void** 
+Returns **void**
 
 ## Reporting Bugs & Issues
 
-_todo_
+Log them on [GitHub](https://github.com/eXigentCoder/swagger-spec-express/issues)
 
-## Integrating to your tests
+## Contributing
+
+If you would like to help contribute to the library, fork it and submit a pull request.
+
+## Leveraging this module to validate the data returned from your integration tests
 
 _todo_
 
