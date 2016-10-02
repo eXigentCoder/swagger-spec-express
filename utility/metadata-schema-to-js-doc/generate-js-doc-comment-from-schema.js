@@ -61,7 +61,7 @@ function generateJsDocCommentForProperty(propertyName, property, requiredFields,
     var description = property.description || 'todo-description';
     if (!property.type) {
         if (Object.keys(property).length === 0) {
-            return;
+            return '';
         }
         if (property.allOf) {
             property = _.merge.apply(null, [{}].concat(property.allOf));
@@ -72,7 +72,10 @@ function generateJsDocCommentForProperty(propertyName, property, requiredFields,
     }
     var type = property.type;
     if (type === 'array') {
-        if (!property.items.type) {
+        if (!property.items) {
+            type = 'Array.';
+        }
+        else if (!property.items.type) {
             if (propertyName === 'parameters') {
                 type = ['object', 'string'];
             } else {
