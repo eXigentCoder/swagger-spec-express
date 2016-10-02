@@ -19,7 +19,7 @@ module.exports = function generateJsDocCommentFromSchema(paramName, schema, eol)
     } else {
         comment += addComment(description + 'todo (Generated)', eol);
     }
-    comment += generateJsDocCommentForProperties(schema.properties, paramName + '.', schema.required, eol);
+    comment += generateJsDocCommentForProperties(schema.properties, paramName + '.', schema.required, eol, 0);
     comment = ' ' + comment.trim();
     return comment;
 };
@@ -37,22 +37,38 @@ function addComment(message, eol, indentLevel) {
     }
     return prefix + message + eol;
 }
+const dontDigInto = ['header.items'];
 
-function generateJsDocCommentForProperties(properties, prefix, requiredFields, eol) {
+function generateJsDocCommentForProperties(properties, prefix, requiredFields, eol, loopCounter) {
+    loopCounter++;
+    if (loopCounter > 20) {
+        return new Error(util.format("Too many loops, probably a circular schema %s", prefix));
+    }
     let comment = '';
     prefix = prefix || '';
     requiredFields = requiredFields || [];
     Object.keys(properties).forEach(function (key) {
-        comment += generateJsDocCommentForProperty(key, properties[key], requiredFields, prefix, eol);
+        if (dontDigInto.indexOf(prefix + key) >= 0) {
+            return;
+        }
+        comment += generateJsDocCommentForProperty(key, properties[key], requiredFields, prefix, eol, loopCounter);
     });
     return comment;
 }
 
-function generateJsDocCommentForProperty(propertyName, property, requiredFields, prefix, eol) {
+function generateJsDocCommentForProperty(propertyName, property, requiredFields, prefix, eol, loopCounter) {
     let comment = '';
     var description = property.description || 'todo-description';
     if (!property.type) {
-        throw new Error(util.format("if (!property.type) todo : %j", property, propertyName, prefix));
+        if (Object.keys(property).length === 0) {
+            return;
+        }
+        if (property.allOf) {
+            property = _.merge.apply(null, [{}].concat(property.allOf));
+        }
+        if (!property.type) {
+            throw new Error(util.format("if (!property.type) todo : %j", property, propertyName, prefix));
+        }
     }
     var type = property.type;
     if (type === 'array') {
@@ -83,7 +99,7 @@ function generateJsDocCommentForProperty(propertyName, property, requiredFields,
     comment += addComment(util.format('@param {%s} %s - %s (Generated)', type, nameToPrint, description), eol);
     if (property.properties) {
         let newPrefix = name + '.';
-        comment += generateJsDocCommentForProperties(property.properties, newPrefix, property.required, eol);
+        comment += generateJsDocCommentForProperties(property.properties, newPrefix, property.required, eol, loopCounter);
     }
     return comment;
 }
