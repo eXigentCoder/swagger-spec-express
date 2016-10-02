@@ -103,18 +103,18 @@ Simply follow the [instructions for the official Swagger UI project.](https://gi
 
 ### compile
 
-[lib/index.js:41-48](https://github.com/eXigentCoder/swagger-spec-express/blob/abe8bd9796e02313af2b4d7cdb8cda3fd3d5b831/lib/index.js#L41-L48 "Source code on GitHub")
+[lib/index.js:41-48](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/index.js#L41-L48 "Source code on GitHub")
 
 Will gather together all your described app routes and compile them into a single document to be served up by your api when you call `json`.
 Can only be called once `initialise` has been called. Should only call this once you have completely finished describing your routes.
 
 -   Throws **[Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)** Will throw an error if `initialise` wasn't called or if you don't yet have any routes defined or if there are certain errors in your metadata
 
-Returns **void**
+Returns **void** 
 
 ### validate
 
-[lib/index.js:56-58](https://github.com/eXigentCoder/swagger-spec-express/blob/abe8bd9796e02313af2b4d7cdb8cda3fd3d5b831/lib/index.js#L56-L58 "Source code on GitHub")
+[lib/index.js:56-58](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/index.js#L56-L58 "Source code on GitHub")
 
 Will validate the internal json document created by calling `compile`.
 This is done using the [ajv](https://www.npmjs.com/package/ajv) validator against the [official JSON schema](https://www.npmjs.com/package/swagger-schema-official). \* @throws {Error} Throws an exception if called before `compile` or `initialise`.
@@ -123,7 +123,7 @@ Returns **{valid: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScr
 
 ### json
 
-[lib/index.js:67-71](https://github.com/eXigentCoder/swagger-spec-express/blob/abe8bd9796e02313af2b4d7cdb8cda3fd3d5b831/lib/index.js#L67-L71 "Source code on GitHub")
+[lib/index.js:67-71](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/index.js#L67-L71 "Source code on GitHub")
 
 Returns the swagger specification as a json object.
 
@@ -131,9 +131,274 @@ Returns the swagger specification as a json object.
 
 Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** The Swagger JSON object describing your api. See <http://swagger.io/specification/>.
 
+### addTag
+
+[lib/common.js:30-37](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/common.js#L30-L37 "Source code on GitHub")
+
+Adds a common tag for later use.
+
+**Parameters**
+
+-   `tag` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Allows adding meta data to a single tag that is used by the Operation Object. It is not mandatory to have a Tag Object per tag used there. (Generated)
+    -   `tag.name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Required. The name of the tag. (Generated)
+    -   `tag.description` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** A short description for the tag. GFM syntax can be used for rich text representation. (Generated)
+    -   `tag.externalDocs` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** information about external documentation (Generated)
+        -   `tag.externalDocs.description` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** A short description of the target documentation. GFM syntax can be used for rich text representation. (Generated)
+        -   `tag.externalDocs.url` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Required. The URL for the target documentation. Value MUST be in the format of a URL. (Generated)
+-   `options` **[AddCommonItemOptions](#addcommonitemoptions)** Options to apply when adding the provided item.
+
+Returns **void** 
+
+### addHeaderParameter
+
+[lib/common.js:61-69](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/common.js#L61-L69 "Source code on GitHub")
+
+Adds a common header for later use.
+
+**Parameters**
+
+-   `header` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** todo (Generated)
+    -   `header.format` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
+    -   `header.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
+    -   `header.maximum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `header.exclusiveMaximum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
+    -   `header.minimum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `header.exclusiveMinimum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
+    -   `header.maxLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `header.type` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** todo-description (Generated)
+    -   `header.pattern` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
+    -   `header.maxItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `header.minItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `header.uniqueItems` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
+    -   `header.multipleOf` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `header.description` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
+    -   `header.name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** todo-description (Generated)
+    -   `header.minLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+-   `options` **[AddCommonItemOptions](#addcommonitemoptions)** Options to apply when adding the provided item.
+
+Returns **void** 
+
+### addBodyParameter
+
+[lib/common.js:118-126](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/common.js#L118-L126 "Source code on GitHub")
+
+Adds a common body parameter for later use.
+
+**Parameters**
+
+-   `body` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** todo (Generated)
+    -   `body.name` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** The name of the parameter. (Generated)
+    -   `body.in` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the location of the parameter. (Generated)
+    -   `body.required` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** Determines whether or not this parameter is required or optional. (Generated)
+    -   `body.schema` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** A deterministic version of a JSON Schema object. (Generated)
+        -   `body.schema.$ref` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
+        -   `body.schema.format` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
+        -   `body.schema.title` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
+        -   `body.schema.description` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
+        -   `body.schema.multipleOf` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+        -   `body.schema.maximum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+        -   `body.schema.exclusiveMaximum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
+        -   `body.schema.minimum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+        -   `body.schema.exclusiveMinimum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
+        -   `body.schema.maxLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+        -   `body.schema.minLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+        -   `body.schema.pattern` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
+        -   `body.schema.maxItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+        -   `body.schema.minItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+        -   `body.schema.uniqueItems` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
+        -   `body.schema.minProperties` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+        -   `body.schema.required` **\[[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>]** todo-description (Generated)
+        -   `body.schema.additionalProperties` **\[([object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean))]** todo-description (Generated)
+        -   `body.schema.items` **\[([object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array))]** todo-description (Generated)
+        -   `body.schema.allOf` **\[[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)>]** todo-description (Generated)
+        -   `body.schema.properties` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** todo-description (Generated)
+        -   `body.schema.discriminator` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
+        -   `body.schema.readOnly` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
+        -   `body.schema.xml` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** todo-description (Generated)
+            -   `body.schema.xml.name` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
+            -   `body.schema.xml.namespace` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
+            -   `body.schema.xml.prefix` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
+            -   `body.schema.xml.attribute` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
+            -   `body.schema.xml.wrapped` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
+        -   `body.schema.externalDocs` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** information about external documentation (Generated)
+            -   `body.schema.externalDocs.description` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
+            -   `body.schema.externalDocs.url` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** todo-description (Generated)
+        -   `body.schema.maxProperties` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `body.description` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** A brief description of the parameter. This could contain examples of use.  GitHub Flavored Markdown is allowed. (Generated)
+    -   `body.model` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** The name of the model produced or consumed. (Generated)
+    -   `body.arrayOfModel` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** The name of the model produced or consumed as an array. (Generated)
+-   `options` **[AddCommonItemOptions](#addcommonitemoptions)** Options to apply when adding the provided item.
+
+Returns **void** 
+
+### addQueryParameter
+
+[lib/common.js:153-161](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/common.js#L153-L161 "Source code on GitHub")
+
+Adds a common query parameter for later use.
+
+**Parameters**
+
+-   `query` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** todo (Generated)
+    -   `query.in` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Determines the location of the parameter. (Generated)
+    -   `query.description` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** A brief description of the parameter. This could contain examples of use.  GitHub Flavored Markdown is allowed. (Generated)
+    -   `query.name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the parameter. (Generated)
+    -   `query.allowEmptyValue` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** allows sending a parameter by name only or with an empty value. (Generated)
+    -   `query.type` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** todo-description (Generated)
+    -   `query.format` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
+    -   `query.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
+    -   `query.maximum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `query.required` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** Determines whether or not this parameter is required or optional. (Generated)
+    -   `query.minimum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `query.exclusiveMinimum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
+    -   `query.maxLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `query.minLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `query.pattern` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
+    -   `query.maxItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `query.minItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `query.uniqueItems` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
+    -   `query.multipleOf` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `query.exclusiveMaximum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
+-   `options` **[AddCommonItemOptions](#addcommonitemoptions)** Options to apply when adding the provided item.
+
+Returns **void** 
+
+### addFormDataParameter
+
+[lib/common.js:188-196](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/common.js#L188-L196 "Source code on GitHub")
+
+Adds a common form data parameter for later use.
+
+**Parameters**
+
+-   `formData` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** todo (Generated)
+    -   `formData.in` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Determines the location of the parameter. (Generated)
+    -   `formData.description` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** A brief description of the parameter. This could contain examples of use.  GitHub Flavored Markdown is allowed. (Generated)
+    -   `formData.name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the parameter. (Generated)
+    -   `formData.allowEmptyValue` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** allows sending a parameter by name only or with an empty value. (Generated)
+    -   `formData.type` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** todo-description (Generated)
+    -   `formData.format` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
+    -   `formData.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
+    -   `formData.maximum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `formData.required` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** Determines whether or not this parameter is required or optional. (Generated)
+    -   `formData.minimum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `formData.exclusiveMinimum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
+    -   `formData.maxLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `formData.minLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `formData.pattern` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
+    -   `formData.maxItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `formData.minItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `formData.uniqueItems` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
+    -   `formData.multipleOf` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `formData.exclusiveMaximum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
+-   `options` **[AddCommonItemOptions](#addcommonitemoptions)** Options to apply when adding the provided item.
+
+Returns **void** 
+
+### addPathParameter
+
+[lib/common.js:222-230](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/common.js#L222-L230 "Source code on GitHub")
+
+Adds a common path parameter for later use.
+
+**Parameters**
+
+-   `path` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** todo (Generated)
+    -   `path.in` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Determines the location of the parameter. (Generated)
+    -   `path.description` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** A brief description of the parameter. This could contain examples of use.  GitHub Flavored Markdown is allowed. (Generated)
+    -   `path.name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the parameter. (Generated)
+    -   `path.type` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** todo-description (Generated)
+    -   `path.format` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
+    -   `path.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
+    -   `path.maximum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `path.exclusiveMaximum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
+    -   `path.required` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Determines whether or not this parameter is required or optional. (Generated)
+    -   `path.exclusiveMinimum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
+    -   `path.maxLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `path.minLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `path.pattern` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
+    -   `path.maxItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `path.minItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `path.uniqueItems` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
+    -   `path.multipleOf` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `path.minimum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+-   `options` **[AddCommonItemOptions](#addcommonitemoptions)** Options to apply when adding the provided item.
+
+Returns **void** 
+
+### addResponse
+
+[lib/common.js:244-251](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/common.js#L244-L251 "Source code on GitHub")
+
+Adds a common response for later use.
+
+**Parameters**
+
+-   `response` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** todo (Generated)
+    -   `response.description` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** todo-description (Generated)
+    -   `response.schema` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** todo-description (Generated)
+    -   `response.headers` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** todo-description (Generated)
+    -   `response.examples` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** todo-description (Generated)
+    -   `response.name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** todo-description (Generated)
+    -   `response.model` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** The name of the model produced or consumed. (Generated)
+    -   `response.arrayOfModel` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** The name of the model produced or consumed as an array. (Generated)
+-   `options` **[AddCommonItemOptions](#addcommonitemoptions)** Options to apply when adding the provided item.
+
+Returns **void** 
+
+### addResponseHeader
+
+[lib/common.js:275-283](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/common.js#L275-L283 "Source code on GitHub")
+
+Adds a common response header for later use.
+
+**Parameters**
+
+-   `responseHeader` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** todo (Generated)
+    -   `responseHeader.format` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
+    -   `responseHeader.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
+    -   `responseHeader.maximum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `responseHeader.exclusiveMaximum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
+    -   `responseHeader.minimum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `responseHeader.exclusiveMinimum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
+    -   `responseHeader.maxLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `responseHeader.type` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** todo-description (Generated)
+    -   `responseHeader.pattern` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
+    -   `responseHeader.maxItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `responseHeader.minItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `responseHeader.uniqueItems` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
+    -   `responseHeader.multipleOf` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `responseHeader.description` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
+    -   `responseHeader.name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** todo-description (Generated)
+    -   `responseHeader.minLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+-   `options` **[AddCommonItemOptions](#addcommonitemoptions)** Options to apply when adding the provided item.
+
+Returns **void** 
+
+### addModel
+
+[lib/common.js:289-317](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/common.js#L289-L317 "Source code on GitHub")
+
+Adds a common model for later use.
+
+**Parameters**
+
+-   `model` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** The model object to add.
+-   `inputOptions` **[AddCommonItemOptions](#addcommonitemoptions)** Options to apply when adding the provided item.
+
+Returns **void** 
+
+### AddCommonItemOptions
+
+[lib/common.js:399-403](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/common.js#L399-L403 "Source code on GitHub")
+
+**Properties**
+
+-   `validation` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Controls how validation works, can either be warn (Sends message to console.warn), throw (Throws an Error) or ignore.
+
 ### swaggerise
 
-[lib/swaggerise.js:9-45](https://github.com/eXigentCoder/swagger-spec-express/blob/abe8bd9796e02313af2b4d7cdb8cda3fd3d5b831/lib/swaggerise.js#L9-L45 "Source code on GitHub")
+[lib/swaggerise.js:9-45](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/swaggerise.js#L9-L45 "Source code on GitHub")
 
 Adds the .describe function onto the provided object. The object should either be an express app or express router.
 
@@ -141,11 +406,11 @@ Adds the .describe function onto the provided object. The object should either b
 
 -   `item` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** the item to apply
 
-Returns **void**
+Returns **void** 
 
 ### describe
 
-[lib/swaggerise.js:39-44](https://github.com/eXigentCoder/swagger-spec-express/blob/abe8bd9796e02313af2b4d7cdb8cda3fd3d5b831/lib/swaggerise.js#L39-L44 "Source code on GitHub")
+[lib/swaggerise.js:39-44](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/swaggerise.js#L39-L44 "Source code on GitHub")
 
 Allows you describe an app our router route.
 
@@ -175,11 +440,11 @@ Allows you describe an app our router route.
     -   `metaData.responses` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Response objects names can either be any valid HTTP status code or 'default'. (Generated)
 -   `metaData.common.parameters.path` **\[[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>]** A common path parameter as added by calling common.parameters.addPath (Generated)
 
-Returns **void**
+Returns **void** 
 
 ### initialise
 
-[lib/initialise.js:120-136](https://github.com/eXigentCoder/swagger-spec-express/blob/abe8bd9796e02313af2b4d7cdb8cda3fd3d5b831/lib/initialise.js#L120-L136 "Source code on GitHub")
+[lib/initialise.js:120-136](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/initialise.js#L120-L136 "Source code on GitHub")
 
 Will initialise your app with the required swaggers-spec information.
 In addition you can pass in some options which will be used when generating the swagger JSON document later on.
@@ -307,7 +572,7 @@ swagger.initialise(app, options);
 -   Throws **[Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)** if no app object provided
 -   Throws **[Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)** if no options object provided
 
-Returns **void**
+Returns **void** 
 
 ## Reporting Bugs & Issues
 
