@@ -147,7 +147,7 @@ function addGeneratedComment(options, callback) {
     var searchString = util.format('* @paramSchema %s %s', options.paramName, options.schemaPath);
     var pramNameRegExString = options.paramName + '\\..+';
     var paramNameWithOrWithoutBrackets = '((\\[' + pramNameRegExString + '\\])|(' + pramNameRegExString + '))';
-    var regEx = new RegExp('^\\s*\\*\\s@param\\s((\\{.*\\}\\s' + paramNameWithOrWithoutBrackets + ')|' + paramNameWithOrWithoutBrackets + ')\\s((\\s)|(.))*', 'i');
+    var regEx = new RegExp('^\\s*\\*\\s@param\\s((\\{.*\\}\\s' + paramNameWithOrWithoutBrackets + ')|' + paramNameWithOrWithoutBrackets + ')\\s((\\s)|(.))*\\(Generated\\)', 'i');
     _.remove(options.lines, function (line, index) {
         return regEx.test(line);
     });
