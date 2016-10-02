@@ -9,7 +9,8 @@
     ],
     "properties": {
         "name": {
-            "type": "string"
+            "type": "string",
+            "description": "The display name of the tag"
         },
         "description": {
             "type": "string"

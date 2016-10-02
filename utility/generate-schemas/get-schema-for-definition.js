@@ -23,6 +23,9 @@ module.exports = function getSchemaForDefinition(data, schemaRules, callback) {
     } else {
         _.merge(schemaToGenerate, data.baseSchema.definitions[definitionName]);
     }
+    if (schemaRules.extraSchemaInfo) {
+        _.merge(schemaToGenerate, schemaRules.extraSchemaInfo);
+    }
     if (!schemaToGenerate) {
         throw new Error("No definition found with the name " + definitionName);
     }

@@ -7,7 +7,7 @@ var schemasToGenerate = [
     {name: 'formDataParameterSubSchema', parent: 'nonBodyParameter'},
     {name: 'pathParameterSubSchema', parent: 'nonBodyParameter', functions: [markNameAsRequired]},
     {name: 'bodyParameter', functions: [addModels]},
-    {name: 'tag'},
+    {name: 'tag', extraSchemaInfo: require('./tag.json')},
     {name: 'schema', functions: [addNameProperty, markNameAsRequired]},
     {name: 'response', functions: [addNameProperty, markNameAsRequired, addModels]},
     {name: 'header', functions: [addNameProperty, markNameAsRequired]},

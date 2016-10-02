@@ -1,0 +1,7 @@
+{
+    "properties": {
+        "name": {
+            "description": "The display name of the tag"
+        }
+    }
+}
