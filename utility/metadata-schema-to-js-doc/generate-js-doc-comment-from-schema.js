@@ -6,15 +6,19 @@ var util = require('util');
 let indentation = ' * ';
 
 /** Generates a JsDoc comment based on the provided schema
+ * @param {string} paramName the name of the parameter that the schema applies to
  * @param {object} schema The json schema to use to generate the comment
  * @return {string} The generated comment
  */
-module.exports = function generateJsDocCommentFromSchema(schema) {
+module.exports = function generateJsDocCommentFromSchema(paramName, schema) {
     let comment = '';
+    let description = '@param {object} ' + paramName + ' ';
     if (schema.description) {
-        comment += addComment(schema.description, indentation);
+        comment += addComment(description + schema.description);
+    } else {
+        comment += addComment(description + 'todo');
     }
-    comment += generateJsDocCommentForProperties(schema.properties, null, schema.required);
+    comment += generateJsDocCommentForProperties(schema.properties, paramName + '.', schema.required);
     return comment;
 };
 

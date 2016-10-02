@@ -3,62 +3,43 @@ var fs = require('fs');
 var async = require('async');
 var _ = require('lodash');
 var $RefParser = require('json-schema-ref-parser');
-var generateComment = require('./generate-comment');
+var generateJsDocCommentFromSchema = require('./generate-js-doc-comment-from-schema');
 var os = require('os');
 var esprima = require('esprima');
 var escodegen = require('escodegen');
 var estreeWalker = require('estree-walker');
 var util = require("util");
+var loadedDerefedSchemas = {};
 
 /**
- * Takes a json schema file and injects the information as a jsdoc comment at the target
- * @param {object} options the options to use when injecting the schema
- * @param {object} options.schema The schema object to use to generate the comment string
- * @param {string} options.filePath The path to the file where the jsdoc comment should be injected
- * @param {string} [options.indentation] The indentation to use. Default : ' * '
- * @param {function} callback the callback to call when done.
+ * Takes a file path or an array of file paths and for each one will find and generate JsDoc comments based on a schema.
+ * @param {string|string[]} files The files to parse and generate JsDocs based on
+ * @param {function} callback The callback to call when done. Callback just has err param.
  * @return {void}
  */
-module.exports = function injectSchema(options, callback) {
+module.exports = function injectSchema(files, callback) {
+    if (_.isString(files)) {
+        files = [files];
+    }
+    async.each(files, injectSchemaForFile, callback);
+};
+
+function injectSchemaForFile(filePath, callback) {
     async.waterfall([
-        async.apply(validateOptions, options),
-        derefSchema,
-        loadFile,
+        async.apply(loadFile, filePath),
         parseFile,
-        generateComments,
+        getCommentsToGenerate,
         generateOutput,
         writeFile
     ], callback);
-};
-
-function validateOptions(options, callback) {
-    if (!_.isObject(options.schema)) {
-        return callback(new Error("Schema must be an object"));
-    }
-    if (!_.isString(options.filePath)) {
-        return callback(new Error("FilePath must be a string"));
-    }
-    options.filePath = options.filePath.trim();
-    if (_.isNil(options.filePath) || options.filePath === '') {
-        return callback(new Error("FilePath cannot be blank"));
-    }
-    callback(null, options);
 }
 
-function derefSchema(options, callback) {
-    $RefParser.dereference(options.schema, function (err, fullSchema) {
-        if (err) {
-            return callback(err);
-        }
-        options.schema = fullSchema;
-        delete options.schema.definitions;
-        return callback(null, options);
-    });
-}
-
-function loadFile(options, callback) {
-    fs.readFile(options.filePath, {encoding: 'utf8'}, function (err, content) {
-        options.fileContent = content;
+function loadFile(filePath, callback) {
+    fs.readFile(filePath, {encoding: 'utf8'}, function (err, content) {
+        let options = {
+            filePath: filePath,
+            fileContent: content
+        };
         callback(err, options);
     });
 }
@@ -74,24 +55,95 @@ function parseFile(options, callback) {
     return callback(null, options);
 }
 
-function generateComments(options, callback) {
+function getCommentsToGenerate(options, callback) {
+    options.commentsToGenerate = [];
     options.parsedFile.comments.forEach(function (comment) {
         if (comment.value.indexOf('@paramSchema') < 0) {
             return;
         }
-        var commentsToGenerate = {};
-        var lines = comment.split(os.EOL);
-        lines.forEach(function (line, index) {
+        var lines = comment.value.split(os.EOL);
+        lines.forEach(function (line) {
             if (line.indexOf('@paramSchema') < 0) {
                 return;
             }
-            var parts = line.trim().splint(' ');
+            var parts = line.trim().split(' ');
             if (parts.length !== 4) {
                 throw new Error(util.format("Invalid @paramSchema format, should have had 4 parts after splitting on spaces but was %s. Line : %s. Full comment block %s", parts.length, line, comment));
             }
+            options.commentsToGenerate.push({
+                comment: comment,
+                lines: lines,
+                paramName: parts[2],
+                schemaPath: parts[3]
+            });
         });
-        //comment.value = generateComment(options.schema);
     });
+    async.each(options.commentsToGenerate, generateCommentFromOptions, callback);
+}
+
+/**
+ * Generates a comment based on input options
+ * @param {object} options - Options to use to generate the comment.
+ * @param {object} options.comment - The AST comment object.
+ * @param {string} options.comment.type - The type of comment, string block etc.
+ * @param {string} options.comment.value - The string comment value.
+ * @param {string[]} options.line - The comment, split out into lines.
+ * @param {string} options.paramName - The name of the parameter.
+ * @param {string} options.schemaPath - The path to the schema file.
+ * @param {number} options.insertAfterIndex - The index (line number) within the comment object where the comment should be inserted
+ * @param {function} callback - A callback object with err param if something went wrong.
+ * @returns {void}
+ */
+function generateCommentFromOptions(options, callback) {
+    async.waterfall([
+        async.apply(loadSchema, options),
+        derefSchema,
+        generateComment,
+        addGeneratedComment
+    ], callback);
+}
+
+function loadSchema(options, callback) {
+    if (loadedDerefedSchemas[options.schemaPath]) {
+        options.schema = loadedDerefedSchemas[options.schemaPath];
+        return process.nextTick(function () {
+            callback(null, options);
+        });
+    }
+    fs.readFile(options.schemaPath, {encoding: 'utf8'}, function (err, content) {
+        if (err) {
+            return callback(err);
+        }
+        try {
+            options.schema = JSON.parse(content);
+        }
+        catch (parserError) {
+            return callback(parserError);
+        }
+        return callback(null, options);
+    });
+}
+
+function derefSchema(options, callback) {
+    $RefParser.dereference(options.schema, function (err, fullSchema) {
+        if (err) {
+            return callback(err);
+        }
+        options.schema = fullSchema;
+        delete options.schema.definitions;
+        loadedDerefedSchemas[options.schemaPath] = options.schema;
+        return callback(null, options);
+    });
+}
+
+function generateComment(options, callback) {
+    options.generatedComment = generateJsDocCommentFromSchema(options.paramName, options.schema);
+    return callback(null, options);
+}
+
+function addGeneratedComment(options, callback) {
+    var generatedLines = options.generatedComment.split(os.EOL);
+    //options.lines.splice(options.insertAfterIndex, 0)
     return callback(null, options);
 }
 
