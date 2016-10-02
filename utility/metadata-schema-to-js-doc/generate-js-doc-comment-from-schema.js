@@ -1,6 +1,5 @@
 'use strict';
 var os = require('os');
-var eol = os.EOL;
 var _ = require('lodash');
 var util = require('util');
 let indentation = ' * ';
@@ -8,21 +7,23 @@ let indentation = ' * ';
 /** Generates a JsDoc comment based on the provided schema
  * @param {string} paramName the name of the parameter that the schema applies to
  * @param {object} schema The json schema to use to generate the comment
+ * @param {string} eol The end of line string to use, defaults to os.EOL .
  * @return {string} The generated comment
  */
-module.exports = function generateJsDocCommentFromSchema(paramName, schema) {
+module.exports = function generateJsDocCommentFromSchema(paramName, schema, eol) {
     let comment = '';
+    eol = eol || os.EOL;
     let description = '@param {object} ' + paramName + ' ';
     if (schema.description) {
-        comment += addComment(description + schema.description);
+        comment += addComment(description + schema.description, eol);
     } else {
-        comment += addComment(description + 'todo');
+        comment += addComment(description + 'todo', eol);
     }
-    comment += generateJsDocCommentForProperties(schema.properties, paramName + '.', schema.required);
+    comment += generateJsDocCommentForProperties(schema.properties, paramName + '.', schema.required, eol);
     return comment;
 };
 
-function addComment(message, indentLevel) {
+function addComment(message, eol, indentLevel) {
     if (!message) {
         throw new Error("Message cannot be blank");
     }
@@ -36,17 +37,17 @@ function addComment(message, indentLevel) {
     return prefix + message + eol;
 }
 
-function generateJsDocCommentForProperties(properties, prefix, requiredFields) {
+function generateJsDocCommentForProperties(properties, prefix, requiredFields, eol) {
     let comment = '';
     prefix = prefix || '';
     requiredFields = requiredFields || [];
     Object.keys(properties).forEach(function (key) {
-        comment += generateJsDocCommentForProperty(key, properties[key], requiredFields, prefix);
+        comment += generateJsDocCommentForProperty(key, properties[key], requiredFields, prefix, eol);
     });
     return comment;
 }
 
-function generateJsDocCommentForProperty(propertyName, property, requiredFields, prefix) {
+function generateJsDocCommentForProperty(propertyName, property, requiredFields, prefix, eol) {
     let comment = '';
     var description = property.description || 'todo-description';
     if (!property.type) {
@@ -78,10 +79,10 @@ function generateJsDocCommentForProperty(propertyName, property, requiredFields,
     } else {
         nameToPrint = name;
     }
-    comment += addComment(util.format('@param {%s} %s - %s (Generated)', type, nameToPrint, description));
+    comment += addComment(util.format('@param {%s} %s - %s (Generated)', type, nameToPrint, description), eol);
     if (property.properties) {
         let newPrefix = name + '.';
-        comment += generateJsDocCommentForProperties(property.properties, newPrefix, property.required);
+        comment += generateJsDocCommentForProperties(property.properties, newPrefix, property.required, eol);
     }
     return comment;
 }

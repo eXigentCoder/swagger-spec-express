@@ -10,7 +10,7 @@ var escodegen = require('escodegen');
 var estreeWalker = require('estree-walker');
 var util = require("util");
 var loadedDerefedSchemas = {};
-
+//var eol = os.EOL;
 /**
  * Takes a file path or an array of file paths and for each one will find and generate JsDoc comments based on a schema.
  * @param {string|string[]} files The files to parse and generate JsDocs based on
@@ -25,8 +25,12 @@ module.exports = function injectSchema(files, callback) {
 };
 
 function injectSchemaForFile(filePath, callback) {
+    var options = {
+        filePath: filePath,
+        eol: '\n'
+    };
     async.waterfall([
-        async.apply(loadFile, filePath),
+        async.apply(loadFile, options),
         parseFile,
         getCommentsToGenerate,
         generateOutput,
@@ -34,12 +38,9 @@ function injectSchemaForFile(filePath, callback) {
     ], callback);
 }
 
-function loadFile(filePath, callback) {
-    fs.readFile(filePath, {encoding: 'utf8'}, function (err, content) {
-        let options = {
-            filePath: filePath,
-            fileContent: content
-        };
+function loadFile(options, callback) {
+    fs.readFile(options.filePath, {encoding: 'utf8'}, function (err, content) {
+        options.fileContent = content;
         callback(err, options);
     });
 }
@@ -61,6 +62,7 @@ function getCommentsToGenerate(options, callback) {
         if (comment.value.indexOf('@paramSchema') < 0) {
             return;
         }
+        //don't use options.eol, this is generated from the parser.
         var lines = comment.value.split(os.EOL);
         lines.forEach(function (line) {
             if (line.indexOf('@paramSchema') < 0) {
@@ -74,11 +76,14 @@ function getCommentsToGenerate(options, callback) {
                 comment: comment,
                 lines: lines,
                 paramName: parts[2],
-                schemaPath: parts[3]
+                schemaPath: parts[3],
+                eol: options.eol
             });
         });
     });
-    async.each(options.commentsToGenerate, generateCommentFromOptions, callback);
+    async.each(options.commentsToGenerate, generateCommentFromOptions, function (err) {
+        return callback(err, options);
+    });
 }
 
 /**
@@ -137,13 +142,12 @@ function derefSchema(options, callback) {
 }
 
 function generateComment(options, callback) {
-    options.generatedComment = generateJsDocCommentFromSchema(options.paramName, options.schema);
+    options.generatedComment = generateJsDocCommentFromSchema(options.paramName, options.schema, options.eol);
     return callback(null, options);
 }
 
 function addGeneratedComment(options, callback) {
-    var generatedLines = options.generatedComment.split(os.EOL);
-    var addingGenerated = false;
+    var generatedLines = options.generatedComment.split(options.eol);
     var searchString = util.format('* @paramSchema %s %s', options.paramName, options.schemaPath);
     var pramNameRegExString = options.paramName + '\\..+';
     var paramNameWithOrWithoutBrackets = '((\\[' + pramNameRegExString + '\\])|(' + pramNameRegExString + '))';
@@ -152,35 +156,31 @@ function addGeneratedComment(options, callback) {
         return regEx.test(line);
     });
     options.lines.forEach(function (line, index) {
-        if (addingGenerated) {
-            var res = regEx.test(line);
-            if (res) {
-
-            }
-        }
         if (line.indexOf(searchString) < 0) {
             return;
         }
-        addingGenerated = true;
         options.lines.splice.apply(options.lines, [index, 0].concat(generatedLines));
     });
-    //options.lines.splice(options.insertAfterIndex, 0)
+    options.comment.value = options.lines.join(options.eol);
     return callback(null, options);
 }
 
 function generateOutput(options, callback) {
     var generateOptions = {
         format: {
-            newline: os.EOL,
+            newline: options.eol, //doesn't seem like the escodegen lib honours this, so have a workaround
             indent: {
                 adjustMultilineComment: true
             },
             quotes: 'single'
         },
-        parse: esprima.parse,
         comment: true
     };
     options.fileOutput = escodegen.generate(options.parsedFile, generateOptions);
+    if (options.eol !== os.EOL) {
+        var regEx = new RegExp(options.eol, 'g');
+        options.fileOutput = options.fileOutput.replace(regEx, os.EOL);
+    }
     return callback(null, options);
 }
 
