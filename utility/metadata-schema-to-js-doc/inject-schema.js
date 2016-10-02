@@ -21,7 +21,8 @@ module.exports = function injectSchema(files, callback) {
     if (_.isString(files)) {
         files = [files];
     }
-    async.each(files, injectSchemaForFile, callback);
+    //use series to limit call stack size.
+    async.eachSeries(files, injectSchemaForFile, callback);
 };
 
 function injectSchemaForFile(filePath, callback) {
@@ -81,7 +82,7 @@ function getCommentsToGenerate(options, callback) {
             });
         });
     });
-    async.each(options.commentsToGenerate, generateCommentFromOptions, function (err) {
+    async.eachSeries(options.commentsToGenerate, generateCommentFromOptions, function (err) {
         return callback(err, options);
     });
 }
