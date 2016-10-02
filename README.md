@@ -103,7 +103,7 @@ _todo_
 
 ### compile
 
-[lib/index.js:41-48](https://github.com/eXigentCoder/swagger-spec-express/blob/21813ddef404814b3abe48ad6f782f562849dd49/lib/index.js#L41-L48 "Source code on GitHub")
+[lib/index.js:41-48](https://github.com/eXigentCoder/swagger-spec-express/blob/abe8bd9796e02313af2b4d7cdb8cda3fd3d5b831/lib/index.js#L41-L48 "Source code on GitHub")
 
 Will gather together all your described app routes and compile them into a single document to be served up by your api when you call `json`.
 Can only be called once `initialise` has been called. Should only call this once you have completely finished describing your routes.
@@ -114,7 +114,7 @@ Returns **void**
 
 ### validate
 
-[lib/index.js:56-58](https://github.com/eXigentCoder/swagger-spec-express/blob/21813ddef404814b3abe48ad6f782f562849dd49/lib/index.js#L56-L58 "Source code on GitHub")
+[lib/index.js:56-58](https://github.com/eXigentCoder/swagger-spec-express/blob/abe8bd9796e02313af2b4d7cdb8cda3fd3d5b831/lib/index.js#L56-L58 "Source code on GitHub")
 
 Will validate the internal json document created by calling `compile`.
 This is done using the [ajv](https://www.npmjs.com/package/ajv) validator against the [official JSON schema](https://www.npmjs.com/package/swagger-schema-official). \* @throws {Error} Throws an exception if called before `compile` or `initialise`.
@@ -123,7 +123,7 @@ Returns **{valid: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScr
 
 ### json
 
-[lib/index.js:67-71](https://github.com/eXigentCoder/swagger-spec-express/blob/21813ddef404814b3abe48ad6f782f562849dd49/lib/index.js#L67-L71 "Source code on GitHub")
+[lib/index.js:67-71](https://github.com/eXigentCoder/swagger-spec-express/blob/abe8bd9796e02313af2b4d7cdb8cda3fd3d5b831/lib/index.js#L67-L71 "Source code on GitHub")
 
 Returns the swagger specification as a json object.
 
@@ -133,7 +133,7 @@ Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 
 ### swaggerise
 
-[lib/swaggerise.js:10-23](https://github.com/eXigentCoder/swagger-spec-express/blob/21813ddef404814b3abe48ad6f782f562849dd49/lib/swaggerise.js#L10-L23 "Source code on GitHub")
+[lib/swaggerise.js:9-45](https://github.com/eXigentCoder/swagger-spec-express/blob/abe8bd9796e02313af2b4d7cdb8cda3fd3d5b831/lib/swaggerise.js#L9-L45 "Source code on GitHub")
 
 Adds the .describe function onto the provided object. The object should either be an express app or express router.
 
@@ -145,19 +145,41 @@ Returns **void**
 
 ### describe
 
-[lib/swaggerise.js:17-22](https://github.com/eXigentCoder/swagger-spec-express/blob/21813ddef404814b3abe48ad6f782f562849dd49/lib/swaggerise.js#L17-L22 "Source code on GitHub")
+[lib/swaggerise.js:39-44](https://github.com/eXigentCoder/swagger-spec-express/blob/abe8bd9796e02313af2b4d7cdb8cda3fd3d5b831/lib/swaggerise.js#L39-L44 "Source code on GitHub")
 
 Allows you describe an app our router route.
 
 **Parameters**
 
--   `metaData` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Provides the information about this route.
+-   `metaData` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Metadata about a route (Generated)
+    -   `metaData.summary` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** A brief summary of the operation. (Generated)
+    -   `metaData.description` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** A longer description of the operation, GitHub Flavored Markdown is allowed. (Generated)
+    -   `metaData.externalDocs` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** information about external documentation (Generated)
+        -   `metaData.externalDocs.description` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** A short description of the target documentation. GFM syntax can be used for rich text representation. (Generated)
+        -   `metaData.externalDocs.url` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Required. The URL for the target documentation. Value MUST be in the format of a URL. (Generated)
+    -   `metaData.operationId` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** A unique identifier of the operation. (Generated)
+    -   `metaData.produces` **\[[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>]** A list of MIME types the API can produce. (Generated)
+    -   `metaData.consumes` **\[[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>]** A list of MIME types the API can consume. (Generated)
+    -   `metaData.parameters` **\[([object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String))]** An object to hold parameters that can be used across operations. This property does not define global parameters for all operations. See [Parameter Definitions Object](http://swagger.io/specification/#parametersDefinitionsObject). (Generated)
+    -   `metaData.tags` **\[[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>]** A list of tags used by the specification with additional metadata. The order of the tags can be used to reflect on their order by the parsing tools. Not all tags that are used by the [Operation Object](swagger.io/specification/#operationObject) must be declared. The tags that are not declared may be organized randomly or based on the tools' logic. Each tag name in the list MUST be unique. See [Tag Object](http://swagger.io/specification/#tagObject). (Generated)
+    -   `metaData.schemes` **\[[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>]** The transfer protocol of the API. (Generated)
+    -   `metaData.deprecated` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** Declares this operation to be deprecated. Usage of the declared operation should be refrained. Default value is false. (Generated)
+    -   `metaData.security` **\[([array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) \| [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean) \| [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String))]** A declaration of which security schemes are applied for the API as a whole. The list of values describes alternative security schemes that can be used (that is, there is a logical OR between the security requirements). Individual operations can override this definition. See [Security Requirement Object](http://swagger.io/specification/#securityRequirementObject). (Generated)
+    -   `metaData.common` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** A collection of common data to include in this route. (Generated)
+        -   `metaData.common.responses` **\[[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>]** Common responses as added by calling common.addResponse (Generated)
+        -   `metaData.common.parameters` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** A collection of common parameters to use for this route. (Generated)
+            -   `metaData.common.parameters.header` **\[[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>]** A common header parameter as added by calling common.parameters.addHeader (Generated)
+            -   `metaData.common.parameters.body` **\[[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>]** A common body parameter as added by calling common.parameters.addBody (Generated)
+            -   `metaData.common.parameters.query` **\[[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>]** A common query string parameter as added by calling common.parameters.addQuery (Generated)
+            -   `metaData.common.parameters.formData` **\[[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>]** A common form data parameter as added by calling common.parameters.addFormData (Generated)
+    -   `metaData.responses` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Response objects names can either be any valid HTTP status code or 'default'. (Generated)
+-   `metaData.common.parameters.path` **\[[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>]** A common path parameter as added by calling common.parameters.addPath (Generated)
 
 Returns **void** 
 
 ### initialise
 
-[lib/initialise.js:120-136](https://github.com/eXigentCoder/swagger-spec-express/blob/21813ddef404814b3abe48ad6f782f562849dd49/lib/initialise.js#L120-L136 "Source code on GitHub")
+[lib/initialise.js:120-136](https://github.com/eXigentCoder/swagger-spec-express/blob/abe8bd9796e02313af2b4d7cdb8cda3fd3d5b831/lib/initialise.js#L120-L136 "Source code on GitHub")
 
 Will initialise your app with the required swaggers-spec information.
 In addition you can pass in some options which will be used when generating the swagger JSON document later on.
