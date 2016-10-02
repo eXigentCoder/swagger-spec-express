@@ -37,7 +37,7 @@ function addComment(message, eol, indentLevel) {
     }
     return prefix + message + eol;
 }
-const dontDigInto = ['header.items', 'path.items', 'query.items', 'formData.items'];
+const dontDigInto = ['header.items', 'path.items', 'query.items', 'formData.items', 'responseHeader.items'];
 
 function generateJsDocCommentForProperties(properties, prefix, requiredFields, eol, loopCounter) {
     loopCounter++;
