@@ -52,7 +52,7 @@ function generateJsDocCommentForProperty(propertyName, property, requiredFields,
     let comment = '';
     var description = property.description || 'todo-description';
     if (!property.type) {
-        throw new Error("todo");
+        throw new Error(util.format("if (!property.type) todo : %j", property, propertyName, prefix));
     }
     var type = property.type;
     if (type === 'array') {
