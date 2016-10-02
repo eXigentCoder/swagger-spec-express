@@ -161,11 +161,12 @@ function addGeneratedComment(options, callback) {
         }
         options.lines.splice.apply(options.lines, [index, 0].concat(generatedLines));
     });
-    options.comment.value = options.lines.join(options.eol);
+    options.comment.generatedComment = options.lines.join(options.eol);
     return callback(null, options);
 }
 
 function generateOutput(options, callback) {
+    replaceComments(options.parsedFile);
     var generateOptions = {
         format: {
             newline: options.eol, //doesn't seem like the escodegen lib honours this, so have a workaround
@@ -215,4 +216,25 @@ function removeDuplicateComments(ast) {
             });
         }
     });
+}
+
+function replaceComments(rootDocument) {
+    estreeWalker.walk(rootDocument, {
+        enter: visitNode
+    });
+
+    function visitNode(node) {
+        if (!node.value || node.type !== 'Block' || node.generatedComment) {
+            return;
+        }
+        rootDocument.comments.forEach(function (rootComment) {
+            if (rootComment.value !== node.value) {
+                return;
+            }
+            if (!rootComment.generatedComment) {
+                return;
+            }
+            node.value = rootComment.generatedComment;
+        });
+    }
 }
