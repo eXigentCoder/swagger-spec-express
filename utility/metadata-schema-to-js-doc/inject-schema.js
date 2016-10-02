@@ -14,8 +14,7 @@ var estreeWalker = require('estree-walker');
  * @param {object} options the options to use when injecting the schema
  * @param {object} options.schema The schema object to use to generate the comment string
  * @param {string} options.filePath The path to the file where the jsdoc comment should be injected
- * @param {string} options.target The line to search for in the file. The jsdoc comment will get added above this.
- * @param {string} options.indentation The indentation to use. Default : ' * '
+ * @param {string} [options.indentation] The indentation to use. Default : ' * '
  * @param {function} callback the callback to call when done.
  * @return {void}
  */
@@ -24,8 +23,9 @@ module.exports = function injectSchema(options, callback) {
         async.apply(validateOptions, options),
         derefSchema,
         loadFile,
-        findTarget,
-        generateComment,
+        parseFile,
+        generateComments,
+        generateOutput,
         writeFile
     ], callback);
 };
@@ -41,44 +41,9 @@ function validateOptions(options, callback) {
     if (_.isNil(options.filePath) || options.filePath === '') {
         return callback(new Error("FilePath cannot be blank"));
     }
-    if (!_.isString(options.target)) {
-        return callback(new Error("Target must be a string"));
-    }
-    options.target = options.target.trim();
-    if (_.isNil(options.target) || options.target === '') {
-        return callback(new Error("Target cannot be blank"));
-    }
     callback(null, options);
 }
 
-function loadFile(options, callback) {
-    fs.readFile(options.filePath, {encoding: 'utf8'}, function (err, content) {
-        options.fileContent = content;
-        callback(err, options);
-    });
-}
-function findTarget(options, callback) {
-    var parserOptions = {
-        sourceType: 'module',
-        comment: false,
-        attachComment: true
-    };
-    var parsed = esprima.parse(options.fileContent, parserOptions);
-    removeDuplicateComments(parsed);
-    var generateOptions = {
-        format: {
-            newline: os.EOL,
-            indent: {
-                adjustMultilineComment: true
-            },
-            quotes: 'single'
-        },
-        parse: esprima.parse,
-        comment: true
-    };
-    var newCode = escodegen.generate(parsed, generateOptions);
-    return callback(options);
-}
 function derefSchema(options, callback) {
     $RefParser.dereference(options.schema, function (err, fullSchema) {
         if (err) {
@@ -90,8 +55,50 @@ function derefSchema(options, callback) {
     });
 }
 
+function loadFile(options, callback) {
+    fs.readFile(options.filePath, {encoding: 'utf8'}, function (err, content) {
+        options.fileContent = content;
+        callback(err, options);
+    });
+}
+
+function parseFile(options, callback) {
+    var parserOptions = {
+        sourceType: 'module',
+        comment: false,
+        attachComment: true
+    };
+    options.parsedFile = esprima.parse(options.fileContent, parserOptions);
+    removeDuplicateComments(options.parsedFile);
+    return callback(null, options);
+}
+
+function generateComments(options, callback) {
+    // todo call generateComment where appropriate
+    return callback(null, options);
+}
+
+function generateOutput(options, callback) {
+    var generateOptions = {
+        format: {
+            newline: os.EOL,
+            indent: {
+                adjustMultilineComment: true
+            },
+            quotes: 'single'
+        },
+        parse: esprima.parse,
+        comment: true
+    };
+    options.fileOutput = escodegen.generate(options.parsedFile, generateOptions);
+    return callback(null, options);
+}
+
 function writeFile(options, callback) {
-    callback(null, options);
+    fs.writeFile(options.filePath, options.fileOutput, {encoding: 'utf8'}, function (err, content) {
+        options.fileContent = content;
+        callback(err, options);
+    });
 }
 
 //https://github.com/estools/escodegen/issues/239
