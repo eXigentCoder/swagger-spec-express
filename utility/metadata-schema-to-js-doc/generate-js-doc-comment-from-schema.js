@@ -15,11 +15,12 @@ module.exports = function generateJsDocCommentFromSchema(paramName, schema, eol)
     eol = eol || os.EOL;
     let description = '@param {object} ' + paramName + ' ';
     if (schema.description) {
-        comment += addComment(description + schema.description, eol);
+        comment += addComment(description + schema.description + ' (Generated)', eol);
     } else {
-        comment += addComment(description + 'todo', eol);
+        comment += addComment(description + 'todo (Generated)', eol);
     }
     comment += generateJsDocCommentForProperties(schema.properties, paramName + '.', schema.required, eol);
+    comment = ' ' + comment.trim();
     return comment;
 };
 

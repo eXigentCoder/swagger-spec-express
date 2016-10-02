@@ -149,7 +149,7 @@ function generateComment(options, callback) {
 function addGeneratedComment(options, callback) {
     var generatedLines = options.generatedComment.split(options.eol);
     var searchString = util.format('* @paramSchema %s %s', options.paramName, options.schemaPath);
-    var pramNameRegExString = options.paramName + '\\..+';
+    var pramNameRegExString = '((' + options.paramName + '\\..+)|(' + options.paramName + '))';
     var paramNameWithOrWithoutBrackets = '((\\[' + pramNameRegExString + '\\])|(' + pramNameRegExString + '))';
     var regEx = new RegExp('^\\s*\\*\\s@param\\s((\\{.*\\}\\s' + paramNameWithOrWithoutBrackets + ')|' + paramNameWithOrWithoutBrackets + ')\\s.*\\(Generated\\)', 'i');
     _.remove(options.lines, function (line) {
@@ -159,7 +159,17 @@ function addGeneratedComment(options, callback) {
         if (line.indexOf(searchString) < 0) {
             return;
         }
-        options.lines.splice.apply(options.lines, [index, 0].concat(generatedLines));
+        var indentLevel = line.search(/\S/) - 1;
+        if (indentLevel > 0) {
+            var indent = '';
+            for (let i = 0; i < indentLevel; i++) {
+                indent += ' ';
+            }
+            generatedLines = generatedLines.map(function (generatedLine) {
+                return indent + generatedLine;
+            });
+        }
+        options.lines.splice.apply(options.lines, [index + 1, 0].concat(generatedLines));
     });
     options.comment.generatedComment = options.lines.join(options.eol);
     return callback(null, options);
