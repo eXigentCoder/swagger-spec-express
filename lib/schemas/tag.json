@@ -10,10 +10,11 @@
     "properties": {
         "name": {
             "type": "string",
-            "description": "The display name of the tag"
+            "description": "Required. The name of the tag."
         },
         "description": {
-            "type": "string"
+            "type": "string",
+            "description": "A short description for the tag. GFM syntax can be used for rich text representation."
         },
         "externalDocs": {
             "$ref": "#/definitions/externalDocs"
@@ -34,11 +35,13 @@
             ],
             "properties": {
                 "description": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "A short description of the target documentation. GFM syntax can be used for rich text representation."
                 },
                 "url": {
                     "type": "string",
-                    "format": "uri"
+                    "format": "uri",
+                    "description": "Required. The URL for the target documentation. Value MUST be in the format of a URL."
                 }
             },
             "patternProperties": {
