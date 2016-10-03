@@ -26,6 +26,7 @@ module.exports = function injectSchema(files, callback) {
 };
 
 function injectSchemaForFile(filePath, callback) {
+    console.info('Processing file', filePath, '...');
     var options = {
         filePath: filePath,
         eol: '\n'
@@ -40,25 +41,35 @@ function injectSchemaForFile(filePath, callback) {
 }
 
 function loadFile(options, callback) {
+    console.info('\tLoading file ...');
     fs.readFile(options.filePath, {encoding: 'utf8'}, function (err, content) {
+        if (err) {
+            return callback(err);
+        }
+        console.info('\t\tDone.');
         options.fileContent = content;
-        callback(err, options);
+        callback(null, options);
     });
 }
 
 function parseFile(options, callback) {
+    console.info('\tParsing file ...');
     var parserOptions = {
         sourceType: 'module',
         comment: false,
         attachComment: true
     };
     options.parsedFile = esprima.parse(options.fileContent, parserOptions);
+    console.info('\t\tDone.');
+    console.info('\tRemoving duplicate comments ...');
     removeDuplicateComments(options.parsedFile);
+    console.info('\t\tDone.');
     return callback(null, options);
 }
 
 function getCommentsToGenerate(options, callback) {
     options.commentsToGenerate = [];
+    console.info('\tFinding comments to generate docs for ...');
     options.parsedFile.comments.forEach(function (comment) {
         if (comment.value.indexOf('@paramSchema') < 0) {
             return;
@@ -82,7 +93,10 @@ function getCommentsToGenerate(options, callback) {
             });
         });
     });
+    console.info('\t\tDone.');
+    console.info('\tGenerating comments ...');
     async.eachSeries(options.commentsToGenerate, generateCommentFromOptions, function (err) {
+        console.info('\tAll comments generated.');
         return callback(err, options);
     });
 }
@@ -101,40 +115,61 @@ function getCommentsToGenerate(options, callback) {
  * @returns {void}
  */
 function generateCommentFromOptions(options, callback) {
+    console.info('\t\tGenerating comments for', options.paramName, '...');
     async.waterfall([
         async.apply(loadSchema, options),
         derefSchema,
         generateComment,
         addGeneratedComment
-    ], callback);
+    ], function (err) {
+        if (err) {
+            return callback(err);
+        }
+        console.info('\t\t\tDone.');
+        return callback(null, options);
+    });
 }
 
 function loadSchema(options, callback) {
+    console.info('\t\t\tLoading schema ...');
     if (loadedDerefedSchemas[options.schemaPath]) {
+        console.info('\t\t\t\tSchema was in cache.');
         options.schema = loadedDerefedSchemas[options.schemaPath];
         return process.nextTick(function () {
             callback(null, options);
         });
     }
+    console.info('\t\t\t\tSchema not in cache, reading file ...');
     fs.readFile(options.schemaPath, {encoding: 'utf8'}, function (err, content) {
         if (err) {
             return callback(err);
         }
+        console.info('\t\t\t\t\tDone.');
+        console.info('\t\t\t\tparsing ...');
         try {
             options.schema = JSON.parse(content);
         }
         catch (parserError) {
             return callback(parserError);
         }
+        console.info('\t\t\t\t\tDone.');
         return callback(null, options);
     });
 }
 
 function derefSchema(options, callback) {
+    console.info('\t\t\tDerefing schema ...');
+    if (loadedDerefedSchemas[options.schemaPath]) {
+        console.info('\t\t\t\tSchema was in cache, skipping ...');
+        return process.nextTick(function () {
+            callback(null, options);
+        });
+    }
     $RefParser.dereference(options.schema, function (err, fullSchema) {
         if (err) {
             return callback(err);
         }
+        console.info('\t\t\t\tDone.');
         options.schema = fullSchema;
         delete options.schema.definitions;
         loadedDerefedSchemas[options.schemaPath] = options.schema;
@@ -143,11 +178,14 @@ function derefSchema(options, callback) {
 }
 
 function generateComment(options, callback) {
+    console.info('\t\t\tGenerating comment ...');
     options.generatedComment = generateJsDocCommentFromSchema(options.paramName, options.schema, options.eol);
+    console.info('\t\t\t\tDone.');
     return callback(null, options);
 }
 
 function addGeneratedComment(options, callback) {
+    console.info('\t\t\tAdding generated comment ...');
     var generatedLines = options.generatedComment.split(options.eol);
     var searchString = util.format('* @paramSchema %s %s', options.paramName, options.schemaPath);
     var pramNameRegExString = '((' + options.paramName + '\\..+)|(' + options.paramName + '))';
@@ -173,11 +211,15 @@ function addGeneratedComment(options, callback) {
         options.lines.splice.apply(options.lines, [index + 1, 0].concat(generatedLines));
     });
     options.comment.generatedComment = options.lines.join(options.eol);
+    console.info('\t\t\t\tDone.');
     return callback(null, options);
 }
 
 function generateOutput(options, callback) {
+    console.info('\t\tReplacing comments.');
     replaceComments(options.parsedFile);
+    console.info('\t\t\tDone.');
+    console.info('\t\tGenerating the output file.');
     var generateOptions = {
         format: {
             newline: options.eol, //doesn't seem like the escodegen lib honours this, so have a workaround
@@ -193,12 +235,18 @@ function generateOutput(options, callback) {
         var regEx = new RegExp(options.eol, 'g');
         options.fileOutput = options.fileOutput.replace(regEx, os.EOL);
     }
+    console.info('\t\t\tDone.');
     return callback(null, options);
 }
 
 function writeFile(options, callback) {
+    console.info('\t\tWriting file to disk.');
     fs.writeFile(options.filePath, options.fileOutput, {encoding: 'utf8'}, function (err) {
-        callback(err, options);
+        if (err) {
+            return callback(err);
+        }
+        console.info('\t\t\tDone.');
+        callback(null, options);
     });
 }
 
