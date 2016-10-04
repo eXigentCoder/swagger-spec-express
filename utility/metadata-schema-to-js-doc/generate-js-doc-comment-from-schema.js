@@ -37,7 +37,7 @@ function addComment(message, eol, indentLevel) {
     }
     return prefix + message + eol;
 }
-const dontDigInto = ['header.items', 'path.items', 'query.items', 'formData.items', 'responseHeader.items'];
+const dontDigInto = ['header.items', 'path.items', 'query.items', 'formData.items', 'responseHeader.items', 'body.schema'];
 
 function generateJsDocCommentForProperties(properties, prefix, requiredFields, eol, loopCounter) {
     loopCounter++;
@@ -48,9 +48,7 @@ function generateJsDocCommentForProperties(properties, prefix, requiredFields, e
     prefix = prefix || '';
     requiredFields = requiredFields || [];
     Object.keys(properties).forEach(function (key) {
-        if (dontDigInto.indexOf(prefix + key) >= 0) {
-            return;
-        }
+
         comment += generateJsDocCommentForProperty(key, properties[key], requiredFields, prefix, eol, loopCounter);
     });
     return comment;
@@ -60,7 +58,7 @@ function generateJsDocCommentForProperty(propertyName, property, requiredFields,
     let comment = '';
     var description = property.description || 'todo-description';
     if (!property.type) {
-        if (Object.keys(property).length === 0) {
+        if (Object.keys(property).length === 0 || propertyName === 'default') {
             return '';
         }
         if (property.allOf) {
@@ -113,8 +111,10 @@ function generateJsDocCommentForProperty(propertyName, property, requiredFields,
     }
     comment += addComment(util.format('@param {%s} %s - %s (Generated)', type, nameToPrint, description), eol);
     if (property.properties) {
-        let newPrefix = name + '.';
-        comment += generateJsDocCommentForProperties(property.properties, newPrefix, property.required, eol, loopCounter);
+        if (dontDigInto.indexOf(prefix + propertyName) < 0) {
+            let newPrefix = name + '.';
+            comment += generateJsDocCommentForProperties(property.properties, newPrefix, property.required, eol, loopCounter);
+        }
     }
     return comment;
 }
