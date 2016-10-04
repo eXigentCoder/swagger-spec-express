@@ -37,7 +37,7 @@ function addComment(message, eol, indentLevel) {
     }
     return prefix + message + eol;
 }
-const dontDigInto = ['header.items', 'path.items', 'query.items', 'formData.items', 'responseHeader.items', 'body.schema'];
+
 
 function generateJsDocCommentForProperties(properties, prefix, requiredFields, eol, loopCounter) {
     loopCounter++;
@@ -54,6 +54,7 @@ function generateJsDocCommentForProperties(properties, prefix, requiredFields, e
     return comment;
 }
 
+const dontDigInto = ['header.items', 'path.items', 'query.items', 'formData.items', 'responseHeader.items', 'body.schema'];
 function generateJsDocCommentForProperty(propertyName, property, requiredFields, prefix, eol, loopCounter) {
     let comment = '';
     var description = property.description || 'todo-description';

@@ -103,7 +103,7 @@ Simply follow the [instructions for the official Swagger UI project.](https://gi
 
 ### compile
 
-[lib/index.js:41-48](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/index.js#L41-L48 "Source code on GitHub")
+[lib/index.js:41-48](https://github.com/eXigentCoder/swagger-spec-express/blob/266acde15a439a34024bd14f35a7ae97326c350a/lib/index.js#L41-L48 "Source code on GitHub")
 
 Will gather together all your described app routes and compile them into a single document to be served up by your api when you call `json`.
 Can only be called once `initialise` has been called. Should only call this once you have completely finished describing your routes.
@@ -114,7 +114,7 @@ Returns **void**
 
 ### validate
 
-[lib/index.js:56-58](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/index.js#L56-L58 "Source code on GitHub")
+[lib/index.js:56-58](https://github.com/eXigentCoder/swagger-spec-express/blob/266acde15a439a34024bd14f35a7ae97326c350a/lib/index.js#L56-L58 "Source code on GitHub")
 
 Will validate the internal json document created by calling `compile`.
 This is done using the [ajv](https://www.npmjs.com/package/ajv) validator against the [official JSON schema](https://www.npmjs.com/package/swagger-schema-official). \* @throws {Error} Throws an exception if called before `compile` or `initialise`.
@@ -123,7 +123,7 @@ Returns **{valid: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScr
 
 ### json
 
-[lib/index.js:67-71](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/index.js#L67-L71 "Source code on GitHub")
+[lib/index.js:67-71](https://github.com/eXigentCoder/swagger-spec-express/blob/266acde15a439a34024bd14f35a7ae97326c350a/lib/index.js#L67-L71 "Source code on GitHub")
 
 Returns the swagger specification as a json object.
 
@@ -133,7 +133,7 @@ Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 
 ### addTag
 
-[lib/common.js:30-37](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/common.js#L30-L37 "Source code on GitHub")
+[lib/common.js:30-37](https://github.com/eXigentCoder/swagger-spec-express/blob/266acde15a439a34024bd14f35a7ae97326c350a/lib/common.js#L30-L37 "Source code on GitHub")
 
 Adds a common tag for later use.
 
@@ -151,80 +151,72 @@ Returns **void**
 
 ### addHeaderParameter
 
-[lib/common.js:61-69](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/common.js#L61-L69 "Source code on GitHub")
+[lib/common.js:106-114](https://github.com/eXigentCoder/swagger-spec-express/blob/266acde15a439a34024bd14f35a7ae97326c350a/lib/common.js#L106-L114 "Source code on GitHub")
 
 Adds a common header for later use.
 
 **Parameters**
 
 -   `header` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** todo (Generated)
-    -   `header.format` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
-    -   `header.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
-    -   `header.maximum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `header.exclusiveMaximum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
-    -   `header.minimum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `header.exclusiveMinimum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
-    -   `header.maxLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `header.type` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** todo-description (Generated)
-    -   `header.pattern` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
-    -   `header.maxItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `header.minItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `header.uniqueItems` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
-    -   `header.multipleOf` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `header.description` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
-    -   `header.name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** todo-description (Generated)
-    -   `header.minLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `header.format` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** The extending format for the previously mentioned [type](http://swagger.io/specification/#parameterType). See [Data Type Formats](http://swagger.io/specification/#dataTypeFormat) for further details. (Generated)
+    -   `header.items` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** Required if [type](http://swagger.io/specification/#parameterType) is `array`. Describes the type of items in the array. (Generated)
+    -   `header.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the format of the array if type array is used. Possible values are:-   csv comma separated values foo,bar.
+        -   ssv space separated values foo bar.
+        -   tsv tab separated values foo	bar.
+        -   pipes pipe separated values foo|bar.
+        -   multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.Default value is csv. (Generated)
+    -   `header.maximum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor17). (Generated)
+    -   `header.exclusiveMaximum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor17). (Generated)
+    -   `header.minimum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor21). (Generated)
+    -   `header.exclusiveMinimum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor21). (Generated)
+    -   `header.maxLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor26). (Generated)
+    -   `header.minLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor29). (Generated)
+    -   `header.type` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** **Required.** The type of the parameter. Since the parameter is not located at the request body, it is limited to simple types (that is, not an object). The value MUST be one of `string`, `number`, `integer`, `boolean`, `array` or `file`. If type is `file`, the [consumes](http://swagger.io/specification/#operationConsumes) MUST be either `multipart/form-data`, `application/x-www-form-urlencoded` or both and the parameter MUST be in `formData`. (Generated)
+    -   `header.maxItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor42). (Generated)
+    -   `header.minItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor45). (Generated)
+    -   `header.uniqueItems` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor49). (Generated)
+    -   `header.multipleOf` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor14). (Generated)
+    -   `header.description` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** A short description of the header. (Generated)
+    -   `header.name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name used to refer to this header at a later stage. (Generated)
+    -   `header.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the format of the array if type array is used. Possible values are:-   csv comma separated values foo,bar.
+        -   ssv space separated values foo bar.
+        -   tsv tab separated values foo	bar.
+        -   pipes pipe separated values foo|bar.
+        -   multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.Default value is csv. (Generated)
+    -   `header.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the format of the array if type array is used. Possible values are:-   csv comma separated values foo,bar.
+        -   ssv space separated values foo bar.
+        -   tsv tab separated values foo	bar.
+        -   pipes pipe separated values foo|bar.
+        -   multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.Default value is csv. (Generated)
+    -   `header.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the format of the array if type array is used. Possible values are:-   csv comma separated values foo,bar.
+        -   ssv space separated values foo bar.
+        -   tsv tab separated values foo	bar.
+        -   pipes pipe separated values foo|bar.
+        -   multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.Default value is csv. (Generated)
+    -   `header.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the format of the array if type array is used. Possible values are:-   csv comma separated values foo,bar.
+        -   ssv space separated values foo bar.
+        -   tsv tab separated values foo	bar.
+        -   pipes pipe separated values foo|bar.
+        -   multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.Default value is csv. (Generated)
+    -   `header.pattern` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor33). (Generated)
 -   `options` **[AddCommonItemOptions](#addcommonitemoptions)** Options to apply when adding the provided item.
 
 Returns **void** 
 
 ### addBodyParameter
 
-[lib/common.js:118-126](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/common.js#L118-L126 "Source code on GitHub")
+[lib/common.js:128-136](https://github.com/eXigentCoder/swagger-spec-express/blob/266acde15a439a34024bd14f35a7ae97326c350a/lib/common.js#L128-L136 "Source code on GitHub")
 
 Adds a common body parameter for later use.
 
 **Parameters**
 
--   `body` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** todo (Generated)
+-   `body` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** The payload that's appended to the HTTP request. Since there can only be one payload, there can only be one body parameter. The name of the body parameter has no effect on the parameter itself and is used for documentation purposes only. Since Form parameters are also in the payload, body and form parameters cannot exist together for the same operation. (Generated)
+    -   `body.description` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** A brief description of the parameter. This could contain examples of use.  GitHub Flavored Markdown is allowed. (Generated)
     -   `body.name` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** The name of the parameter. (Generated)
     -   `body.in` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the location of the parameter. (Generated)
     -   `body.required` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** Determines whether or not this parameter is required or optional. (Generated)
     -   `body.schema` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** A deterministic version of a JSON Schema object. (Generated)
-        -   `body.schema.$ref` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
-        -   `body.schema.format` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
-        -   `body.schema.title` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
-        -   `body.schema.description` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
-        -   `body.schema.multipleOf` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-        -   `body.schema.maximum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-        -   `body.schema.exclusiveMaximum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
-        -   `body.schema.minimum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-        -   `body.schema.exclusiveMinimum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
-        -   `body.schema.maxLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-        -   `body.schema.minLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-        -   `body.schema.pattern` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
-        -   `body.schema.maxItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-        -   `body.schema.minItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-        -   `body.schema.uniqueItems` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
-        -   `body.schema.minProperties` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-        -   `body.schema.required` **\[[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>]** todo-description (Generated)
-        -   `body.schema.additionalProperties` **\[([object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean))]** todo-description (Generated)
-        -   `body.schema.items` **\[([object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array))]** todo-description (Generated)
-        -   `body.schema.allOf` **\[[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)>]** todo-description (Generated)
-        -   `body.schema.properties` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** todo-description (Generated)
-        -   `body.schema.discriminator` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
-        -   `body.schema.readOnly` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
-        -   `body.schema.xml` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** todo-description (Generated)
-            -   `body.schema.xml.name` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
-            -   `body.schema.xml.namespace` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
-            -   `body.schema.xml.prefix` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
-            -   `body.schema.xml.attribute` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
-            -   `body.schema.xml.wrapped` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
-        -   `body.schema.externalDocs` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** information about external documentation (Generated)
-            -   `body.schema.externalDocs.description` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
-            -   `body.schema.externalDocs.url` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** todo-description (Generated)
-        -   `body.schema.maxProperties` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `body.description` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** A brief description of the parameter. This could contain examples of use.  GitHub Flavored Markdown is allowed. (Generated)
     -   `body.model` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** The name of the model produced or consumed. (Generated)
     -   `body.arrayOfModel` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** The name of the model produced or consumed as an array. (Generated)
 -   `options` **[AddCommonItemOptions](#addcommonitemoptions)** Options to apply when adding the provided item.
@@ -233,113 +225,197 @@ Returns **void**
 
 ### addQueryParameter
 
-[lib/common.js:153-161](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/common.js#L153-L161 "Source code on GitHub")
+[lib/common.js:208-216](https://github.com/eXigentCoder/swagger-spec-express/blob/266acde15a439a34024bd14f35a7ae97326c350a/lib/common.js#L208-L216 "Source code on GitHub")
 
 Adds a common query parameter for later use.
 
 **Parameters**
 
--   `query` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** todo (Generated)
+-   `query` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Parameters that are appended to the URL. For example, in `/items?id=###`, the query parameter is id (Generated)
     -   `query.in` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Determines the location of the parameter. (Generated)
     -   `query.description` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** A brief description of the parameter. This could contain examples of use.  GitHub Flavored Markdown is allowed. (Generated)
     -   `query.name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the parameter. (Generated)
     -   `query.allowEmptyValue` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** allows sending a parameter by name only or with an empty value. (Generated)
-    -   `query.type` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** todo-description (Generated)
-    -   `query.format` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
-    -   `query.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
-    -   `query.maximum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `query.type` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** **Required.** The type of the parameter. Since the parameter is not located at the request body, it is limited to simple types (that is, not an object). The value MUST be one of `string`, `number`, `integer`, `boolean`, `array` or `file`. If type is `file`, the [consumes](http://swagger.io/specification/#operationConsumes) MUST be either `multipart/form-data`, `application/x-www-form-urlencoded` or both and the parameter MUST be in `formData`. (Generated)
+    -   `query.format` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** The extending format for the previously mentioned [type](http://swagger.io/specification/#parameterType). See [Data Type Formats](http://swagger.io/specification/#dataTypeFormat) for further details. (Generated)
+    -   `query.items` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** Required if [type](http://swagger.io/specification/#parameterType) is `array`. Describes the type of items in the array. (Generated)
+    -   `query.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the format of the array if type array is used. Possible values are:-   csv comma separated values foo,bar.
+        -   ssv space separated values foo bar.
+        -   tsv tab separated values foo	bar.
+        -   pipes pipe separated values foo|bar.
+        -   multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.Default value is csv. (Generated)
+    -   `query.maximum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor17). (Generated)
+    -   `query.exclusiveMaximum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor17). (Generated)
+    -   `query.minimum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor21). (Generated)
     -   `query.required` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** Determines whether or not this parameter is required or optional. (Generated)
-    -   `query.minimum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `query.exclusiveMinimum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
-    -   `query.maxLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `query.minLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `query.pattern` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
-    -   `query.maxItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `query.minItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `query.uniqueItems` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
-    -   `query.multipleOf` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `query.exclusiveMaximum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
+    -   `query.maxLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor26). (Generated)
+    -   `query.minLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor29). (Generated)
+    -   `query.pattern` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor33). (Generated)
+    -   `query.maxItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor42). (Generated)
+    -   `query.minItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor45). (Generated)
+    -   `query.uniqueItems` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor49). (Generated)
+    -   `query.multipleOf` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor14). (Generated)
+    -   `query.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the format of the array if type array is used. Possible values are:-   csv comma separated values foo,bar.
+        -   ssv space separated values foo bar.
+        -   tsv tab separated values foo	bar.
+        -   pipes pipe separated values foo|bar.
+        -   multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.Default value is csv. (Generated)
+    -   `query.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the format of the array if type array is used. Possible values are:-   csv comma separated values foo,bar.
+        -   ssv space separated values foo bar.
+        -   tsv tab separated values foo	bar.
+        -   pipes pipe separated values foo|bar.
+        -   multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.Default value is csv. (Generated)
+    -   `query.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the format of the array if type array is used. Possible values are:-   csv comma separated values foo,bar.
+        -   ssv space separated values foo bar.
+        -   tsv tab separated values foo	bar.
+        -   pipes pipe separated values foo|bar.
+        -   multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.Default value is csv. (Generated)
+    -   `query.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the format of the array if type array is used. Possible values are:-   csv comma separated values foo,bar.
+        -   ssv space separated values foo bar.
+        -   tsv tab separated values foo	bar.
+        -   pipes pipe separated values foo|bar.
+        -   multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.Default value is csv. (Generated)
+    -   `query.exclusiveMinimum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor21). (Generated)
 -   `options` **[AddCommonItemOptions](#addcommonitemoptions)** Options to apply when adding the provided item.
 
 Returns **void** 
 
 ### addFormDataParameter
 
-[lib/common.js:188-196](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/common.js#L188-L196 "Source code on GitHub")
+[lib/common.js:302-310](https://github.com/eXigentCoder/swagger-spec-express/blob/266acde15a439a34024bd14f35a7ae97326c350a/lib/common.js#L302-L310 "Source code on GitHub")
 
 Adds a common form data parameter for later use.
 
 **Parameters**
 
--   `formData` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** todo (Generated)
-    -   `formData.in` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Determines the location of the parameter. (Generated)
-    -   `formData.description` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** A brief description of the parameter. This could contain examples of use.  GitHub Flavored Markdown is allowed. (Generated)
-    -   `formData.name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the parameter. (Generated)
+-   `formData` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Used to describe the payload of an HTTP request when either application/x-www-form-urlencoded, multipart/form-data or both are used as the content type of the request (in Swagger's definition, the consumes property of an operation). This is the only parameter type that can be used to send files, thus supporting the file type. Since form parameters are sent in the payload, they cannot be declared together with a body parameter for the same operation. Form parameters have a different format based on the content-type used (for further details, consult <http://www.w3.org/TR/html401/interact/forms.html#h-17.13.4>):-   application/x-www-form-urlencoded Similar to the format of Query parameters but as a payload. For example, foo=1&bar=swagger both foo and bar are form parameters. This is normally used for simple parameters that are being transferred.
+    -   multipart/form-data each parameter takes a section in the payload with an internal header. For example, for the header Content-Disposition: form-data; name="submit-name" the name of the parameter is submit-name. This type of form parameters is more commonly used for file transfers. (Generated)
+-   `formData` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Used to describe the payload of an HTTP request when either application/x-www-form-urlencoded, multipart/form-data or both are used as the content type of the request (in Swagger's definition, the consumes property of an operation). This is the only parameter type that can be used to send files, thus supporting the file type. Since form parameters are sent in the payload, they cannot be declared together with a body parameter for the same operation. Form parameters have a different format based on the content-type used (for further details, consult <http://www.w3.org/TR/html401/interact/forms.html#h-17.13.4>):-   application/x-www-form-urlencoded Similar to the format of Query parameters but as a payload. For example, foo=1&bar=swagger both foo and bar are form parameters. This is normally used for simple parameters that are being transferred.
+    -   multipart/form-data each parameter takes a section in the payload with an internal header. For example, for the header Content-Disposition: form-data; name="submit-name" the name of the parameter is submit-name. This type of form parameters is more commonly used for file transfers. (Generated)
+-   `formData` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Used to describe the payload of an HTTP request when either application/x-www-form-urlencoded, multipart/form-data or both are used as the content type of the request (in Swagger's definition, the consumes property of an operation). This is the only parameter type that can be used to send files, thus supporting the file type. Since form parameters are sent in the payload, they cannot be declared together with a body parameter for the same operation. Form parameters have a different format based on the content-type used (for further details, consult <http://www.w3.org/TR/html401/interact/forms.html#h-17.13.4>):-   application/x-www-form-urlencoded Similar to the format of Query parameters but as a payload. For example, foo=1&bar=swagger both foo and bar are form parameters. This is normally used for simple parameters that are being transferred.
+    -   multipart/form-data each parameter takes a section in the payload with an internal header. For example, for the header Content-Disposition: form-data; name="submit-name" the name of the parameter is submit-name. This type of form parameters is more commonly used for file transfers. (Generated)
+-   `formData` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Used to describe the payload of an HTTP request when either application/x-www-form-urlencoded, multipart/form-data or both are used as the content type of the request (in Swagger's definition, the consumes property of an operation). This is the only parameter type that can be used to send files, thus supporting the file type. Since form parameters are sent in the payload, they cannot be declared together with a body parameter for the same operation. Form parameters have a different format based on the content-type used (for further details, consult <http://www.w3.org/TR/html401/interact/forms.html#h-17.13.4>):-   application/x-www-form-urlencoded Similar to the format of Query parameters but as a payload. For example, foo=1&bar=swagger both foo and bar are form parameters. This is normally used for simple parameters that are being transferred.
+    -   multipart/form-data each parameter takes a section in the payload with an internal header. For example, for the header Content-Disposition: form-data; name="submit-name" the name of the parameter is submit-name. This type of form parameters is more commonly used for file transfers. (Generated)
+-   `formData` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Used to describe the payload of an HTTP request when either application/x-www-form-urlencoded, multipart/form-data or both are used as the content type of the request (in Swagger's definition, the consumes property of an operation). This is the only parameter type that can be used to send files, thus supporting the file type. Since form parameters are sent in the payload, they cannot be declared together with a body parameter for the same operation. Form parameters have a different format based on the content-type used (for further details, consult <http://www.w3.org/TR/html401/interact/forms.html#h-17.13.4>):-   application/x-www-form-urlencoded Similar to the format of Query parameters but as a payload. For example, foo=1&bar=swagger both foo and bar are form parameters. This is normally used for simple parameters that are being transferred.
+    -   multipart/form-data each parameter takes a section in the payload with an internal header. For example, for the header Content-Disposition: form-data; name="submit-name" the name of the parameter is submit-name. This type of form parameters is more commonly used for file transfers. (Generated)
     -   `formData.allowEmptyValue` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** allows sending a parameter by name only or with an empty value. (Generated)
-    -   `formData.type` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** todo-description (Generated)
-    -   `formData.format` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
-    -   `formData.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
-    -   `formData.maximum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `formData.type` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** **Required.** The type of the parameter. Since the parameter is not located at the request body, it is limited to simple types (that is, not an object). The value MUST be one of `string`, `number`, `integer`, `boolean`, `array` or `file`. If type is `file`, the [consumes](http://swagger.io/specification/#operationConsumes) MUST be either `multipart/form-data`, `application/x-www-form-urlencoded` or both and the parameter MUST be in `formData`. (Generated)
+    -   `formData.format` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** The extending format for the previously mentioned [type](http://swagger.io/specification/#parameterType). See [Data Type Formats](http://swagger.io/specification/#dataTypeFormat) for further details. (Generated)
+    -   `formData.items` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** Required if [type](http://swagger.io/specification/#parameterType) is `array`. Describes the type of items in the array. (Generated)
+    -   `formData.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the format of the array if type array is used. Possible values are:-   csv comma separated values foo,bar.
+        -   ssv space separated values foo bar.
+        -   tsv tab separated values foo	bar.
+        -   pipes pipe separated values foo|bar.
+        -   multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.Default value is csv. (Generated)
+    -   `formData.maximum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor17). (Generated)
+    -   `formData.exclusiveMaximum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor17). (Generated)
+    -   `formData.minimum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor21). (Generated)
+    -   `formData.exclusiveMinimum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor21). (Generated)
+    -   `formData.maxLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor26). (Generated)
     -   `formData.required` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** Determines whether or not this parameter is required or optional. (Generated)
-    -   `formData.minimum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `formData.exclusiveMinimum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
-    -   `formData.maxLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `formData.minLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `formData.pattern` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
-    -   `formData.maxItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `formData.minItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `formData.uniqueItems` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
-    -   `formData.multipleOf` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `formData.exclusiveMaximum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
+    -   `formData.pattern` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor33). (Generated)
+    -   `formData.maxItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor42). (Generated)
+    -   `formData.minItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor45). (Generated)
+    -   `formData.uniqueItems` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor49). (Generated)
+    -   `formData.multipleOf` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor14). (Generated)
+    -   `formData.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the format of the array if type array is used. Possible values are:-   csv comma separated values foo,bar.
+        -   ssv space separated values foo bar.
+        -   tsv tab separated values foo	bar.
+        -   pipes pipe separated values foo|bar.
+        -   multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.Default value is csv. (Generated)
+    -   `formData.in` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Determines the location of the parameter. (Generated)
+    -   `formData.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the format of the array if type array is used. Possible values are:-   csv comma separated values foo,bar.
+        -   ssv space separated values foo bar.
+        -   tsv tab separated values foo	bar.
+        -   pipes pipe separated values foo|bar.
+        -   multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.Default value is csv. (Generated)
+    -   `formData.description` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** A brief description of the parameter. This could contain examples of use.  GitHub Flavored Markdown is allowed. (Generated)
+    -   `formData.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the format of the array if type array is used. Possible values are:-   csv comma separated values foo,bar.
+        -   ssv space separated values foo bar.
+        -   tsv tab separated values foo	bar.
+        -   pipes pipe separated values foo|bar.
+        -   multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.Default value is csv. (Generated)
+    -   `formData.name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the parameter. (Generated)
+    -   `formData.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the format of the array if type array is used. Possible values are:-   csv comma separated values foo,bar.
+        -   ssv space separated values foo bar.
+        -   tsv tab separated values foo	bar.
+        -   pipes pipe separated values foo|bar.
+        -   multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.Default value is csv. (Generated)
+    -   `formData.minLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor29). (Generated)
 -   `options` **[AddCommonItemOptions](#addcommonitemoptions)** Options to apply when adding the provided item.
 
 Returns **void** 
 
 ### addPathParameter
 
-[lib/common.js:222-230](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/common.js#L222-L230 "Source code on GitHub")
+[lib/common.js:381-389](https://github.com/eXigentCoder/swagger-spec-express/blob/266acde15a439a34024bd14f35a7ae97326c350a/lib/common.js#L381-L389 "Source code on GitHub")
 
 Adds a common path parameter for later use.
 
 **Parameters**
 
--   `path` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** todo (Generated)
+-   `path` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Used together with [Path Templating](http://swagger.io/specification/#pathTemplating), where the parameter value is actually part of the operation's URL. This does not include the host or base path of the API. For example, in `/items/{itemId}`, the path parameter is itemId. (Generated)
     -   `path.in` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Determines the location of the parameter. (Generated)
     -   `path.description` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** A brief description of the parameter. This could contain examples of use.  GitHub Flavored Markdown is allowed. (Generated)
     -   `path.name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the parameter. (Generated)
-    -   `path.type` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** todo-description (Generated)
-    -   `path.format` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
-    -   `path.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
-    -   `path.maximum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `path.exclusiveMaximum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
+    -   `path.type` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** **Required.** The type of the parameter. Since the parameter is not located at the request body, it is limited to simple types (that is, not an object). The value MUST be one of `string`, `number`, `integer`, `boolean`, `array` or `file`. If type is `file`, the [consumes](http://swagger.io/specification/#operationConsumes) MUST be either `multipart/form-data`, `application/x-www-form-urlencoded` or both and the parameter MUST be in `formData`. (Generated)
+    -   `path.format` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** The extending format for the previously mentioned [type](http://swagger.io/specification/#parameterType). See [Data Type Formats](http://swagger.io/specification/#dataTypeFormat) for further details. (Generated)
+    -   `path.items` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** Required if [type](http://swagger.io/specification/#parameterType) is `array`. Describes the type of items in the array. (Generated)
+    -   `path.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the format of the array if type array is used. Possible values are:-   csv comma separated values foo,bar.
+        -   ssv space separated values foo bar.
+        -   tsv tab separated values foo	bar.
+        -   pipes pipe separated values foo|bar.
+        -   multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.Default value is csv. (Generated)
+    -   `path.maximum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor17). (Generated)
+    -   `path.exclusiveMaximum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor17). (Generated)
+    -   `path.minimum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor21). (Generated)
     -   `path.required` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Determines whether or not this parameter is required or optional. (Generated)
-    -   `path.exclusiveMinimum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
-    -   `path.maxLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `path.minLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `path.pattern` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
-    -   `path.maxItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `path.minItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `path.uniqueItems` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
-    -   `path.multipleOf` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `path.minimum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `path.maxLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor26). (Generated)
+    -   `path.minLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor29). (Generated)
+    -   `path.pattern` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor33). (Generated)
+    -   `path.maxItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor42). (Generated)
+    -   `path.minItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor45). (Generated)
+    -   `path.uniqueItems` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor49). (Generated)
+    -   `path.multipleOf` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor14). (Generated)
+    -   `path.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the format of the array if type array is used. Possible values are:-   csv comma separated values foo,bar.
+        -   ssv space separated values foo bar.
+        -   tsv tab separated values foo	bar.
+        -   pipes pipe separated values foo|bar.
+        -   multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.Default value is csv. (Generated)
+    -   `path.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the format of the array if type array is used. Possible values are:-   csv comma separated values foo,bar.
+        -   ssv space separated values foo bar.
+        -   tsv tab separated values foo	bar.
+        -   pipes pipe separated values foo|bar.
+        -   multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.Default value is csv. (Generated)
+    -   `path.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the format of the array if type array is used. Possible values are:-   csv comma separated values foo,bar.
+        -   ssv space separated values foo bar.
+        -   tsv tab separated values foo	bar.
+        -   pipes pipe separated values foo|bar.
+        -   multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.Default value is csv. (Generated)
+    -   `path.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the format of the array if type array is used. Possible values are:-   csv comma separated values foo,bar.
+        -   ssv space separated values foo bar.
+        -   tsv tab separated values foo	bar.
+        -   pipes pipe separated values foo|bar.
+        -   multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.Default value is csv. (Generated)
+    -   `path.exclusiveMinimum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor21). (Generated)
 -   `options` **[AddCommonItemOptions](#addcommonitemoptions)** Options to apply when adding the provided item.
 
 Returns **void** 
 
 ### addResponse
 
-[lib/common.js:244-251](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/common.js#L244-L251 "Source code on GitHub")
+[lib/common.js:403-410](https://github.com/eXigentCoder/swagger-spec-express/blob/266acde15a439a34024bd14f35a7ae97326c350a/lib/common.js#L403-L410 "Source code on GitHub")
 
 Adds a common response for later use.
 
 **Parameters**
 
--   `response` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** todo (Generated)
-    -   `response.description` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** todo-description (Generated)
-    -   `response.schema` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** todo-description (Generated)
-    -   `response.headers` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** todo-description (Generated)
-    -   `response.examples` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** todo-description (Generated)
-    -   `response.name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** todo-description (Generated)
+-   `response` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Describes a single response from an API Operation. (Generated)
+    -   `response.description` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** **Required.** A short description of the response. [GFM syntax](https://help.github.com/articles/github-flavored-markdown) can be used for rich text representation. (Generated)
+    -   `response.schema` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** A definition of the response structure. It can be a primitive, an array or an object. If this field does not exist, it means no content is returned as part of the response. As an extension to the [Schema Object](http://swagger.io/specification/#schemaObject), its root type value may also be `file`. This SHOULD be accompanied by a relevant produces mime-type. (Generated)
+    -   `response.headers` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** A list of headers that are sent with the response. See <http://swagger.io/specification/#headersObject> (Generated)
+    -   `response.examples` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** An example of the response message. See <http://swagger.io/specification/#exampleObject> (Generated)
+    -   `response.name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name or http status code used to refer to this response at a later stage. (Generated)
     -   `response.model` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** The name of the model produced or consumed. (Generated)
     -   `response.arrayOfModel` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** The name of the model produced or consumed as an array. (Generated)
 -   `options` **[AddCommonItemOptions](#addcommonitemoptions)** Options to apply when adding the provided item.
@@ -348,36 +424,61 @@ Returns **void**
 
 ### addResponseHeader
 
-[lib/common.js:275-283](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/common.js#L275-L283 "Source code on GitHub")
+[lib/common.js:479-487](https://github.com/eXigentCoder/swagger-spec-express/blob/266acde15a439a34024bd14f35a7ae97326c350a/lib/common.js#L479-L487 "Source code on GitHub")
 
 Adds a common response header for later use.
 
 **Parameters**
 
 -   `responseHeader` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** todo (Generated)
-    -   `responseHeader.format` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
-    -   `responseHeader.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
-    -   `responseHeader.maximum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `responseHeader.exclusiveMaximum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
-    -   `responseHeader.minimum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `responseHeader.exclusiveMinimum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
-    -   `responseHeader.maxLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `responseHeader.type` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** todo-description (Generated)
-    -   `responseHeader.pattern` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
-    -   `responseHeader.maxItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `responseHeader.minItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `responseHeader.uniqueItems` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** todo-description (Generated)
-    -   `responseHeader.multipleOf` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
-    -   `responseHeader.description` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** todo-description (Generated)
-    -   `responseHeader.name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** todo-description (Generated)
-    -   `responseHeader.minLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** todo-description (Generated)
+    -   `responseHeader.format` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** The extending format for the previously mentioned [type](http://swagger.io/specification/#parameterType). See [Data Type Formats](http://swagger.io/specification/#dataTypeFormat) for further details. (Generated)
+    -   `responseHeader.items` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** Required if [type](http://swagger.io/specification/#parameterType) is `array`. Describes the type of items in the array. (Generated)
+    -   `responseHeader.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the format of the array if type array is used. Possible values are:-   csv comma separated values foo,bar.
+        -   ssv space separated values foo bar.
+        -   tsv tab separated values foo	bar.
+        -   pipes pipe separated values foo|bar.
+        -   multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.Default value is csv. (Generated)
+    -   `responseHeader.maximum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor17). (Generated)
+    -   `responseHeader.exclusiveMaximum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor17). (Generated)
+    -   `responseHeader.minimum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor21). (Generated)
+    -   `responseHeader.exclusiveMinimum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor21). (Generated)
+    -   `responseHeader.maxLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor26). (Generated)
+    -   `responseHeader.minLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor29). (Generated)
+    -   `responseHeader.type` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** **Required.** The type of the parameter. Since the parameter is not located at the request body, it is limited to simple types (that is, not an object). The value MUST be one of `string`, `number`, `integer`, `boolean`, `array` or `file`. If type is `file`, the [consumes](http://swagger.io/specification/#operationConsumes) MUST be either `multipart/form-data`, `application/x-www-form-urlencoded` or both and the parameter MUST be in `formData`. (Generated)
+    -   `responseHeader.maxItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor42). (Generated)
+    -   `responseHeader.minItems` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor45). (Generated)
+    -   `responseHeader.uniqueItems` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor49). (Generated)
+    -   `responseHeader.multipleOf` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor14). (Generated)
+    -   `responseHeader.description` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** A short description of the header. (Generated)
+    -   `responseHeader.name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name used to refer to this header at a later stage. (Generated)
+    -   `responseHeader.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the format of the array if type array is used. Possible values are:-   csv comma separated values foo,bar.
+        -   ssv space separated values foo bar.
+        -   tsv tab separated values foo	bar.
+        -   pipes pipe separated values foo|bar.
+        -   multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.Default value is csv. (Generated)
+    -   `responseHeader.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the format of the array if type array is used. Possible values are:-   csv comma separated values foo,bar.
+        -   ssv space separated values foo bar.
+        -   tsv tab separated values foo	bar.
+        -   pipes pipe separated values foo|bar.
+        -   multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.Default value is csv. (Generated)
+    -   `responseHeader.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the format of the array if type array is used. Possible values are:-   csv comma separated values foo,bar.
+        -   ssv space separated values foo bar.
+        -   tsv tab separated values foo	bar.
+        -   pipes pipe separated values foo|bar.
+        -   multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.Default value is csv. (Generated)
+    -   `responseHeader.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the format of the array if type array is used. Possible values are:-   csv comma separated values foo,bar.
+        -   ssv space separated values foo bar.
+        -   tsv tab separated values foo	bar.
+        -   pipes pipe separated values foo|bar.
+        -   multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.Default value is csv. (Generated)
+    -   `responseHeader.pattern` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor33). (Generated)
 -   `options` **[AddCommonItemOptions](#addcommonitemoptions)** Options to apply when adding the provided item.
 
 Returns **void** 
 
 ### addModel
 
-[lib/common.js:289-317](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/common.js#L289-L317 "Source code on GitHub")
+[lib/common.js:493-521](https://github.com/eXigentCoder/swagger-spec-express/blob/266acde15a439a34024bd14f35a7ae97326c350a/lib/common.js#L493-L521 "Source code on GitHub")
 
 Adds a common model for later use.
 
@@ -390,7 +491,7 @@ Returns **void**
 
 ### AddCommonItemOptions
 
-[lib/common.js:399-403](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/common.js#L399-L403 "Source code on GitHub")
+[lib/common.js:603-607](https://github.com/eXigentCoder/swagger-spec-express/blob/266acde15a439a34024bd14f35a7ae97326c350a/lib/common.js#L603-L607 "Source code on GitHub")
 
 **Properties**
 
@@ -398,7 +499,7 @@ Returns **void**
 
 ### swaggerise
 
-[lib/swaggerise.js:9-45](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/swaggerise.js#L9-L45 "Source code on GitHub")
+[lib/swaggerise.js:9-45](https://github.com/eXigentCoder/swagger-spec-express/blob/266acde15a439a34024bd14f35a7ae97326c350a/lib/swaggerise.js#L9-L45 "Source code on GitHub")
 
 Adds the .describe function onto the provided object. The object should either be an express app or express router.
 
@@ -410,7 +511,7 @@ Returns **void**
 
 ### describe
 
-[lib/swaggerise.js:39-44](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/swaggerise.js#L39-L44 "Source code on GitHub")
+[lib/swaggerise.js:39-44](https://github.com/eXigentCoder/swagger-spec-express/blob/266acde15a439a34024bd14f35a7ae97326c350a/lib/swaggerise.js#L39-L44 "Source code on GitHub")
 
 Allows you describe an app our router route.
 
@@ -444,7 +545,7 @@ Returns **void**
 
 ### initialise
 
-[lib/initialise.js:120-136](https://github.com/eXigentCoder/swagger-spec-express/blob/b3484e03c5828bea4778437407fa623eebc9e0c5/lib/initialise.js#L120-L136 "Source code on GitHub")
+[lib/initialise.js:120-136](https://github.com/eXigentCoder/swagger-spec-express/blob/266acde15a439a34024bd14f35a7ae97326c350a/lib/initialise.js#L120-L136 "Source code on GitHub")
 
 Will initialise your app with the required swaggers-spec information.
 In addition you can pass in some options which will be used when generating the swagger JSON document later on.
