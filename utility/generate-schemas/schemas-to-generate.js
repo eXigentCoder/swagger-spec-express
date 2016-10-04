@@ -8,10 +8,10 @@ var schemasToGenerate = [
     {name: 'pathParameterSubSchema', parent: 'nonBodyParameter', functions: [markNameAsRequired], extraSchemaInfo: require('./schemas/path-parameter-sub-schema.json')},
     {name: 'bodyParameter', functions: [addModels], extraSchemaInfo: require('./schemas/body-parameter.json')},
     {name: 'tag', extraSchemaInfo: require('./schemas/tag.json')},
-    {name: 'schema', functions: [addNameProperty, markNameAsRequired], extraSchemaInfo: require('./schemas/schema.json')},
+    {name: 'schema', functions: [addNameProperty, markNameAsRequired]},
     {name: 'response', functions: [addNameProperty, markNameAsRequired, addModels], extraSchemaInfo: require('./schemas/response.json')},
     {name: 'header', functions: [addNameProperty, markNameAsRequired], extraSchemaInfo: require('./schemas/header.json')},
-    {name: 'operation', extraSchemaInfo: require('./schemas/operation.json')}
+    {name: 'operation'}
 ];
 
 module.exports = {
