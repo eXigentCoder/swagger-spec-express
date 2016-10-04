@@ -1,0 +1,23 @@
+{
+    "description": "Allows adding meta data to a single tag that is used by the Operation Object. It is not mandatory to have a Tag Object per tag used there.",
+    "properties": {
+        "name": {
+            "description": "Required. The name of the tag."
+        },
+        "description": {
+            "description": "A short description for the tag. GFM syntax can be used for rich text representation."
+        }
+    },
+    "definitions": {
+        "externalDocs": {
+            "properties": {
+                "description": {
+                    "description": "A short description of the target documentation. GFM syntax can be used for rich text representation."
+                },
+                "url": {
+                    "description": "Required. The URL for the target documentation. Value MUST be in the format of a URL."
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,56 @@
+{
+    "description": "Custom headers that are expected as part of the request.",
+    "properties":{
+        "type": {
+            "description": "**Required.** The type of the parameter. Since the parameter is not located at the request body, it is limited to simple types (that is, not an object). The value MUST be one of `string`, `number`, `integer`, `boolean`, `array` or `file`. If type is `file`, the [consumes](http://swagger.io/specification/#operationConsumes) MUST be either `multipart/form-data`, `application/x-www-form-urlencoded` or both and the parameter MUST be in `formData`."
+        },
+        "format": {
+            "description": "The extending format for the previously mentioned [type](http://swagger.io/specification/#parameterType). See [Data Type Formats](http://swagger.io/specification/#dataTypeFormat) for further details."
+        },
+        "items": {
+            "description": "Required if [type](http://swagger.io/specification/#parameterType) is `array`. Describes the type of items in the array."
+        },
+        "collectionFormat": {
+            "description": "Determines the format of the array if type array is used. Possible values are:\r\n\r\n- csv comma separated values foo,bar.\r\n- ssv space separated values foo bar.\r\n- tsv tab separated values foo\tbar.\r\n- pipes pipe separated values foo|bar.\r\n- multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.\r\n\r\nDefault value is csv."
+        },
+        "default": {
+            "description": "Declares the value of the parameter that the server will use if none is provided, for example a `count` to control the number of results per page might default to 100 if not supplied by the client in the request. (Note: `default` has no meaning for required parameters.) See [http://json-schema.org/latest/json-schema-validation.html#anchor101](http://json-schema.org/latest/json-schema-validation.html#anchor101). Unlike JSON Schema this value MUST conform to the defined type for this parameter."
+        },
+        "maximum": {
+            "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor17)."
+        },
+        "exclusiveMaximum": {
+            "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor17)."
+        },
+        "minimum": {
+            "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor21)."
+        },
+        "exclusiveMinimum": {
+            "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor21)."
+        },
+        "maxLength": {
+            "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor26)."
+        },
+        "minLength": {
+            "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor29)."
+        },
+        "pattern": {
+            "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor33)."
+        },
+        "maxItems": {
+            "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor42)."
+        },
+        "minItems": {
+            "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor45)."
+        },
+        "uniqueItems": {
+            "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor49)."
+        },
+        "enum": {
+            "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor76)."
+        },
+        "multipleOf": {
+            "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor14)."
+        }
+    }
+}

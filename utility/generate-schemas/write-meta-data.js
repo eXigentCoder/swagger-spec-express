@@ -2,15 +2,15 @@
 var fs = require('fs');
 var schemas = require('./schemas-to-generate');
 var _ = require('lodash');
-var schemaIds = require('../lib/schema-ids');
+var schemaIds = require('../../lib/schema-ids');
 
 module.exports = function writeMetaDataFile(data, callback) {
-    var operationSchema = require('../lib/schemas/operation.json');
+    var operationSchema = require('../../lib/schemas/operation.json');
     Object.keys(operationSchema.definitions).forEach(function (definitionName) {
         if (schemas.schemaNames.indexOf(definitionName) < 0) {
             return;
         }
-        var customisedSchema = _.cloneDeep(require('../lib/schemas/' + _.kebabCase(definitionName).toLowerCase() + '.json'));
+        var customisedSchema = _.cloneDeep(require('../../lib/schemas/' + _.kebabCase(definitionName).toLowerCase() + '.json'));
         delete customisedSchema.definitions;
         delete customisedSchema.$schema;
         delete customisedSchema.id;
@@ -27,8 +27,9 @@ module.exports = function writeMetaDataFile(data, callback) {
         }
         operationSchema.definitions[definitionName] = customisedSchema;
     });
-    var operationExtraDataSchema = require('../lib/schemas/operation-extra-data.json');
+    var operationExtraDataSchema = require('./schemas/operation-extra-data.json');
     var schema = _.merge({}, operationSchema, operationExtraDataSchema);
+    schema.title = "Metadata";
     var fileName = 'meta-data.json';
     schema.id = schemaIds.prefix + fileName;
     fs.writeFile('./lib/schemas/' + fileName, JSON.stringify(schema, null, 4), null, function (err) {
