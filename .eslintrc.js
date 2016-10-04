@@ -47,7 +47,7 @@ module.exports = {
         "no-unreachable": ["error"],// disallow unreachable code after return, throw, continue, and break statements
         "no-unsafe-finally": ["error"],// disallow control flow statements in finally blocks
         "use-isnan": ["error"],// require calls to isNaN() when checking for NaN
-        "valid-jsdoc": ["error"],// enforce valid JSDoc comments
+        "valid-jsdoc": ["warn"],// enforce valid JSDoc comments
         "valid-typeof": ["error"],// enforce comparing typeof expressions against valid strings
 
         /*--====[ Best Practices ]====--*/
@@ -165,7 +165,7 @@ module.exports = {
         "jsx-quotes": ["off"],// enforce the consistent use of either double or single quotes in JSX attributes
         "key-spacing": ["off"],// enforce consistent spacing between keys and values in object literal properties
         "keyword-spacing": ["off"],// enforce consistent spacing before and after keywords
-        "linebreak-style": ["warn", "windows"],// enforce consistent linebreak style
+        "linebreak-style": ["off", "windows"],// enforce consistent linebreak style
         "lines-around-comment": ["off"],// require empty lines around comments
         "max-depth": ["off"],// enforce a maximum depth that blocks can be nested
         "max-len": ["off"],// enforce a maximum line length
