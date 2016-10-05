@@ -12,8 +12,8 @@ A library that allows you to programmatically annotate your existing express api
 
 There are already a few libraries out there to add Swagger documentation to your [express](https://expressjs.com/) api, like [swagger-node-express](https://www.npmjs.com/package/swagger-node-express) and [swagger-node](https://github.com/swagger-api/swagger-node) which work really well, however they require you to either start from scratch or change your routes to work with their format. This libary is different and can easily be added to an existing and established express api using the normal patterns you are used to.
 
-\##Installation
-Requires Express 4.x
+##Installation
+**Requires Express 4.x**
 
 Install the package:
 
@@ -252,7 +252,7 @@ swagger.initialise(app, options);
 -   Throws **[Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)** if no app object provided
 -   Throws **[Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)** if no options object provided
 
-Returns **void** 
+Returns **void**
 
 ### swaggerise
 
@@ -275,7 +275,7 @@ var router = new express.Router();
 swagger.swaggerize(router);
 ```
 
-Returns **void** 
+Returns **void**
 
 ### describe
 
@@ -323,7 +323,7 @@ router.get('/', function (req, res) {
 });
 ```
 
-Returns **void** 
+Returns **void**
 
 ### compile
 
@@ -349,7 +349,7 @@ swagger.compile();
 
 -   Throws **[Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)** Will throw an error if `initialise` wasn't called or if you don't yet have any routes defined or if there are certain errors in your metadata
 
-Returns **void** 
+Returns **void**
 
 ### validate
 
@@ -447,7 +447,7 @@ router.get('/', function (req, res) {
 });
 ```
 
-Returns **void** 
+Returns **void**
 
 ### addHeaderParameter
 
@@ -507,7 +507,7 @@ router.get('/', function (req, res) {
 });
 ```
 
-Returns **void** 
+Returns **void**
 
 ### addBodyParameter
 
@@ -625,7 +625,7 @@ router.get('/', function (req, res) {
 });
 ```
 
-Returns **void** 
+Returns **void**
 
 ### addFormDataParameter
 
@@ -689,7 +689,7 @@ router.get('/', function (req, res) {
 });
 ```
 
-Returns **void** 
+Returns **void**
 
 ### addPathParameter
 
@@ -751,7 +751,7 @@ router.get('/:entityId', function (req, res) {
 });
 ```
 
-Returns **void** 
+Returns **void**
 
 ### addResponse
 
@@ -796,7 +796,7 @@ router.get('/', function (req, res) {
 });
 ```
 
-Returns **void** 
+Returns **void**
 
 ### addResponseHeader
 
@@ -854,7 +854,7 @@ router.get('/', function (req, res) {
 });
 ```
 
-Returns **void** 
+Returns **void**
 
 ### addModel
 
@@ -895,9 +895,9 @@ router.get('/', function (req, res) {
 });
 ```
 
-Returns **void** 
+Returns **void**
 
-### 
+###
 
 [lib/common.js:609-613](https://github.com/eXigentCoder/swagger-spec-express/blob/ca94f03a7013b3303b4b12f53439fdd2e81a3572/lib/common.js#L609-L613 "Source code on GitHub")
 
