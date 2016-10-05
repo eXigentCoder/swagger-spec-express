@@ -103,7 +103,7 @@ Simply follow the [instructions for the official Swagger UI project.](https://gi
 
 ### initialise
 
-[lib/initialise.js:120-136](https://github.com/eXigentCoder/swagger-spec-express/blob/0ff4a88a0f60d1314d6d18eb8ceece9d0c266bee/lib/initialise.js#L120-L136 "Source code on GitHub")
+[lib/initialise.js:120-136](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/initialise.js#L120-L136 "Source code on GitHub")
 
 Will initialise your app with the required swaggers-spec information.
 In addition you can pass in some options which will be used when generating the swagger JSON document later on.
@@ -235,7 +235,7 @@ Returns **void**
 
 ### swaggerise
 
-[lib/swaggerise.js:9-48](https://github.com/eXigentCoder/swagger-spec-express/blob/0ff4a88a0f60d1314d6d18eb8ceece9d0c266bee/lib/swaggerise.js#L9-L48 "Source code on GitHub")
+[lib/swaggerise.js:9-58](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/swaggerise.js#L9-L58 "Source code on GitHub")
 
 Adds the .describe function onto the provided object. The object should either be an express app or express router.
 
@@ -247,7 +247,7 @@ Returns **void**
 
 ### describe
 
-[lib/swaggerise.js:42-47](https://github.com/eXigentCoder/swagger-spec-express/blob/0ff4a88a0f60d1314d6d18eb8ceece9d0c266bee/lib/swaggerise.js#L42-L47 "Source code on GitHub")
+[lib/swaggerise.js:52-57](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/swaggerise.js#L52-L57 "Source code on GitHub")
 
 Allows you describe an app our router route.
 
@@ -277,11 +277,25 @@ Allows you describe an app our router route.
     -   `metaData.responses` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Response objects names can either be any valid HTTP status code or 'default'.
 -   `metaData.common.parameters.path` **\[[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>]** A common path parameter as added by calling common.parameters.addPath
 
+**Examples**
+
+```javascript
+var swagger = require('swagger-spec-express');
+var express = require('express');
+var router = new express.Router();
+swagger.swaggerize(router);
+router.get('/', function (req, res) {
+    //...
+}).describe({
+    //...
+});
+```
+
 Returns **void** 
 
 ### compile
 
-[lib/index.js:41-48](https://github.com/eXigentCoder/swagger-spec-express/blob/0ff4a88a0f60d1314d6d18eb8ceece9d0c266bee/lib/index.js#L41-L48 "Source code on GitHub")
+[lib/index.js:41-48](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/index.js#L41-L48 "Source code on GitHub")
 
 Will gather together all your described app routes and compile them into a single document to be served up by your api when you call `json`.
 Can only be called once `initialise` has been called. Should only call this once you have completely finished describing your routes.
@@ -292,7 +306,7 @@ Returns **void**
 
 ### validate
 
-[lib/index.js:56-58](https://github.com/eXigentCoder/swagger-spec-express/blob/0ff4a88a0f60d1314d6d18eb8ceece9d0c266bee/lib/index.js#L56-L58 "Source code on GitHub")
+[lib/index.js:56-58](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/index.js#L56-L58 "Source code on GitHub")
 
 Will validate the internal json document created by calling `compile`.
 This is done using the [ajv](https://www.npmjs.com/package/ajv) validator against the [official JSON schema](https://www.npmjs.com/package/swagger-schema-official). \* @throws {Error} Throws an exception if called before `compile` or `initialise`.
@@ -301,7 +315,7 @@ Returns **{valid: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScr
 
 ### json
 
-[lib/index.js:67-71](https://github.com/eXigentCoder/swagger-spec-express/blob/0ff4a88a0f60d1314d6d18eb8ceece9d0c266bee/lib/index.js#L67-L71 "Source code on GitHub")
+[lib/index.js:67-71](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/index.js#L67-L71 "Source code on GitHub")
 
 Returns the swagger specification as a json object.
 
@@ -311,7 +325,7 @@ Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 
 ### addTag
 
-[lib/common.js:30-37](https://github.com/eXigentCoder/swagger-spec-express/blob/0ff4a88a0f60d1314d6d18eb8ceece9d0c266bee/lib/common.js#L30-L37 "Source code on GitHub")
+[lib/common.js:30-37](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/common.js#L30-L37 "Source code on GitHub")
 
 Adds a common tag for later use.
 
@@ -329,7 +343,7 @@ Returns **void**
 
 ### addHeaderParameter
 
-[lib/common.js:70-78](https://github.com/eXigentCoder/swagger-spec-express/blob/0ff4a88a0f60d1314d6d18eb8ceece9d0c266bee/lib/common.js#L70-L78 "Source code on GitHub")
+[lib/common.js:70-78](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/common.js#L70-L78 "Source code on GitHub")
 
 Adds a common header for later use.
 
@@ -363,7 +377,7 @@ Returns **void**
 
 ### addBodyParameter
 
-[lib/common.js:92-100](https://github.com/eXigentCoder/swagger-spec-express/blob/0ff4a88a0f60d1314d6d18eb8ceece9d0c266bee/lib/common.js#L92-L100 "Source code on GitHub")
+[lib/common.js:92-100](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/common.js#L92-L100 "Source code on GitHub")
 
 Adds a common body parameter for later use.
 
@@ -383,7 +397,7 @@ Returns **void**
 
 ### addQueryParameter
 
-[lib/common.js:136-144](https://github.com/eXigentCoder/swagger-spec-express/blob/0ff4a88a0f60d1314d6d18eb8ceece9d0c266bee/lib/common.js#L136-L144 "Source code on GitHub")
+[lib/common.js:136-144](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/common.js#L136-L144 "Source code on GitHub")
 
 Adds a common query parameter for later use.
 
@@ -420,7 +434,7 @@ Returns **void**
 
 ### addFormDataParameter
 
-[lib/common.js:182-190](https://github.com/eXigentCoder/swagger-spec-express/blob/0ff4a88a0f60d1314d6d18eb8ceece9d0c266bee/lib/common.js#L182-L190 "Source code on GitHub")
+[lib/common.js:182-190](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/common.js#L182-L190 "Source code on GitHub")
 
 Adds a common form data parameter for later use.
 
@@ -458,7 +472,7 @@ Returns **void**
 
 ### addPathParameter
 
-[lib/common.js:225-233](https://github.com/eXigentCoder/swagger-spec-express/blob/0ff4a88a0f60d1314d6d18eb8ceece9d0c266bee/lib/common.js#L225-L233 "Source code on GitHub")
+[lib/common.js:225-233](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/common.js#L225-L233 "Source code on GitHub")
 
 Adds a common path parameter for later use.
 
@@ -494,7 +508,7 @@ Returns **void**
 
 ### addResponse
 
-[lib/common.js:247-254](https://github.com/eXigentCoder/swagger-spec-express/blob/0ff4a88a0f60d1314d6d18eb8ceece9d0c266bee/lib/common.js#L247-L254 "Source code on GitHub")
+[lib/common.js:247-254](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/common.js#L247-L254 "Source code on GitHub")
 
 Adds a common response for later use.
 
@@ -514,7 +528,7 @@ Returns **void**
 
 ### addResponseHeader
 
-[lib/common.js:287-295](https://github.com/eXigentCoder/swagger-spec-express/blob/0ff4a88a0f60d1314d6d18eb8ceece9d0c266bee/lib/common.js#L287-L295 "Source code on GitHub")
+[lib/common.js:287-295](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/common.js#L287-L295 "Source code on GitHub")
 
 Adds a common response header for later use.
 
@@ -548,7 +562,7 @@ Returns **void**
 
 ### addModel
 
-[lib/common.js:301-329](https://github.com/eXigentCoder/swagger-spec-express/blob/0ff4a88a0f60d1314d6d18eb8ceece9d0c266bee/lib/common.js#L301-L329 "Source code on GitHub")
+[lib/common.js:301-329](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/common.js#L301-L329 "Source code on GitHub")
 
 Adds a common model for later use.
 
@@ -561,7 +575,7 @@ Returns **void**
 
 ### AddCommonItemOptions
 
-[lib/common.js:411-415](https://github.com/eXigentCoder/swagger-spec-express/blob/0ff4a88a0f60d1314d6d18eb8ceece9d0c266bee/lib/common.js#L411-L415 "Source code on GitHub")
+[lib/common.js:411-415](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/common.js#L411-L415 "Source code on GitHub")
 
 **Properties**
 
