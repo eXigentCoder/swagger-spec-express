@@ -271,6 +271,7 @@ function removeDuplicateComments(ast) {
     // so two comments with the same range are talking about the same comment.
     // So we'll just remove all trailing comments which are also a leading
     // comment somewhere.
+    //eslint-disable-next-line no-undef
     const rangesInLeadingComments = new Set();
     estreeWalker.walk(ast, {
         enter: (node) => {
