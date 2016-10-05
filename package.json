@@ -11,7 +11,7 @@
     "check-dependencies": "npm-check -Eu",
     "flow": "flow",
     "jsdoc": "node_modules/.bin/jsdoc \"./lib/index.js\" --configure \"./jsdoc-config.json\" --destination \"./docs/generated/jsdoc/\" --readme \"./README.md\"",
-    "documentation": "node_modules/.bin/documentation readme --readme-file=README.md --section \"API\" --github",
+    "documentation": "node_modules/.bin/documentation readme --readme-file=README.md --section \"API\" --github --config=documentation.yml",
     "JSONdocumentation": "node_modules/.bin/documentation build -o=docs/doc.json"
   },
   "repository": {

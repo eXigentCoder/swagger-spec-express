@@ -15,9 +15,9 @@ module.exports = function generateJsDocCommentFromSchema(paramName, schema, eol)
     eol = eol || os.EOL;
     let description = '@param {object} ' + paramName + ' ';
     if (schema.description) {
-        comment += addComment(description + schema.description + ' (Generated)', eol);
+        comment += addComment(description + schema.description, eol);
     } else {
-        comment += addComment(description + 'todo (Generated)', eol);
+        comment += addComment(description + 'todo', eol);
     }
     comment += generateJsDocCommentForProperties(schema.properties, paramName + '.', schema.required, eol, 0);
     comment = ' ' + comment.trim();
@@ -110,7 +110,7 @@ function generateJsDocCommentForProperty(propertyName, property, requiredFields,
     } else {
         nameToPrint = name;
     }
-    comment += addComment(util.format('@param {%s} %s - %s (Generated)', type, nameToPrint, description), eol);
+    comment += addComment(util.format('@param {%s} %s - %s', type, nameToPrint, description), eol);
     if (property.properties) {
         if (dontDigInto.indexOf(prefix + propertyName) < 0) {
             let newPrefix = name + '.';
