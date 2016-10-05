@@ -226,8 +226,7 @@ function removeOldComments(options) {
             newParts.push(part);
         }
     });
-    options.comment.value = newParts.join('@');
-    options.lines = options.comment.value.split(os.EOL);
+    options.lines = newParts.join('@').split(os.EOL);
 }
 
 function generateOutput(options, callback) {
