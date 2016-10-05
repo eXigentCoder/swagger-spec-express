@@ -188,12 +188,7 @@ function addGeneratedComment(options, callback) {
     console.info('\t\t\tAdding generated comment ...');
     var generatedLines = options.generatedComment.split(options.eol);
     var searchString = util.format('* @paramSchema %s %s', options.paramName, options.schemaPath);
-    var pramNameRegExString = '((' + options.paramName + '\\..+)|(' + options.paramName + '))';
-    var paramNameWithOrWithoutBrackets = '((\\[' + pramNameRegExString + '\\])|(' + pramNameRegExString + '))';
-    var regEx = new RegExp('^\\s*\\*\\s@param\\s((\\{.*\\}\\s' + paramNameWithOrWithoutBrackets + ')|' + paramNameWithOrWithoutBrackets + ')\\s.*\\(Generated\\)', 'i');
-    _.remove(options.lines, function (line) {
-        return regEx.test(line);
-    });
+    removeOldComments(options);
     options.lines.forEach(function (line, index) {
         if (line.indexOf(searchString) < 0) {
             return;
@@ -213,6 +208,25 @@ function addGeneratedComment(options, callback) {
     options.comment.generatedComment = options.lines.join(options.eol);
     console.info('\t\t\t\tDone.');
     return callback(null, options);
+}
+
+function removeOldComments(options) {
+    var newParts = [];
+    var parts = options.comment.value.split('@');
+    var pramNameRegExString = '((' + options.paramName + '\\..+)|(' + options.paramName + '))';
+    var paramNameWithOrWithoutBrackets = '((\\[' + pramNameRegExString + '\\])|(' + pramNameRegExString + '))';
+    var regEx = new RegExp('^param\\s((\\{.*\\}\\s' + paramNameWithOrWithoutBrackets + ')|' + paramNameWithOrWithoutBrackets + ')\\s.*', 'i');
+    parts.forEach(function (part) {
+        if (!_.startsWith(part, 'param ')) {
+            newParts.push(part);
+            return;
+        }
+        var isCommentForParamSchemaProperty = regEx.test(part);
+        if (!isCommentForParamSchemaProperty) {
+            newParts.push(part);
+        }
+    });
+    options.lines = newParts.join('@').split(os.EOL);
 }
 
 function generateOutput(options, callback) {
@@ -257,6 +271,7 @@ function removeDuplicateComments(ast) {
     // so two comments with the same range are talking about the same comment.
     // So we'll just remove all trailing comments which are also a leading
     // comment somewhere.
+    //eslint-disable-next-line no-undef
     const rangesInLeadingComments = new Set();
     estreeWalker.walk(ast, {
         enter: (node) => {
@@ -279,17 +294,22 @@ function removeDuplicateComments(ast) {
 
 function replaceComments(rootDocument) {
     var rootComments = _.filter(rootDocument.comments, 'generatedComment');
-    var leadingComments = _.filter(rootDocument.body, function (item) {
-        if (!item.leadingComments) {
-            return false;
-        }
-        var hasParamSchema = false;
-        item.leadingComments.forEach(function (comment) {
-            if (comment.value.indexOf('@paramSchema') >= 0) {
-                hasParamSchema = true;
+    var leadingComments = [];
+    estreeWalker.walk(rootDocument, {
+        enter: (node) => {
+            if (!node.leadingComments) {
+                return;
             }
-        });
-        return hasParamSchema;
+            var hasParamSchema = false;
+            node.leadingComments.forEach(function (comment) {
+                if (comment.value.indexOf('@paramSchema') >= 0) {
+                    hasParamSchema = true;
+                }
+            });
+            if (hasParamSchema) {
+                leadingComments.push(node);
+            }
+        }
     });
 
     leadingComments.forEach(function (leadingComment) {

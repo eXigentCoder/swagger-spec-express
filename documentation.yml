@@ -1,0 +1,37 @@
+toc:
+ - name: Table of Contents
+   description: |
+     - Core:
+     - [Initialise](#initialise)
+     - [Swaggerise](#swaggerise)
+     - [Describe](#describe)
+     - [Compile](#compile)
+     - [Validate](#validate)
+     - [Json](#json)
+     - Adding common items:
+     - [Add Tag](#addTag)
+     - [Add Header Parameter](#addHeaderParameter)
+     - [Add Body Parameter](#addBodyParameter)
+     - [Add Query Parameter](#addQueryParameter)
+     - [Add Form Data Parameter](#addFormDataParameter)
+     - [Add Path Parameter](#addPathParameter)
+     - [Add Response](#addResponse)
+     - [Add Response Header](#addResponseHeader)
+     - [Add Model](#addModel)
+     - [Add Common Item Options](#AddCommonItemOptions)
+ - initialise
+ - swaggerise
+ - describe
+ - compile
+ - validate
+ - json
+ - addTag
+ - addHeaderParameter
+ - addBodyParameter
+ - addQueryParameter
+ - addFormDataParameter
+ - addPathParameter
+ - addResponse
+ - addResponseHeader
+ - addModel
+ - AddCommonItemOptions
