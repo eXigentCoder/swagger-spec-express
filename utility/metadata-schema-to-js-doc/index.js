@@ -2,7 +2,7 @@
 var injectSchema = require('./inject-schema');
 
 injectSchema([
-    './lib/swaggerise.js',
+    //'./lib/swaggerise.js',
     './lib/common.js'
 ], injectionComplete);
 
