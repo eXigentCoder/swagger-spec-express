@@ -103,7 +103,7 @@ Simply follow the [instructions for the official Swagger UI project.](https://gi
 
 ### initialise
 
-[lib/initialise.js:120-136](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/initialise.js#L120-L136 "Source code on GitHub")
+[lib/initialise.js:120-136](https://github.com/eXigentCoder/swagger-spec-express/blob/8bdc96f665fde7900c9c7899bd6071afe48ebbae/lib/initialise.js#L120-L136 "Source code on GitHub")
 
 Will initialise your app with the required swaggers-spec information.
 In addition you can pass in some options which will be used when generating the swagger JSON document later on.
@@ -235,7 +235,7 @@ Returns **void**
 
 ### swaggerise
 
-[lib/swaggerise.js:9-58](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/swaggerise.js#L9-L58 "Source code on GitHub")
+[lib/swaggerise.js:9-61](https://github.com/eXigentCoder/swagger-spec-express/blob/8bdc96f665fde7900c9c7899bd6071afe48ebbae/lib/swaggerise.js#L9-L61 "Source code on GitHub")
 
 Adds the .describe function onto the provided object. The object should either be an express app or express router.
 
@@ -247,7 +247,7 @@ Returns **void**
 
 ### describe
 
-[lib/swaggerise.js:52-57](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/swaggerise.js#L52-L57 "Source code on GitHub")
+[lib/swaggerise.js:55-60](https://github.com/eXigentCoder/swagger-spec-express/blob/8bdc96f665fde7900c9c7899bd6071afe48ebbae/lib/swaggerise.js#L55-L60 "Source code on GitHub")
 
 Allows you describe an app our router route.
 
@@ -295,10 +295,25 @@ Returns **void**
 
 ### compile
 
-[lib/index.js:41-48](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/index.js#L41-L48 "Source code on GitHub")
+[lib/index.js:52-59](https://github.com/eXigentCoder/swagger-spec-express/blob/8bdc96f665fde7900c9c7899bd6071afe48ebbae/lib/index.js#L52-L59 "Source code on GitHub")
 
 Will gather together all your described app routes and compile them into a single document to be served up by your api when you call `json`.
 Can only be called once `initialise` has been called. Should only call this once you have completely finished describing your routes.
+
+**Examples**
+
+```javascript
+var swagger = require('swagger-spec-express');
+var express = require('express');
+var router = new express.Router();
+swagger.swaggerize(router);
+router.get('/', function (req, res) {
+    //...
+}).describe({
+    //...
+});
+swagger.compile();
+```
 
 -   Throws **[Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)** Will throw an error if `initialise` wasn't called or if you don't yet have any routes defined or if there are certain errors in your metadata
 
@@ -306,18 +321,61 @@ Returns **void**
 
 ### validate
 
-[lib/index.js:56-58](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/index.js#L56-L58 "Source code on GitHub")
+[lib/index.js:83-85](https://github.com/eXigentCoder/swagger-spec-express/blob/8bdc96f665fde7900c9c7899bd6071afe48ebbae/lib/index.js#L83-L85 "Source code on GitHub")
 
 Will validate the internal json document created by calling `compile`.
 This is done using the [ajv](https://www.npmjs.com/package/ajv) validator against the [official JSON schema](https://www.npmjs.com/package/swagger-schema-official). \* @throws {Error} Throws an exception if called before `compile` or `initialise`.
+
+**Examples**
+
+```javascript
+var swagger = require('swagger-spec-express');
+var express = require('express');
+var router = new express.Router();
+var os = require('os');
+swagger.swaggerize(router);
+router.get('/', function (req, res) {
+    //...
+}).describe({
+    //...
+});
+swagger.compile();
+var result = swagger.validate();
+if (!result.valid) {
+    console.warn("Compiled Swagger document does not pass validation: " + os.EOL + result.message);
+}
+```
 
 Returns **{valid: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean), errors: [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)>, message: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)}** The result of the validation
 
 ### json
 
-[lib/index.js:67-71](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/index.js#L67-L71 "Source code on GitHub")
+[lib/index.js:113-117](https://github.com/eXigentCoder/swagger-spec-express/blob/8bdc96f665fde7900c9c7899bd6071afe48ebbae/lib/index.js#L113-L117 "Source code on GitHub")
 
 Returns the swagger specification as a json object.
+
+**Examples**
+
+```javascript
+var swagger = require('swagger-spec-express');
+var express = require('express');
+var app = express();
+var options = {
+    title: packageJson.title,
+    version: packageJson.version
+};
+swagger.initialise(app, options);
+app.get('/swagger.json', function (err, res) {
+    res.status(200).json(swagger.json());
+}).describe({
+    responses: {
+        200: {
+            description: "Returns the swagger.json document"
+        }
+    }
+});
+swagger.compile();
+```
 
 -   Throws **[Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)** Throws an exception if called before `compile` or `initialise`. You do not need to call `validate` first.
 
@@ -325,7 +383,7 @@ Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 
 ### addTag
 
-[lib/common.js:30-37](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/common.js#L30-L37 "Source code on GitHub")
+[lib/common.js:44-51](https://github.com/eXigentCoder/swagger-spec-express/blob/8bdc96f665fde7900c9c7899bd6071afe48ebbae/lib/common.js#L44-L51 "Source code on GitHub")
 
 Adds a common tag for later use.
 
@@ -339,11 +397,29 @@ Adds a common tag for later use.
         -   `tag.externalDocs.url` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Required. The URL for the target documentation. Value MUST be in the format of a URL.
 -   `options` **[AddCommonItemOptions](#addcommonitemoptions)** Options to apply when adding the provided item.
 
+**Examples**
+
+```javascript
+var swagger = require('swagger-spec-express');
+swagger.common.addTag({
+    name: "Info",
+    description: "Info about the api"
+});
+//...
+router.get('/', function (req, res) {
+    //...
+}).describe({
+    //...
+    tags: ["Info"],
+    //...
+});
+```
+
 Returns **void** 
 
 ### addHeaderParameter
 
-[lib/common.js:70-78](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/common.js#L70-L78 "Source code on GitHub")
+[lib/common.js:106-114](https://github.com/eXigentCoder/swagger-spec-express/blob/8bdc96f665fde7900c9c7899bd6071afe48ebbae/lib/common.js#L106-L114 "Source code on GitHub")
 
 Adds a common header for later use.
 
@@ -373,11 +449,37 @@ Adds a common header for later use.
     -   `header.maxLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor26).
 -   `options` **[AddCommonItemOptions](#addcommonitemoptions)** Options to apply when adding the provided item.
 
+**Examples**
+
+```javascript
+var swagger = require('swagger-spec-express');
+swagger.common.parameters.addHeader({
+    name: "Originator-Id",
+    description: "Tells the server where the request originated from",
+    required: true,
+    type: "string"
+});
+//...
+router.get('/', function (req, res) {
+    //...
+}).describe({
+    //...
+    common: {
+        //...
+        parameters: {
+            header: ["Originator-Id"]
+        }
+        //...
+    }
+    //...
+});
+```
+
 Returns **void** 
 
 ### addBodyParameter
 
-[lib/common.js:92-100](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/common.js#L92-L100 "Source code on GitHub")
+[lib/common.js:158-166](https://github.com/eXigentCoder/swagger-spec-express/blob/8bdc96f665fde7900c9c7899bd6071afe48ebbae/lib/common.js#L158-L166 "Source code on GitHub")
 
 Adds a common body parameter for later use.
 
@@ -393,11 +495,41 @@ Adds a common body parameter for later use.
     -   `body.arrayOfModel` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** The name of the model produced or consumed as an array.
 -   `options` **[AddCommonItemOptions](#addcommonitemoptions)** Options to apply when adding the provided item.
 
-Returns **void** 
+Returns **void** -   @example
+    var swagger = require('swagger-spec-express');
+    swagger.common.parameters.addBody({
+        name: "process",
+        description: "Kicks off the process function on the server at the rest endpoint using the options provided",
+        required: true,
+        type: "object",
+        schema : {
+            type: "object",
+            properties: {
+                "async": {
+                    "type": "boolean"
+                }
+            }
+            additionalProperties: true
+        }
+    });
+    //...
+    router.get('/', function (req, res) {
+        //...
+    }).describe({
+        //...
+        common: {
+            //...
+            parameters: {
+                body: ["process"]
+            }
+            //...
+        }
+        //...
+    });
 
 ### addQueryParameter
 
-[lib/common.js:136-144](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/common.js#L136-L144 "Source code on GitHub")
+[lib/common.js:224-232](https://github.com/eXigentCoder/swagger-spec-express/blob/8bdc96f665fde7900c9c7899bd6071afe48ebbae/lib/common.js#L224-L232 "Source code on GitHub")
 
 Adds a common query parameter for later use.
 
@@ -430,11 +562,37 @@ Adds a common query parameter for later use.
     -   `query.exclusiveMaximum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor17).
 -   `options` **[AddCommonItemOptions](#addcommonitemoptions)** Options to apply when adding the provided item.
 
+**Examples**
+
+```javascript
+var swagger = require('swagger-spec-express');
+swagger.common.parameters.addQuery({
+    name: "sort",
+    description: "The sort order of records e.g. sort=field1,-field2",
+    required: false,
+    type: "string"
+});
+//...
+router.get('/', function (req, res) {
+    //...
+}).describe({
+    //...
+    common: {
+        //...
+        parameters: {
+            query: ["sort"]
+        }
+        //...
+    }
+    //...
+});
+```
+
 Returns **void** 
 
 ### addFormDataParameter
 
-[lib/common.js:182-190](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/common.js#L182-L190 "Source code on GitHub")
+[lib/common.js:292-300](https://github.com/eXigentCoder/swagger-spec-express/blob/8bdc96f665fde7900c9c7899bd6071afe48ebbae/lib/common.js#L292-L300 "Source code on GitHub")
 
 Adds a common form data parameter for later use.
 
@@ -468,11 +626,37 @@ Adds a common form data parameter for later use.
     -   `formData.exclusiveMaximum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor17).
 -   `options` **[AddCommonItemOptions](#addcommonitemoptions)** Options to apply when adding the provided item.
 
+**Examples**
+
+```javascript
+var swagger = require('swagger-spec-express');
+swagger.common.parameters.addFormData({
+    name: "csvString",
+    description: "The csv string to import",
+    required: true,
+    type: "string"
+});
+//...
+router.get('/', function (req, res) {
+    //...
+}).describe({
+    //...
+    common: {
+        //...
+        parameters: {
+            formData: ["csvString"]
+        }
+        //...
+    }
+    //...
+});
+```
+
 Returns **void** 
 
 ### addPathParameter
 
-[lib/common.js:225-233](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/common.js#L225-L233 "Source code on GitHub")
+[lib/common.js:357-365](https://github.com/eXigentCoder/swagger-spec-express/blob/8bdc96f665fde7900c9c7899bd6071afe48ebbae/lib/common.js#L357-L365 "Source code on GitHub")
 
 Adds a common path parameter for later use.
 
@@ -504,11 +688,37 @@ Adds a common path parameter for later use.
     -   `path.exclusiveMaximum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor17).
 -   `options` **[AddCommonItemOptions](#addcommonitemoptions)** Options to apply when adding the provided item.
 
+**Examples**
+
+```javascript
+var swagger = require('swagger-spec-express');
+swagger.common.parameters.addPath({
+    name: "entityId",
+    description: "The id of the entity which contains the data we are using",
+    required: true,
+    type: "string"
+});
+//...
+router.get('/:entityId', function (req, res) {
+    //...
+}).describe({
+    //...
+    common: {
+        //...
+        parameters: {
+            path: ["entityId"]
+        }
+        //...
+    }
+    //...
+});
+```
+
 Returns **void** 
 
 ### addResponse
 
-[lib/common.js:247-254](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/common.js#L247-L254 "Source code on GitHub")
+[lib/common.js:400-407](https://github.com/eXigentCoder/swagger-spec-express/blob/8bdc96f665fde7900c9c7899bd6071afe48ebbae/lib/common.js#L400-L407 "Source code on GitHub")
 
 Adds a common response for later use.
 
@@ -524,11 +734,36 @@ Adds a common response for later use.
     -   `response.arrayOfModel` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** The name of the model produced or consumed as an array.
 -   `options` **[AddCommonItemOptions](#addcommonitemoptions)** Options to apply when adding the provided item.
 
+**Examples**
+
+```javascript
+var swagger = require('swagger-spec-express');
+swagger.common.addResponse({
+    name: "500",
+    description: "Server Error",
+    "schema": {
+        $ref: "#/definitions/serverError"
+    }
+});
+//...
+router.get('/', function (req, res) {
+    //...
+}).describe({
+    //...
+    common: {
+        //...
+        responses: ["500", "400", "401", "404"],
+        //...
+    }
+    //...
+});
+```
+
 Returns **void** 
 
 ### addResponseHeader
 
-[lib/common.js:287-295](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/common.js#L287-L295 "Source code on GitHub")
+[lib/common.js:460-468](https://github.com/eXigentCoder/swagger-spec-express/blob/8bdc96f665fde7900c9c7899bd6071afe48ebbae/lib/common.js#L460-L468 "Source code on GitHub")
 
 Adds a common response header for later use.
 
@@ -558,11 +793,35 @@ Adds a common response header for later use.
     -   `responseHeader.maxLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor26).
 -   `options` **[AddCommonItemOptions](#addcommonitemoptions)** Options to apply when adding the provided item.
 
+**Examples**
+
+```javascript
+var swagger = require('swagger-spec-express');
+swagger.common.addResponseHeader({
+    name: "Response-Id",
+    description: "A unique response id for tracking in logs",
+    type: "string"
+});
+//...
+router.get('/', function (req, res) {
+    //...
+}).describe({
+    //...
+    responses: {
+        "200": {
+            //...
+            commonHeaders: ["Response-Id"]
+        }
+    }
+    //...
+});
+```
+
 Returns **void** 
 
 ### addModel
 
-[lib/common.js:301-329](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/common.js#L301-L329 "Source code on GitHub")
+[lib/common.js:498-526](https://github.com/eXigentCoder/swagger-spec-express/blob/8bdc96f665fde7900c9c7899bd6071afe48ebbae/lib/common.js#L498-L526 "Source code on GitHub")
 
 Adds a common model for later use.
 
@@ -571,11 +830,39 @@ Adds a common model for later use.
 -   `model` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** The model object to add.
 -   `inputOptions` **[AddCommonItemOptions](#addcommonitemoptions)** Options to apply when adding the provided item.
 
+**Examples**
+
+```javascript
+var swagger = require('swagger-spec-express');
+swagger.common.addModel({
+    "name": "serverError",
+    "type": "object",
+    "properties": {
+        "message": {
+            "type": "string"
+        }
+    }
+});
+//...
+router.get('/', function (req, res) {
+    //...
+}).describe({
+    //...
+    responses: {
+        "500": {
+            //...
+            model: "serverError"
+        }
+    }
+    //...
+});
+```
+
 Returns **void** 
 
 ### AddCommonItemOptions
 
-[lib/common.js:411-415](https://github.com/eXigentCoder/swagger-spec-express/blob/3a6a57234db278483b6ede429d62da46c3479641/lib/common.js#L411-L415 "Source code on GitHub")
+[lib/common.js:608-612](https://github.com/eXigentCoder/swagger-spec-express/blob/8bdc96f665fde7900c9c7899bd6071afe48ebbae/lib/common.js#L608-L612 "Source code on GitHub")
 
 **Properties**
 
