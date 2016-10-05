@@ -293,17 +293,22 @@ function removeDuplicateComments(ast) {
 
 function replaceComments(rootDocument) {
     var rootComments = _.filter(rootDocument.comments, 'generatedComment');
-    var leadingComments = _.filter(rootDocument.body, function (item) {
-        if (!item.leadingComments) {
-            return false;
-        }
-        var hasParamSchema = false;
-        item.leadingComments.forEach(function (comment) {
-            if (comment.value.indexOf('@paramSchema') >= 0) {
-                hasParamSchema = true;
+    var leadingComments = [];
+    estreeWalker.walk(rootDocument, {
+        enter: (node) => {
+            if (!node.leadingComments) {
+                return;
             }
-        });
-        return hasParamSchema;
+            var hasParamSchema = false;
+            node.leadingComments.forEach(function (comment) {
+                if (comment.value.indexOf('@paramSchema') >= 0) {
+                    hasParamSchema = true;
+                }
+            });
+            if (hasParamSchema) {
+                leadingComments.push(node);
+            }
+        }
     });
 
     leadingComments.forEach(function (leadingComment) {
