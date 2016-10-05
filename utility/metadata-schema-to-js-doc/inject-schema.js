@@ -188,12 +188,7 @@ function addGeneratedComment(options, callback) {
     console.info('\t\t\tAdding generated comment ...');
     var generatedLines = options.generatedComment.split(options.eol);
     var searchString = util.format('* @paramSchema %s %s', options.paramName, options.schemaPath);
-    var pramNameRegExString = '((' + options.paramName + '\\..+)|(' + options.paramName + '))';
-    var paramNameWithOrWithoutBrackets = '((\\[' + pramNameRegExString + '\\])|(' + pramNameRegExString + '))';
-    var regEx = new RegExp('^\\s*\\*\\s@param\\s((\\{.*\\}\\s' + paramNameWithOrWithoutBrackets + ')|' + paramNameWithOrWithoutBrackets + ')\\s.*\\(Generated\\)', 'i');
-    _.remove(options.lines, function (line) {
-        return regEx.test(line);
-    });
+    removeOldComments(options);
     options.lines.forEach(function (line, index) {
         if (line.indexOf(searchString) < 0) {
             return;
@@ -213,6 +208,28 @@ function addGeneratedComment(options, callback) {
     options.comment.generatedComment = options.lines.join(options.eol);
     console.info('\t\t\t\tDone.');
     return callback(null, options);
+}
+
+function removeOldComments(options) {
+    var newParts = [];
+    var parts = options.comment.value.split('@');
+    var pramNameRegExString = '((' + options.paramName + '\\..+)|(' + options.paramName + '))';
+    var paramNameWithOrWithoutBrackets = '((\\[' + pramNameRegExString + '\\])|(' + pramNameRegExString + '))';
+    var regEx = new RegExp('^param\\s((\\{.*\\}\\s' + paramNameWithOrWithoutBrackets + ')|' + paramNameWithOrWithoutBrackets + ')\\s.*', 'i');
+    parts.forEach(function (part) {
+        if (!_.startsWith(part, 'param ')) {
+            newParts.push(part);
+            return;
+        }
+        var isCommentForParamSchemaProperty = regEx.test(part);
+        if (!isCommentForParamSchemaProperty) {
+            newParts.push(part);
+        }
+        else {
+            console.log('removing', part);
+        }
+    });
+    options.comment.value = newParts.join('@');
 }
 
 function generateOutput(options, callback) {
