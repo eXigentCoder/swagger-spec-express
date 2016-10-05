@@ -225,11 +225,9 @@ function removeOldComments(options) {
         if (!isCommentForParamSchemaProperty) {
             newParts.push(part);
         }
-        else {
-            console.log('removing', part);
-        }
     });
     options.comment.value = newParts.join('@');
+    options.lines = options.comment.value.split(os.EOL);
 }
 
 function generateOutput(options, callback) {
