@@ -937,7 +937,7 @@ _todo_
 -   when using arrayOfModel the schema doesn't have an id, so makes it harder to use ajv. Currently we just wrapping in {items:}. Still an issue?
 -   proper error classes for specific errors to allow filtering and handling
 
-[spe-npm-icon]: https://nodei.co/npm/swagger-spec-express.svg
+[spe-npm-icon]: https://nodei.co/npm/swagger-spec-express.png
 
 [spe-npm-url]: https://npmjs.org/package/swagger-spec-express
 
