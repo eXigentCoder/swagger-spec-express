@@ -2,9 +2,9 @@
 
 > Programmatically generate your Swagger specification (JSON) file.
 
-[![NPM][spe-npm-icon] ][spe-npm-url]
+![NPM](https://nodei.co/npm/swagger-spec-express.png)
 
-[![Build status][spe-ci-image] ][spe-ci-url]
+![Build status](https://travis-ci.org/eXigentCoder/swagger-spec-express.svg?branch=master)
 
 A library that allows you to programmatically annotate your existing express api with [swagger](http://swagger.io/) info and then generate and validate your json spec file. All without completely starting over or changing the structure of your express routes.
 
@@ -936,11 +936,3 @@ _todo_
 -   Ability to inject certain things into parameters. E.g. many GET routes will have GET /thing/:identifier would be nice to inject the name in there
 -   when using arrayOfModel the schema doesn't have an id, so makes it harder to use ajv. Currently we just wrapping in {items:}. Still an issue?
 -   proper error classes for specific errors to allow filtering and handling
-
-[spe-npm-icon]: https://nodei.co/npm/swagger-spec-express.png
-
-[spe-npm-url]: https://npmjs.org/package/swagger-spec-express
-
-[spe-ci-image]: https://travis-ci.org/eXigentCoder/swagger-spec-express.svg?branch=master
-
-[spe-ci-url]: https://travis-ci.org/eXigentCoder/swagger-spec-express
