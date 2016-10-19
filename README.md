@@ -12,7 +12,7 @@ A library that allows you to programmatically annotate your existing express api
 
 There are already a few libraries out there to add Swagger documentation to your [express](https://expressjs.com/) api, like [swagger-node-express](https://www.npmjs.com/package/swagger-node-express) and [swagger-node](https://github.com/swagger-api/swagger-node) which work really well, however they require you to either start from scratch or change your routes to work with their format. This libary is different and can easily be added to an existing and established express api using the normal patterns you are used to.
 
-##Installation
+\##Installation
 **Requires Express 4.x**
 
 Install the package:
@@ -111,20 +111,20 @@ Simply follow the [instructions for the official Swagger UI project.](https://gi
 -   [Validate](#validate)
 -   [Json](#json)
 -   Adding common items:
--   [Add Tag](#addTag)
--   [Add Header Parameter](#addHeaderParameter)
--   [Add Body Parameter](#addBodyParameter)
--   [Add Query Parameter](#addQueryParameter)
--   [Add Form Data Parameter](#addFormDataParameter)
--   [Add Path Parameter](#addPathParameter)
--   [Add Response](#addResponse)
--   [Add Response Header](#addResponseHeader)
--   [Add Model](#addModel)
--   [Add Common Item Options](#AddCommonItemOptions)
+-   [Add Tag](#addtag)
+-   [Add Header Parameter](#addheaderparameter)
+-   [Add Body Parameter](#addbodyparameter)
+-   [Add Query Parameter](#addqueryparameter)
+-   [Add Form Data Parameter](#addformdataparameter)
+-   [Add Path Parameter](#addpathparameter)
+-   [Add Response](#addresponse)
+-   [Add Response Header](#addresponseheader)
+-   [Add Model](#addmodel)
+-   [Add Common Item Options](#addcommonitemoptions)
 
 ### initialise
 
-[lib/initialise.js:120-136](https://github.com/eXigentCoder/swagger-spec-express/blob/ca94f03a7013b3303b4b12f53439fdd2e81a3572/lib/initialise.js#L120-L136 "Source code on GitHub")
+[lib/initialise.js:120-136](https://github.com/eXigentCoder/swagger-spec-express/blob/39b870a8a30e0cc35c34568400ec807dda475082/lib/initialise.js#L120-L136 "Source code on GitHub")
 
 Will initialise your app with the required swaggers-spec information.
 In addition you can pass in some options which will be used when generating the swagger JSON document later on.
@@ -252,11 +252,11 @@ swagger.initialise(app, options);
 -   Throws **[Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)** if no app object provided
 -   Throws **[Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)** if no options object provided
 
-Returns **void**
+Returns **void** 
 
 ### swaggerise
 
-[lib/swaggerise.js:16-68](https://github.com/eXigentCoder/swagger-spec-express/blob/ca94f03a7013b3303b4b12f53439fdd2e81a3572/lib/swaggerise.js#L16-L68 "Source code on GitHub")
+[lib/swaggerise.js:16-68](https://github.com/eXigentCoder/swagger-spec-express/blob/39b870a8a30e0cc35c34568400ec807dda475082/lib/swaggerise.js#L16-L68 "Source code on GitHub")
 
 Adds the .describe function onto the provided object. The object should either be an express app or express router.
 
@@ -275,11 +275,11 @@ var router = new express.Router();
 swagger.swaggerize(router);
 ```
 
-Returns **void**
+Returns **void** 
 
 ### describe
 
-[lib/swaggerise.js:62-67](https://github.com/eXigentCoder/swagger-spec-express/blob/ca94f03a7013b3303b4b12f53439fdd2e81a3572/lib/swaggerise.js#L62-L67 "Source code on GitHub")
+[lib/swaggerise.js:62-67](https://github.com/eXigentCoder/swagger-spec-express/blob/39b870a8a30e0cc35c34568400ec807dda475082/lib/swaggerise.js#L62-L67 "Source code on GitHub")
 
 Allows you describe an app our router route.
 
@@ -323,11 +323,11 @@ router.get('/', function (req, res) {
 });
 ```
 
-Returns **void**
+Returns **void** 
 
 ### compile
 
-[lib/index.js:52-59](https://github.com/eXigentCoder/swagger-spec-express/blob/ca94f03a7013b3303b4b12f53439fdd2e81a3572/lib/index.js#L52-L59 "Source code on GitHub")
+[lib/index.js:52-59](https://github.com/eXigentCoder/swagger-spec-express/blob/39b870a8a30e0cc35c34568400ec807dda475082/lib/index.js#L52-L59 "Source code on GitHub")
 
 Will gather together all your described app routes and compile them into a single document to be served up by your api when you call `json`.
 Can only be called once `initialise` has been called. Should only call this once you have completely finished describing your routes.
@@ -349,11 +349,11 @@ swagger.compile();
 
 -   Throws **[Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)** Will throw an error if `initialise` wasn't called or if you don't yet have any routes defined or if there are certain errors in your metadata
 
-Returns **void**
+Returns **void** 
 
 ### validate
 
-[lib/index.js:83-85](https://github.com/eXigentCoder/swagger-spec-express/blob/ca94f03a7013b3303b4b12f53439fdd2e81a3572/lib/index.js#L83-L85 "Source code on GitHub")
+[lib/index.js:83-85](https://github.com/eXigentCoder/swagger-spec-express/blob/39b870a8a30e0cc35c34568400ec807dda475082/lib/index.js#L83-L85 "Source code on GitHub")
 
 Will validate the internal json document created by calling `compile`.
 This is done using the [ajv](https://www.npmjs.com/package/ajv) validator against the [official JSON schema](https://www.npmjs.com/package/swagger-schema-official). \* @throws {Error} Throws an exception if called before `compile` or `initialise`.
@@ -382,7 +382,7 @@ Returns **{valid: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScr
 
 ### json
 
-[lib/index.js:113-117](https://github.com/eXigentCoder/swagger-spec-express/blob/ca94f03a7013b3303b4b12f53439fdd2e81a3572/lib/index.js#L113-L117 "Source code on GitHub")
+[lib/index.js:113-117](https://github.com/eXigentCoder/swagger-spec-express/blob/39b870a8a30e0cc35c34568400ec807dda475082/lib/index.js#L113-L117 "Source code on GitHub")
 
 Returns the swagger specification as a json object.
 
@@ -415,7 +415,7 @@ Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 
 ### addTag
 
-[lib/common.js:44-51](https://github.com/eXigentCoder/swagger-spec-express/blob/ca94f03a7013b3303b4b12f53439fdd2e81a3572/lib/common.js#L44-L51 "Source code on GitHub")
+[lib/common.js:44-51](https://github.com/eXigentCoder/swagger-spec-express/blob/39b870a8a30e0cc35c34568400ec807dda475082/lib/common.js#L44-L51 "Source code on GitHub")
 
 Adds a common tag for later use.
 
@@ -427,7 +427,7 @@ Adds a common tag for later use.
     -   `tag.externalDocs` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** information about external documentation
         -   `tag.externalDocs.description` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** A short description of the target documentation. GFM syntax can be used for rich text representation.
         -   `tag.externalDocs.url` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Required. The URL for the target documentation. Value MUST be in the format of a URL.
--   `options` **\[AddCommonItemOptions]** Options to apply when adding the provided item.
+-   `options` **\[[AddCommonItemOptions](#addcommonitemoptions)]** Options to apply when adding the provided item.
 
 **Examples**
 
@@ -447,11 +447,11 @@ router.get('/', function (req, res) {
 });
 ```
 
-Returns **void**
+Returns **void** 
 
 ### addHeaderParameter
 
-[lib/common.js:106-114](https://github.com/eXigentCoder/swagger-spec-express/blob/ca94f03a7013b3303b4b12f53439fdd2e81a3572/lib/common.js#L106-L114 "Source code on GitHub")
+[lib/common.js:106-114](https://github.com/eXigentCoder/swagger-spec-express/blob/39b870a8a30e0cc35c34568400ec807dda475082/lib/common.js#L106-L114 "Source code on GitHub")
 
 Adds a common header for later use.
 
@@ -462,7 +462,7 @@ Adds a common header for later use.
     -   `header.items` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** Required if [type](http://swagger.io/specification/#parameterType) is `array`. Describes the type of items in the array.
     -   `header.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the format of the array if type array is used. Possible values are:-   csv comma separated values foo,bar.
         -   ssv space separated values foo bar.
-        -   tsv tab separated values foo	bar.
+        -   tsv tab separated values foo bar.
         -   pipes pipe separated values foo|bar.
         -   multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.Default value is csv.
     -   `header.maximum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor17).
@@ -479,7 +479,7 @@ Adds a common header for later use.
     -   `header.description` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** A short description of the header.
     -   `header.name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name used to refer to this header at a later stage.
     -   `header.maxLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor26).
--   `options` **\[AddCommonItemOptions]** Options to apply when adding the provided item.
+-   `options` **\[[AddCommonItemOptions](#addcommonitemoptions)]** Options to apply when adding the provided item.
 
 **Examples**
 
@@ -507,11 +507,11 @@ router.get('/', function (req, res) {
 });
 ```
 
-Returns **void**
+Returns **void** 
 
 ### addBodyParameter
 
-[lib/common.js:159-167](https://github.com/eXigentCoder/swagger-spec-express/blob/ca94f03a7013b3303b4b12f53439fdd2e81a3572/lib/common.js#L159-L167 "Source code on GitHub")
+[lib/common.js:159-167](https://github.com/eXigentCoder/swagger-spec-express/blob/39b870a8a30e0cc35c34568400ec807dda475082/lib/common.js#L159-L167 "Source code on GitHub")
 
 Adds a common body parameter for later use.
 
@@ -525,7 +525,7 @@ Adds a common body parameter for later use.
     -   `body.schema` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** A deterministic version of a JSON Schema object.
     -   `body.model` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** The name of the model produced or consumed.
     -   `body.arrayOfModel` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** The name of the model produced or consumed as an array.
--   `options` **\[AddCommonItemOptions]** Options to apply when adding the provided item.
+-   `options` **\[[AddCommonItemOptions](#addcommonitemoptions)]** Options to apply when adding the provided item.
 
 **Examples**
 
@@ -566,7 +566,7 @@ Returns **void** \*
 
 ### addQueryParameter
 
-[lib/common.js:225-233](https://github.com/eXigentCoder/swagger-spec-express/blob/ca94f03a7013b3303b4b12f53439fdd2e81a3572/lib/common.js#L225-L233 "Source code on GitHub")
+[lib/common.js:225-233](https://github.com/eXigentCoder/swagger-spec-express/blob/39b870a8a30e0cc35c34568400ec807dda475082/lib/common.js#L225-L233 "Source code on GitHub")
 
 Adds a common query parameter for later use.
 
@@ -582,7 +582,7 @@ Adds a common query parameter for later use.
     -   `query.items` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** Required if [type](http://swagger.io/specification/#parameterType) is `array`. Describes the type of items in the array.
     -   `query.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the format of the array if type array is used. Possible values are:-   csv comma separated values foo,bar.
         -   ssv space separated values foo bar.
-        -   tsv tab separated values foo	bar.
+        -   tsv tab separated values foo bar.
         -   pipes pipe separated values foo|bar.
         -   multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.Default value is csv.
     -   `query.maximum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor17).
@@ -597,7 +597,7 @@ Adds a common query parameter for later use.
     -   `query.uniqueItems` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor49).
     -   `query.multipleOf` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor14).
     -   `query.exclusiveMaximum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor17).
--   `options` **\[AddCommonItemOptions]** Options to apply when adding the provided item.
+-   `options` **\[[AddCommonItemOptions](#addcommonitemoptions)]** Options to apply when adding the provided item.
 
 **Examples**
 
@@ -625,11 +625,11 @@ router.get('/', function (req, res) {
 });
 ```
 
-Returns **void**
+Returns **void** 
 
 ### addFormDataParameter
 
-[lib/common.js:293-301](https://github.com/eXigentCoder/swagger-spec-express/blob/ca94f03a7013b3303b4b12f53439fdd2e81a3572/lib/common.js#L293-L301 "Source code on GitHub")
+[lib/common.js:293-301](https://github.com/eXigentCoder/swagger-spec-express/blob/39b870a8a30e0cc35c34568400ec807dda475082/lib/common.js#L293-L301 "Source code on GitHub")
 
 Adds a common form data parameter for later use.
 
@@ -646,7 +646,7 @@ Adds a common form data parameter for later use.
     -   `formData.items` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** Required if [type](http://swagger.io/specification/#parameterType) is `array`. Describes the type of items in the array.
     -   `formData.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the format of the array if type array is used. Possible values are:-   csv comma separated values foo,bar.
         -   ssv space separated values foo bar.
-        -   tsv tab separated values foo	bar.
+        -   tsv tab separated values foo bar.
         -   pipes pipe separated values foo|bar.
         -   multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.Default value is csv.
     -   `formData.maximum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor17).
@@ -661,7 +661,7 @@ Adds a common form data parameter for later use.
     -   `formData.uniqueItems` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor49).
     -   `formData.multipleOf` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor14).
     -   `formData.exclusiveMaximum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor17).
--   `options` **\[AddCommonItemOptions]** Options to apply when adding the provided item.
+-   `options` **\[[AddCommonItemOptions](#addcommonitemoptions)]** Options to apply when adding the provided item.
 
 **Examples**
 
@@ -689,11 +689,11 @@ router.get('/', function (req, res) {
 });
 ```
 
-Returns **void**
+Returns **void** 
 
 ### addPathParameter
 
-[lib/common.js:358-366](https://github.com/eXigentCoder/swagger-spec-express/blob/ca94f03a7013b3303b4b12f53439fdd2e81a3572/lib/common.js#L358-L366 "Source code on GitHub")
+[lib/common.js:358-366](https://github.com/eXigentCoder/swagger-spec-express/blob/39b870a8a30e0cc35c34568400ec807dda475082/lib/common.js#L358-L366 "Source code on GitHub")
 
 Adds a common path parameter for later use.
 
@@ -708,7 +708,7 @@ Adds a common path parameter for later use.
     -   `path.items` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** Required if [type](http://swagger.io/specification/#parameterType) is `array`. Describes the type of items in the array.
     -   `path.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the format of the array if type array is used. Possible values are:-   csv comma separated values foo,bar.
         -   ssv space separated values foo bar.
-        -   tsv tab separated values foo	bar.
+        -   tsv tab separated values foo bar.
         -   pipes pipe separated values foo|bar.
         -   multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.Default value is csv.
     -   `path.maximum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor17).
@@ -723,7 +723,7 @@ Adds a common path parameter for later use.
     -   `path.uniqueItems` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor49).
     -   `path.multipleOf` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor14).
     -   `path.exclusiveMaximum` **\[[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor17).
--   `options` **\[AddCommonItemOptions]** Options to apply when adding the provided item.
+-   `options` **\[[AddCommonItemOptions](#addcommonitemoptions)]** Options to apply when adding the provided item.
 
 **Examples**
 
@@ -751,11 +751,11 @@ router.get('/:entityId', function (req, res) {
 });
 ```
 
-Returns **void**
+Returns **void** 
 
 ### addResponse
 
-[lib/common.js:401-408](https://github.com/eXigentCoder/swagger-spec-express/blob/ca94f03a7013b3303b4b12f53439fdd2e81a3572/lib/common.js#L401-L408 "Source code on GitHub")
+[lib/common.js:401-408](https://github.com/eXigentCoder/swagger-spec-express/blob/39b870a8a30e0cc35c34568400ec807dda475082/lib/common.js#L401-L408 "Source code on GitHub")
 
 Adds a common response for later use.
 
@@ -769,7 +769,7 @@ Adds a common response for later use.
     -   `response.name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name or http status code used to refer to this response at a later stage.
     -   `response.model` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** The name of the model produced or consumed.
     -   `response.arrayOfModel` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** The name of the model produced or consumed as an array.
--   `options` **\[AddCommonItemOptions]** Options to apply when adding the provided item.
+-   `options` **\[[AddCommonItemOptions](#addcommonitemoptions)]** Options to apply when adding the provided item.
 
 **Examples**
 
@@ -796,11 +796,11 @@ router.get('/', function (req, res) {
 });
 ```
 
-Returns **void**
+Returns **void** 
 
 ### addResponseHeader
 
-[lib/common.js:461-469](https://github.com/eXigentCoder/swagger-spec-express/blob/ca94f03a7013b3303b4b12f53439fdd2e81a3572/lib/common.js#L461-L469 "Source code on GitHub")
+[lib/common.js:461-469](https://github.com/eXigentCoder/swagger-spec-express/blob/39b870a8a30e0cc35c34568400ec807dda475082/lib/common.js#L461-L469 "Source code on GitHub")
 
 Adds a common response header for later use.
 
@@ -811,7 +811,7 @@ Adds a common response header for later use.
     -   `responseHeader.items` **\[[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)]** Required if [type](http://swagger.io/specification/#parameterType) is `array`. Describes the type of items in the array.
     -   `responseHeader.collectionFormat` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** Determines the format of the array if type array is used. Possible values are:-   csv comma separated values foo,bar.
         -   ssv space separated values foo bar.
-        -   tsv tab separated values foo	bar.
+        -   tsv tab separated values foo bar.
         -   pipes pipe separated values foo|bar.
         -   multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.Default value is csv.
     -   `responseHeader.maximum` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor17).
@@ -828,7 +828,7 @@ Adds a common response header for later use.
     -   `responseHeader.description` **\[[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]** A short description of the header.
     -   `responseHeader.name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The name used to refer to this header at a later stage.
     -   `responseHeader.maxLength` **\[[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)]** See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor26).
--   `options` **\[AddCommonItemOptions]** Options to apply when adding the provided item.
+-   `options` **\[[AddCommonItemOptions](#addcommonitemoptions)]** Options to apply when adding the provided item.
 
 **Examples**
 
@@ -854,18 +854,18 @@ router.get('/', function (req, res) {
 });
 ```
 
-Returns **void**
+Returns **void** 
 
 ### addModel
 
-[lib/common.js:499-527](https://github.com/eXigentCoder/swagger-spec-express/blob/ca94f03a7013b3303b4b12f53439fdd2e81a3572/lib/common.js#L499-L527 "Source code on GitHub")
+[lib/common.js:499-527](https://github.com/eXigentCoder/swagger-spec-express/blob/39b870a8a30e0cc35c34568400ec807dda475082/lib/common.js#L499-L527 "Source code on GitHub")
 
 Adds a common model for later use.
 
 **Parameters**
 
--   `model` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** The model object to add.
--   `inputOptions` **\[AddCommonItemOptions]** Options to apply when adding the provided item.
+-   `model` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** The schema for the model object to add. Should be a valid [Schema](http://swagger.io/specification/#schemaObject) object.
+-   `inputOptions` **\[[AddCommonItemOptions](#addcommonitemoptions)]** Options to apply when adding the provided item.
 
 **Examples**
 
@@ -895,15 +895,16 @@ router.get('/', function (req, res) {
 });
 ```
 
-Returns **void**
+Returns **void** 
 
-###
+### AddCommonItemOptions
 
-[lib/common.js:609-613](https://github.com/eXigentCoder/swagger-spec-express/blob/ca94f03a7013b3303b4b12f53439fdd2e81a3572/lib/common.js#L609-L613 "Source code on GitHub")
+[lib/common.js:554-558](https://github.com/eXigentCoder/swagger-spec-express/blob/39b870a8a30e0cc35c34568400ec807dda475082/lib/common.js#L554-L558 "Source code on GitHub")
 
-**Properties**
+**Parameters**
 
 -   `validation` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Controls how validation works, can either be `warn` (Sends message to console.warn), `throw` (Throws an Error) or `ignore`.
+-   `deleteNameFromCommon`  Controls if, after adding the item to common, it should remove the name in order to pass the Swagger schema validation.
 
 ## Reporting Bugs & Issues
 
