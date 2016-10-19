@@ -2,7 +2,6 @@
 require('./../init');
 var swagger = require('../../lib/index');
 var express = require('express');
-var async = require('async');
 
 describe('Describe tests', function () {
     var app;
