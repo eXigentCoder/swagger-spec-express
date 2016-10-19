@@ -3,9 +3,6 @@
     "id": "https://raw.githubusercontent.com/eXigentCoder/swagger-spec-express/master/lib/schemas/meta-data.json",
     "title": "Metadata",
     "type": "object",
-    "required": [
-        "responses"
-    ],
     "additionalProperties": false,
     "patternProperties": {
         "^x-": {
