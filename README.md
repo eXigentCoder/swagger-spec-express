@@ -928,10 +928,12 @@ _todo_
 
 -   Currently populating rootDocument.responses but then injecting the responses directly into the operation. Should use the $ref
 -   Currently populating rootDocument.parameters but then injecting the responses directly into the operation. Should use the $ref
-    ### Medium
+
+### Medium
 -   Ability to describe the app like a router (alternate to passing all the data into the init method).
 -   More tests
-    ### High
+
+### High
 -   addResponse should look for model & arrayOfModel
 -   Better error messages in general so you don't need to debug
 -   Ability to inject certain things into parameters. E.g. many GET routes will have GET /thing/:identifier would be nice to inject the name in there
