@@ -18,7 +18,7 @@ toc:
      - [Add Response](#addresponse)
      - [Add Response Header](#addresponseheader)
      - [Add Model](#addmodel)
-     - [Add Common Item Options](#AddCommonItemOptions)
+     - [Add Common Item Options](#addcommonitemoptions)
  - initialise
  - swaggerise
  - describe
