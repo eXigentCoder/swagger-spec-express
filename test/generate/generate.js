@@ -61,6 +61,10 @@ function setupExampleApp() {
     var app = express();
     swagger.initialise(app, allOptions());
     app.get('/', exampleRoute).describe(exampleMetadata());
+    var router = new express.Router();
+    swagger.swaggerise(router);
+    router.get('/', exampleRoute).describe(exampleMetadata());
+    router.merge('/', exampleRoute).describe(exampleMetadata());
 }
 function exampleRoute(req, res) {
     res.status(200).json({test: true});
@@ -68,17 +72,17 @@ function exampleRoute(req, res) {
 function exampleMetadata() {
     return {
         responses: {
-            "200" : {
-                "examples" : {
-                    "appName" : "esb-facade",
-                    "version" : "1.0.0",
-                    "deploymentDate" : "2016-08-09T13:36:00.000Z",
-                    "environment" : "development",
-                    "nodeVersion" : "v5.9.1"
+            "200": {
+                "examples": {
+                    "appName": "esb-facade",
+                    "version": "1.0.0",
+                    "deploymentDate": "2016-08-09T13:36:00.000Z",
+                    "environment": "development",
+                    "nodeVersion": "v5.9.1"
                 },
-                "description" : "OK",
-                "schema" : {
-                    "$ref" : "#/definitions/appInfo"
+                "description": "OK",
+                "schema": {
+                    "$ref": "#/definitions/appInfo"
                 }
             }
         }
