@@ -8,7 +8,7 @@ var schemasToGenerate = [
     {name: 'pathParameterSubSchema', parent: 'nonBodyParameter', functions: [markNameAsRequired], extraSchemaInfo: require('./schemas/path-parameter-sub-schema.json')},
     {name: 'bodyParameter', functions: [addModels], extraSchemaInfo: require('./schemas/body-parameter.json')},
     {name: 'tag', extraSchemaInfo: require('./schemas/tag.json')},
-    {name: 'schema', functions: [addNameProperty, markNameAsRequired]},
+    {name: 'schema', functions: [addNameProperty, addIdProperty, markNameAsRequired]},
     {name: 'response', functions: [addNameProperty, markNameAsRequired, addModels], extraSchemaInfo: require('./schemas/response.json')},
     {name: 'header', functions: [addNameProperty, markNameAsRequired], extraSchemaInfo: require('./schemas/header.json')},
     {name: 'operation'}
@@ -24,6 +24,14 @@ function addNameProperty(schema) {
     schema.properties = schema.properties || {};
     schema.properties.name = {
         "type": "string"
+    };
+}
+
+function addIdProperty(schema){
+    schema.properties = schema.properties || {};
+    schema.properties.$id = {
+        "type": "string",
+        "format": "uri-reference"
     };
 }
 

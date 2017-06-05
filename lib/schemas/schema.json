@@ -145,6 +145,10 @@
         "example": {},
         "name": {
             "type": "string"
+        },
+        "$id": {
+            "type": "string",
+            "format": "uri-reference"
         }
     },
     "additionalProperties": false,

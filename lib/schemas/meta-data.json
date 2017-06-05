@@ -343,7 +343,11 @@
                 "externalDocs": {
                     "$ref": "#/definitions/externalDocs"
                 },
-                "example": {}
+                "example": {},
+                "$id": {
+                    "type": "string",
+                    "format": "uri-reference"
+                }
             },
             "additionalProperties": false
         },
