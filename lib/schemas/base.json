@@ -1647,5 +1647,6 @@
                 "string"
             ]
         }
-    }
+    },
+    "$id": "http://swagger.io/v2/schema.json#"
 }

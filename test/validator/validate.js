@@ -29,7 +29,7 @@ describe('Validator', function () {
         });
     });
     it('Bug test case, caused by usesDefaults:true', function () {
-        delete metaDataSchema.id;
+        delete metaDataSchema.$id;
         var fn = validator.compile(metaDataSchema);
         fn(exampleMetadata());
     });

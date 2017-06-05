@@ -33,7 +33,7 @@ module.exports = function writeMetaDataFile(data, callback) {
     delete schema.required;
     schema.title = "Metadata";
     var fileName = 'meta-data.json';
-    schema.id = schemaIds.prefix + fileName;
+    schema.$id = schemaIds.prefix + fileName;
     convertSchema4To6(schema);
     fs.writeFile('./lib/schemas/' + fileName, JSON.stringify(schema, null, 4), null, function (err) {
         return callback(err, data);

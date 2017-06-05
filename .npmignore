@@ -2,6 +2,7 @@ test/
 coverage/
 node_modules/
 .travis.yml
+.idea/
 .eslintrc.js,
 .eslintrc
 .editorconfig
