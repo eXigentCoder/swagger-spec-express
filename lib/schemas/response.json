@@ -1,6 +1,4 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "id": "https://raw.githubusercontent.com/eXigentCoder/swagger-spec-express/master/lib/schemas/response.json",
     "title": "Response",
     "type": "object",
     "required": [
@@ -76,7 +74,7 @@
                 "multipleOf": {
                     "type": "number",
                     "minimum": 0,
-                    "exclusiveMinimum": true
+                    "exclusiveMinimum": 0
                 },
                 "maximum": {
                     "type": "number"
@@ -533,12 +531,13 @@
         "multipleOf": {
             "type": "number",
             "minimum": 0,
-            "exclusiveMinimum": true
+            "exclusiveMinimum": 0
         },
         "examples": {
             "type": "object",
             "additionalProperties": true
         }
     },
-    "description": "Describes a single response from an API Operation."
+    "description": "Describes a single response from an API Operation.",
+    "$id": "https://raw.githubusercontent.com/eXigentCoder/swagger-spec-express/master/lib/schemas/response.json"
 }

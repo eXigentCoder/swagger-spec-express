@@ -1,11 +1,14 @@
 'use strict';
 var jsonSchemaSchema = require('../../lib/schemas/json-schema-4.0.json');
 var fullSchema = require('swagger-schema-official/schema.json');
+var convertSchema4to6 = require('../../lib/convertSchema4To6');
 var _ = require('lodash');
 var async = require('async');
 var baseUrl = 'http://json-schema.org/draft-04/schema#/';
 var propertiesSearchString = baseUrl + 'properties/';
 var definitionsSearchString = baseUrl + 'definitions/';
+convertSchema4to6(fullSchema);
+convertSchema4to6(jsonSchemaSchema);
 
 module.exports = function replaceHttpReferences(callback) {
     var schema = _.cloneDeep(fullSchema);
@@ -45,7 +48,6 @@ function localiseSchemaProperty(parent, root, propertyName) {
     }
     localise$ref(property, parent, root, propertyName);
 }
-
 
 function localise$ref(property, parent, root, propertyName) {
     var propertiesIndex = property.indexOf(propertiesSearchString);

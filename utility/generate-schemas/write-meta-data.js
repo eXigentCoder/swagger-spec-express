@@ -3,6 +3,7 @@ var fs = require('fs');
 var schemas = require('./schemas-to-generate');
 var _ = require('lodash');
 var schemaIds = require('../../lib/schema-ids');
+var convertSchema4To6 = require('./../../lib/convertSchema4To6');
 
 module.exports = function writeMetaDataFile(data, callback) {
     var operationSchema = require('../../lib/schemas/operation.json');
@@ -13,7 +14,7 @@ module.exports = function writeMetaDataFile(data, callback) {
         var customisedSchema = _.cloneDeep(require('../../lib/schemas/' + _.kebabCase(definitionName).toLowerCase() + '.json'));
         delete customisedSchema.definitions;
         delete customisedSchema.$schema;
-        delete customisedSchema.id;
+        delete customisedSchema.$id;
         if (schemas.nameRequiredForCommon.indexOf(definitionName) >= 0) {
             delete customisedSchema.properties.name;
             if (customisedSchema.required) {
@@ -33,6 +34,7 @@ module.exports = function writeMetaDataFile(data, callback) {
     schema.title = "Metadata";
     var fileName = 'meta-data.json';
     schema.id = schemaIds.prefix + fileName;
+    convertSchema4To6(schema);
     fs.writeFile('./lib/schemas/' + fileName, JSON.stringify(schema, null, 4), null, function (err) {
         return callback(err, data);
     });
