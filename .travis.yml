@@ -15,11 +15,13 @@ before_deploy:
 - npm version patch -m "Release %s of the library [skip ci]"
 - git push https://$GH_TOKEN@github.com/eXigentCoder/swagger-spec-express.git --all
 deploy:
+  skip_cleanup: true
   provider: npm
   email: potz666@gmail.com
   api_key:
     secure: sLRVi4i8OVw3FKoXmRTDs/jLi6ku8EefSh0KHaWzJHP+JyRifaGYcn+ShrWGrd0wRDXyiLyUYy87Vi1fg2eIY5vJiE/mIKtbwe2FQzFxwO6QyNiQn58dLFVBgEwmbZmXiGkdCLTC7TrKDjZfhhpCruxxokIJstHGatlown/NQTkfFCYvFTxHabrZk89dkAroLKYw8GcqLYZacwuQ+i3NfIfc4PWpNltGdmwEtWnhmgMzGtnGu3di7iihlhl08SqN780HTc0mn/023OWRfALFI3SnSvpU2MyyFUtUaTbyog9QbAh8E1/FB5dY01ErAqb83fbaPCHCGbD9GAGkjuhS+mK0qP4Zo/FWeKzNLPTvKCr4DBgyRjkvs0wsm38n8NtjTKiW1ekUXWt/tQ/8hvjsGWDT3BAw2ReYlfZqj1eC4+nx+Kqy8iaYY3SvtvBcSA3tpRW8TXiw/uZreitvTs2IHnQflfZVaHccUG1hA9kqli+7ho8xldeBloNHzYhAmFhnAoRCF3XcXy+oPce+4hjkZqCwT3xKgaCulp/pbGmbfoEAsX0WFjfjCqWef9RHunlIvoaULKq5sgN8ze0ThGowrAoWDPQXVi4qEkLfu7fhGivVfFnL2DC8ZAfRaYauyLVhtrlcdyGBzSyHa8H5dU8SX5YkrE3xwPUIIY5wsFu55U8=
   on:
+    branch: master
     repo: eXigentCoder/swagger-spec-express
 env:
   global:
