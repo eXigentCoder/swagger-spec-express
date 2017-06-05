@@ -1,6 +1,4 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "id": "https://raw.githubusercontent.com/eXigentCoder/swagger-spec-express/master/lib/schemas/query-parameter-sub-schema.json",
     "title": "Query parameter sub schema",
     "type": "object",
     "required": [
@@ -244,7 +242,7 @@
         "multipleOf": {
             "type": "number",
             "minimum": 0,
-            "exclusiveMinimum": true
+            "exclusiveMinimum": 0
         },
         "collectionFormatWithMulti": {
             "type": "string",
@@ -258,5 +256,6 @@
             "default": "csv"
         }
     },
-    "description": "Parameters that are appended to the URL. For example, in `/items?id=###`, the query parameter is id"
+    "description": "Parameters that are appended to the URL. For example, in `/items?id=###`, the query parameter is id",
+    "$id": "https://raw.githubusercontent.com/eXigentCoder/swagger-spec-express/master/lib/schemas/query-parameter-sub-schema.json"
 }

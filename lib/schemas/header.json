@@ -1,6 +1,4 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "id": "https://raw.githubusercontent.com/eXigentCoder/swagger-spec-express/master/lib/schemas/header.json",
     "title": "Header",
     "type": "object",
     "additionalProperties": false,
@@ -221,7 +219,7 @@
         "multipleOf": {
             "type": "number",
             "minimum": 0,
-            "exclusiveMinimum": true
+            "exclusiveMinimum": 0
         },
         "vendorExtension": {
             "description": "Any property starting with x- is valid.",
@@ -229,5 +227,6 @@
             "additionalItems": true
         }
     },
-    "description": "todo"
+    "description": "todo",
+    "$id": "https://raw.githubusercontent.com/eXigentCoder/swagger-spec-express/master/lib/schemas/header.json"
 }

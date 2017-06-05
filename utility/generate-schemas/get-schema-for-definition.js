@@ -3,6 +3,7 @@ var _ = require('lodash');
 var fs = require('fs');
 var async = require('async');
 var schemaIds = require('../../lib/schema-ids');
+var convertSchema4To6 = require('./../../lib/convertSchema4To6');
 
 module.exports = function getSchemaForDefinition(data, schemaRules, callback) {
     var definitionName = schemaRules.name;
@@ -36,6 +37,7 @@ module.exports = function getSchemaForDefinition(data, schemaRules, callback) {
     if (schemaRules.extraSchemaInfo) {
         _.merge(schemaToGenerate, schemaRules.extraSchemaInfo);
     }
+    convertSchema4To6(schemaToGenerate);
     fs.writeFile('./lib/schemas/' + fileName, JSON.stringify(schemaToGenerate, null, 4), null, callback);
 };
 

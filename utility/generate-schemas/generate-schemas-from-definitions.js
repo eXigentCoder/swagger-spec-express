@@ -5,6 +5,7 @@ var removeRemoteUrlsFromSchema = require('./remove-remote-urls-from-schema');
 var schemas = require('./schemas-to-generate');
 var writeMetaDataFile = require('./write-meta-data');
 var getSchemaForDefinition = require('./get-schema-for-definition');
+var convertSchema4To6 = require('./../../lib/convertSchema4To6');
 
 async.waterfall([
     removeRemoteUrlsFromSchema,
@@ -20,6 +21,7 @@ function waterfallComplete(err) {
 }
 
 function writeMainSchemaToFile(data, callback) {
+    convertSchema4To6(data.baseSchema);
     fs.writeFile('./lib/schemas/base.json', JSON.stringify(data.baseSchema, null, 4), null, fileWritten);
     function fileWritten(err) {
         return callback(err, data);

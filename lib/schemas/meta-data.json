@@ -1,6 +1,4 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "id": "https://raw.githubusercontent.com/eXigentCoder/swagger-spec-express/master/lib/schemas/meta-data.json",
     "title": "Metadata",
     "type": "object",
     "additionalProperties": false,
@@ -227,7 +225,7 @@
                 "multipleOf": {
                     "type": "number",
                     "minimum": 0,
-                    "exclusiveMinimum": true
+                    "exclusiveMinimum": 0
                 },
                 "maximum": {
                     "type": "number"
@@ -667,7 +665,7 @@
         "multipleOf": {
             "type": "number",
             "minimum": 0,
-            "exclusiveMinimum": true
+            "exclusiveMinimum": 0
         },
         "formDataParameterSubSchema": {
             "title": "Form data parameter sub schema",
@@ -1379,5 +1377,6 @@
             }
         }
     },
+    "$id": "https://raw.githubusercontent.com/eXigentCoder/swagger-spec-express/master/lib/schemas/meta-data.json",
     "description": "Metadata about a route"
 }

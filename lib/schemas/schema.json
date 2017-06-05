@@ -1,6 +1,4 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "id": "https://raw.githubusercontent.com/eXigentCoder/swagger-spec-express/master/lib/schemas/schema.json",
     "title": "Schema",
     "type": "object",
     "description": "A deterministic version of a JSON Schema object.",
@@ -26,7 +24,7 @@
         "multipleOf": {
             "type": "number",
             "minimum": 0,
-            "exclusiveMinimum": true
+            "exclusiveMinimum": 0
         },
         "maximum": {
             "type": "number"
@@ -203,7 +201,7 @@
                 "multipleOf": {
                     "type": "number",
                     "minimum": 0,
-                    "exclusiveMinimum": true
+                    "exclusiveMinimum": 0
                 },
                 "maximum": {
                     "type": "number"
@@ -391,5 +389,6 @@
     },
     "required": [
         "name"
-    ]
+    ],
+    "$id": "https://raw.githubusercontent.com/eXigentCoder/swagger-spec-express/master/lib/schemas/schema.json"
 }
