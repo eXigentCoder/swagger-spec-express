@@ -42,7 +42,7 @@
     "swagger-schema-official": "2.0.0-bab6bed"
   },
   "devDependencies": {
-    "chai": "3.5.0",
+    "chai": "4.0.1",
     "dirty-chai": "1.2.2",
     "documentation": "4.0.0-beta10",
     "escodegen": "1.8.1",
