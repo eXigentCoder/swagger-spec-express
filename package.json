@@ -6,13 +6,14 @@
   "scripts": {
     "mocha": "mocha --full-trace test/**/*.js",
     "lint": "eslint \"lib/**/*.js\" \"test/**/*.js\"",
-    "test": "node_modules/.bin/istanbul --include-all-sources cover node_modules/mocha/bin/_mocha test/**/*.js",
+    "test": "snyk test && node_modules/.bin/istanbul --include-all-sources cover node_modules/mocha/bin/_mocha test/**/*.js",
     "report": "plato -r -d report -e .eslintrc lib",
     "check-dependencies": "npm-check -Eu",
     "flow": "flow",
     "jsdoc": "node_modules/.bin/jsdoc \"./lib/index.js\" --configure \"./jsdoc-config.json\" --destination \"./docs/generated/jsdoc/\" --readme \"./README.md\"",
     "documentation": "node_modules/.bin/documentation readme --readme-file=README.md --section \"API\" --github --config=documentation.yml",
-    "JSONdocumentation": "node_modules/.bin/documentation build -o=docs/doc.json"
+    "JSONdocumentation": "node_modules/.bin/documentation build -o=docs/doc.json",
+    "setup-snyk": "node_modules/.bin/snyk wizard"
   },
   "repository": {
     "type": "git",
@@ -57,6 +58,7 @@
     "mocha": "3.4.2",
     "npm-check": "5.4.4",
     "plato": "1.7.0",
-    "request": "2.81.0"
+    "request": "2.81.0",
+    "snyk": "1.33.0"
   }
 }
