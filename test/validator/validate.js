@@ -50,7 +50,7 @@ function exampleMetadata() {
 
 function testSchema() {
     return {
-        id: id,
+        $id: id,
         type: "object",
         properties: {
             name: {
