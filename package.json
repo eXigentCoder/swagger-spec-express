@@ -52,7 +52,7 @@
     "express": "4.16.4",
     "istanbul": "0.4.5",
     "jsdoc": "3.5.5",
-    "json-schema-ref-parser": "5.0.3",
+    "json-schema-ref-parser": "6.0.1",
     "mocha": "5.2.0",
     "npm-check": "5.9.0",
     "plato": "1.7.0",
