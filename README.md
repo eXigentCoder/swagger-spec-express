@@ -252,7 +252,7 @@ swagger.initialise(app, options);
 -   Throws **[Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)** if no app object provided
 -   Throws **[Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)** if no options object provided
 
-Returns **void** 
+Returns **void**
 
 ### swaggerise
 
@@ -275,7 +275,7 @@ var router = new express.Router();
 swagger.swaggerize(router);
 ```
 
-Returns **void** 
+Returns **void**
 
 ### describe
 
@@ -323,7 +323,7 @@ router.get('/', function (req, res) {
 });
 ```
 
-Returns **void** 
+Returns **void**
 
 ### compile
 
@@ -349,7 +349,7 @@ swagger.compile();
 
 -   Throws **[Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)** Will throw an error if `initialise` wasn't called or if you don't yet have any routes defined or if there are certain errors in your metadata
 
-Returns **void** 
+Returns **void**
 
 ### validate
 
@@ -447,7 +447,7 @@ router.get('/', function (req, res) {
 });
 ```
 
-Returns **void** 
+Returns **void**
 
 ### addHeaderParameter
 
@@ -507,7 +507,7 @@ router.get('/', function (req, res) {
 });
 ```
 
-Returns **void** 
+Returns **void**
 
 ### addBodyParameter
 
@@ -535,7 +535,6 @@ swagger.common.parameters.addBody({
     name: "process",
     description: "Kicks off the process function on the server at the rest endpoint using the options provided",
     required: true,
-    type: "object",
     schema : {
         type: "object",
         properties: {
@@ -625,7 +624,7 @@ router.get('/', function (req, res) {
 });
 ```
 
-Returns **void** 
+Returns **void**
 
 ### addFormDataParameter
 
@@ -689,7 +688,7 @@ router.get('/', function (req, res) {
 });
 ```
 
-Returns **void** 
+Returns **void**
 
 ### addPathParameter
 
@@ -751,7 +750,7 @@ router.get('/:entityId', function (req, res) {
 });
 ```
 
-Returns **void** 
+Returns **void**
 
 ### addResponse
 
@@ -796,7 +795,7 @@ router.get('/', function (req, res) {
 });
 ```
 
-Returns **void** 
+Returns **void**
 
 ### addResponseHeader
 
@@ -854,7 +853,7 @@ router.get('/', function (req, res) {
 });
 ```
 
-Returns **void** 
+Returns **void**
 
 ### addModel
 
@@ -895,7 +894,7 @@ router.get('/', function (req, res) {
 });
 ```
 
-Returns **void** 
+Returns **void**
 
 ### AddCommonItemOptions
 
