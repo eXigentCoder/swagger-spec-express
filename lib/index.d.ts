@@ -49,6 +49,14 @@ interface IValid {
 
 interface JsonObject { [key: string]: any; }
 
+export interface ISwaggerizedExpress extends Express {
+    describe: any;
+}
+
+export interface ISwaggerizedRouter extends Router {
+    describe: any;
+}
+
 export namespace common {
   function addModel(model: any, inputOptions?: any): void;
   function addResponse(response: any, options?: any): void;
