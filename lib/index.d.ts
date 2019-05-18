@@ -1,6 +1,6 @@
-import { Express } from 'express-serve-static-core';
+import { Express, Router } from 'express-serve-static-core';
 
-export interface IInitializeOptions {
+interface IInitializeOptions {
     document?: { [key: string]: any };
     title?: string;
     description?: string;
@@ -41,6 +41,14 @@ export interface IInitializeOptions {
     }
 }
 
+interface IValid {
+    valid: boolean;
+    errors: object[];
+    message: string;
+}
+
+interface JsonObject { [key: string]: any; }
+
 export namespace common {
   function addModel(model: any, inputOptions: any): void;
   function addResponse(response: any, options: any): void;
@@ -59,8 +67,8 @@ export function compile(): void;
 export function initialise(app: Express, options: IInitializeOptions): void;
 export function initialize(app: Express, options: IInitializeOptions): void;
 
-export function json(): any;
+export function json(): JsonObject;
 export function reset(): void;
-export function swaggerise(item: any): void;
-export function swaggerize(item: any): void;
-export function validate(): any;
+export function swaggerise(item: Express | Router): void;
+export function swaggerize(item: Express | Router): void;
+export function validate(): IValid;
