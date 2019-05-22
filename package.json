@@ -3,6 +3,7 @@
   "version": "2.0.12",
   "description": "Allows you to programatically annotate your express routes with swagger info and then generate and validate your json spec file",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "mocha": "mocha --full-trace test/**/*.js",
     "lint": "eslint \"lib/**/*.js\" \"test/**/*.js\"",
