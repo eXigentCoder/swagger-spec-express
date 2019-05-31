@@ -1,12 +1,12 @@
 {
   "name": "swagger-spec-express",
   "version": "2.0.12",
-  "description": "Allows you to programatically annotate your express routes with swagger info and then generate and validate your json spec file",
+  "description": "Allows you to programmatically annotate your express routes with swagger info and then generate and validate your json spec file",
   "main": "lib/index.js",
   "scripts": {
     "mocha": "mocha --full-trace test/**/*.js",
     "lint": "eslint \"lib/**/*.js\" \"test/**/*.js\"",
-    "test": "snyk test && node_modules/.bin/istanbul --include-all-sources cover node_modules/mocha/bin/_mocha test/**/*.js",
+    "test": "snyk test && node_modules/.bin/nyc --include-all-sources cover node_modules/mocha/bin/_mocha test/**/*.js",
     "report": "plato -r -d report -e .eslintrc lib",
     "update": "npm-check -Eu",
     "jsdoc": "node_modules/.bin/jsdoc \"./lib/index.js\" --configure \"./jsdoc-config.json\" --destination \"./docs/generated/jsdoc/\" --readme \"./README.md\"",
@@ -35,8 +35,8 @@
   },
   "homepage": "https://github.com/eXigentCoder/swagger-spec-express#readme",
   "dependencies": {
-    "ajv": "6.5.4",
-    "async": "2.6.1",
+    "ajv": "6.10.0",
+    "async": "3.0.1",
     "lodash": "4.17.11",
     "statuses": "1.5.0",
     "swagger-schema-official": "2.0.0-bab6bed"
@@ -44,19 +44,19 @@
   "devDependencies": {
     "chai": "4.2.0",
     "dirty-chai": "2.0.1",
-    "documentation": "8.1.2",
-    "escodegen": "1.11.0",
-    "eslint": "5.7.0",
+    "documentation": "11.0.0",
+    "escodegen": "1.11.1",
+    "eslint": "5.16.0",
     "esprima": "4.0.1",
-    "estree-walker": "0.5.2",
-    "express": "4.16.4",
-    "istanbul": "0.4.5",
-    "jsdoc": "3.5.5",
-    "json-schema-ref-parser": "6.0.1",
-    "mocha": "5.2.0",
+    "estree-walker": "0.6.1",
+    "express": "4.17.1",
+    "jsdoc": "3.6.2",
+    "json-schema-ref-parser": "6.1.0",
+    "mocha": "6.1.4",
     "npm-check": "5.9.0",
+    "nyc": "^14.1.1",
     "plato": "1.7.0",
     "request": "2.88.0",
-    "snyk": "1.150.0"
+    "snyk": "1.170.0"
   }
 }
