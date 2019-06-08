@@ -7,7 +7,7 @@
   "scripts": {
     "mocha": "mocha --full-trace test/**/*.js",
     "lint": "eslint \"lib/**/*.js\" \"test/**/*.js\"",
-    "test": "snyk test && node_modules/.bin/nyc --include-all-sources cover node_modules/mocha/bin/_mocha test/**/*.js",
+    "test": "snyk test && nyc --include-all-sources cover mocha test/**/*.js",
     "report": "plato -r -d report -e .eslintrc lib",
     "update": "npm-check -Eu",
     "jsdoc": "node_modules/.bin/jsdoc \"./lib/index.js\" --configure \"./jsdoc-config.json\" --destination \"./docs/generated/jsdoc/\" --readme \"./README.md\"",
@@ -58,6 +58,6 @@
     "nyc": "^14.1.1",
     "plato": "1.7.0",
     "request": "2.88.0",
-    "snyk": "1.170.0"
+    "snyk": "1.174.1"
   }
 }
