@@ -13,7 +13,9 @@
     "jsdoc": "node_modules/.bin/jsdoc \"./lib/index.js\" --configure \"./jsdoc-config.json\" --destination \"./docs/generated/jsdoc/\" --readme \"./README.md\"",
     "documentation": "node_modules/.bin/documentation readme --readme-file=README.md --section \"API\" --github --config=documentation.yml",
     "JSONdocumentation": "node_modules/.bin/documentation build -o=docs/doc.json",
-    "setup-snyk": "node_modules/.bin/snyk wizard"
+    "setup-snyk": "node_modules/.bin/snyk wizard",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -40,7 +42,8 @@
     "async": "3.0.1",
     "lodash": "4.17.11",
     "statuses": "1.5.0",
-    "swagger-schema-official": "2.0.0-bab6bed"
+    "swagger-schema-official": "2.0.0-bab6bed",
+    "snyk": "^1.192.3"
   },
   "devDependencies": {
     "chai": "4.2.0",
@@ -57,7 +60,7 @@
     "npm-check": "5.9.0",
     "nyc": "^14.1.1",
     "plato": "1.7.0",
-    "request": "2.88.0",
-    "snyk": "1.174.1"
-  }
+    "request": "2.88.0"
+  },
+  "snyk": true
 }
