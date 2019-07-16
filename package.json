@@ -47,7 +47,7 @@
     "dirty-chai": "2.0.1",
     "documentation": "^12.0.1",
     "escodegen": "1.11.1",
-    "eslint": "^6.0.1",
+    "eslint": "^5.16.0",
     "esprima": "4.0.1",
     "estree-walker": "0.6.1",
     "express": "4.17.1",
