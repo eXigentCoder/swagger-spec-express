@@ -36,28 +36,28 @@
   },
   "homepage": "https://github.com/eXigentCoder/swagger-spec-express#readme",
   "dependencies": {
-    "ajv": "6.10.0",
-    "async": "3.0.1",
-    "lodash": "4.17.11",
+    "ajv": "6.10.2",
+    "async": "3.1.0",
+    "lodash": "4.17.15",
     "statuses": "1.5.0",
     "swagger-schema-official": "2.0.0-bab6bed"
   },
   "devDependencies": {
     "chai": "4.2.0",
     "dirty-chai": "2.0.1",
-    "documentation": "11.0.0",
+    "documentation": "12.1.1",
     "escodegen": "1.11.1",
-    "eslint": "5.16.0",
+    "eslint": "6.1.0",
     "esprima": "4.0.1",
     "estree-walker": "0.6.1",
     "express": "4.17.1",
-    "jsdoc": "3.6.2",
-    "json-schema-ref-parser": "6.1.0",
-    "mocha": "6.1.4",
+    "jsdoc": "3.6.3",
+    "json-schema-ref-parser": "7.1.0",
+    "mocha": "6.2.0",
     "npm-check": "5.9.0",
     "nyc": "^14.1.1",
     "plato": "1.7.0",
     "request": "2.88.0",
-    "snyk": "1.174.1"
+    "snyk": "1.208.0"
   }
 }
