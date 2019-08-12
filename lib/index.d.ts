@@ -80,3 +80,4 @@ export function reset(): void;
 export function swaggerise(item: Express | Router): void;
 export function swaggerize(item: Express | Router): void;
 export function validate(): IValid;
+export function ensureValid(): void;
