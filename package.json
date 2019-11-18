@@ -45,19 +45,19 @@
   "devDependencies": {
     "chai": "4.2.0",
     "dirty-chai": "2.0.1",
-    "documentation": "12.1.1",
-    "escodegen": "1.11.1",
-    "eslint": "6.1.0",
+    "documentation": "12.1.4",
+    "escodegen": "1.12.0",
+    "eslint": "6.6.0",
     "esprima": "4.0.1",
     "estree-walker": "0.6.1",
     "express": "4.17.1",
     "jsdoc": "3.6.3",
-    "json-schema-ref-parser": "7.1.0",
-    "mocha": "6.2.0",
+    "json-schema-ref-parser": "7.1.2",
+    "mocha": "6.2.2",
     "npm-check": "5.9.0",
     "nyc": "^14.1.1",
     "plato": "1.7.0",
     "request": "2.88.0",
-    "snyk": "1.208.0"
+    "snyk": "1.248.0"
   }
 }
