@@ -38,7 +38,7 @@
   "dependencies": {
     "ajv": "6.10.2",
     "async": "3.1.0",
-    "lodash": "4.17.15",
+    "lodash": "4.17.16",
     "statuses": "1.5.0",
     "swagger-schema-official": "2.0.0-bab6bed"
   },
