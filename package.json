@@ -50,7 +50,7 @@
     "eslint": "6.6.0",
     "esprima": "4.0.1",
     "estree-walker": "0.6.1",
-    "express": "4.17.1",
+    "express": "4.17.3",
     "jsdoc": "3.6.3",
     "json-schema-ref-parser": "7.1.2",
     "mocha": "6.2.2",
