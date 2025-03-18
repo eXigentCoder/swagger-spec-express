@@ -1,11 +1,12 @@
 {
   "name": "swagger-spec-express",
   "version": "2.0.23",
-  "description": "Allows you to programatically annotate your express routes with swagger info and then generate and validate your json spec file",
+  "description": "Allows you to programmatically annotate your express routes with swagger info and then generate and validate your json spec file",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "mocha": "mocha --full-trace test/**/*.js",
+    "update": "npm-check -u",
     "lint": "eslint \"lib/**/*.js\" \"test/**/*.js\"",
     "test": "snyk test && nyc --include-all-sources cover mocha test/**/*.js",
     "jsdoc": "node_modules/.bin/jsdoc \"./lib/index.js\" --configure \"./jsdoc-config.json\" --destination \"./docs/generated/jsdoc/\" --readme \"./README.md\"",
@@ -35,7 +36,7 @@
   "homepage": "https://github.com/eXigentCoder/swagger-spec-express#readme",
   "dependencies": {
     "ajv": "^6.12.6",
-    "async": "3.2.4",
+    "async": "^3.2.6",
     "lodash": "4.17.21",
     "statuses": "2.0.1",
     "swagger-schema-official": "2.0.0-bab6bed"
@@ -43,17 +44,17 @@
   "devDependencies": {
     "chai": "^4.3.7",
     "dirty-chai": "2.0.1",
-    "documentation": "^14.0.1",
-    "escodegen": "^2.0.0",
+    "documentation": "^14.0.3",
+    "escodegen": "^2.1.0",
     "eslint": "^8.33.0",
     "esprima": "4.0.1",
     "estree-walker": "^3.0.3",
-    "express": "^4.18.2",
-    "jsdoc": "^4.0.0",
+    "express": "^4.21.2",
+    "jsdoc": "^4.0.4",
     "json-schema-ref-parser": "7.1.2",
     "mocha": "^10.2.0",
     "nyc": "^15.1.0",
-    "request": "2.88.0",
-    "snyk": "^1.1097.0"
+    "request": "^2.88.2",
+    "snyk": "^1.1296.0"
   }
 }
