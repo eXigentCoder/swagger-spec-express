@@ -1,4 +1,4 @@
-import { Express, Router } from 'express-serve-static-core';
+import { Express, Router } from 'express';
 
 interface IInitializeOptions {
     document?: { [key: string]: any };
