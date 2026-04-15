@@ -7,11 +7,11 @@ var convertSchema4To6 = require('./../../lib/convertSchema4To6');
 
 module.exports = function getSchemaForDefinition(data, schemaRules, callback) {
     var definitionName = schemaRules.name;
-    var fileName = _.kebabCase(definitionName) + ".json";
+    var fileName = _.kebabCase(definitionName) + '.json';
     var schemaToGenerate = {
-        $schema: "http://json-schema.org/draft-04/schema#",
+        $schema: 'http://json-schema.org/draft-04/schema#',
         id: schemaIds.prefix + fileName,
-        title: _.capitalize(_.kebabCase(definitionName).split('-').join(' '))
+        title: _.capitalize(_.kebabCase(definitionName).split('-').join(' ')),
     };
     if (schemaRules.parent) {
         var parentSchema = data.baseSchema.definitions[schemaRules.parent];
@@ -25,7 +25,7 @@ module.exports = function getSchemaForDefinition(data, schemaRules, callback) {
         _.merge(schemaToGenerate, data.baseSchema.definitions[definitionName]);
     }
     if (!schemaToGenerate) {
-        throw new Error("No definition found with the name " + definitionName);
+        throw new Error('No definition found with the name ' + definitionName);
     }
     schemaToGenerate.definitions = {};
     resolveDefinitions(data, schemaToGenerate, schemaToGenerate.definitions);
@@ -67,7 +67,7 @@ function getDefinitionName(data, results, word) {
     if (name && !_.startsWith(name, '{')) {
         var definition = data.baseSchema.definitions[name];
         if (!definition) {
-            throw new Error("Unable to find definition with name " + name + " in the full schema");
+            throw new Error('Unable to find definition with name ' + name + ' in the full schema');
         }
         results.push(name);
     }

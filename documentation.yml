@@ -1,37 +1,37 @@
 toc:
- - name: Table of Contents
-   description: |
-     - Core:
-     - [Initialise](#initialise)
-     - [Swaggerise](#swaggerise)
-     - [Describe](#describe)
-     - [Compile](#compile)
-     - [Validate](#validate)
-     - [Json](#json)
-     - Adding common items:
-     - [Add Tag](#addtag)
-     - [Add Header Parameter](#addheaderparameter)
-     - [Add Body Parameter](#addbodyparameter)
-     - [Add Query Parameter](#addqueryparameter)
-     - [Add Form Data Parameter](#addformdataparameter)
-     - [Add Path Parameter](#addpathparameter)
-     - [Add Response](#addresponse)
-     - [Add Response Header](#addresponseheader)
-     - [Add Model](#addmodel)
-     - [Add Common Item Options](#addcommonitemoptions)
- - initialise
- - swaggerise
- - describe
- - compile
- - validate
- - json
- - addTag
- - addHeaderParameter
- - addBodyParameter
- - addQueryParameter
- - addFormDataParameter
- - addPathParameter
- - addResponse
- - addResponseHeader
- - addModel
- - AddCommonItemOptions
+  - name: Table of Contents
+    description: |
+      - Core:
+      - [Initialise](#initialise)
+      - [Swaggerise](#swaggerise)
+      - [Describe](#describe)
+      - [Compile](#compile)
+      - [Validate](#validate)
+      - [Json](#json)
+      - Adding common items:
+      - [Add Tag](#addtag)
+      - [Add Header Parameter](#addheaderparameter)
+      - [Add Body Parameter](#addbodyparameter)
+      - [Add Query Parameter](#addqueryparameter)
+      - [Add Form Data Parameter](#addformdataparameter)
+      - [Add Path Parameter](#addpathparameter)
+      - [Add Response](#addresponse)
+      - [Add Response Header](#addresponseheader)
+      - [Add Model](#addmodel)
+      - [Add Common Item Options](#addcommonitemoptions)
+  - initialise
+  - swaggerise
+  - describe
+  - compile
+  - validate
+  - json
+  - addTag
+  - addHeaderParameter
+  - addBodyParameter
+  - addQueryParameter
+  - addFormDataParameter
+  - addPathParameter
+  - addResponse
+  - addResponseHeader
+  - addModel
+  - AddCommonItemOptions

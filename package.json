@@ -5,14 +5,21 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "mocha": "mocha --full-trace test/**/*.js",
+    "mocha": "mocha --full-trace test/**/*.mjs",
     "update": "npm-check -u",
-    "lint": "eslint \"lib/**/*.js\" \"test/**/*.js\"",
-    "test": "snyk test && nyc --include-all-sources cover mocha test/**/*.js",
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix",
+    "lint-errors": "eslint . --quiet",
+    "prettier": "prettier . --write",
+    "test": "snyk test && nyc --include-all-sources cover mocha test/**/*.mjs",
+    "test:mocha": "mocha --full-trace test/**/*.mjs",
     "jsdoc": "node_modules/.bin/jsdoc \"./lib/index.js\" --configure \"./jsdoc-config.json\" --destination \"./docs/generated/jsdoc/\" --readme \"./README.md\"",
     "documentation": "node_modules/.bin/documentation readme --readme-file=README.md --section \"API\" --github --config=documentation.yml",
     "JSONdocumentation": "node_modules/.bin/documentation build -o=docs/doc.json",
     "setup-snyk": "node_modules/.bin/snyk wizard"
+  },
+  "engines": {
+    "node": ">=22.0.0"
   },
   "repository": {
     "type": "git",
@@ -35,26 +42,33 @@
   },
   "homepage": "https://github.com/eXigentCoder/swagger-spec-express#readme",
   "dependencies": {
-    "ajv": "^6.12.6",
+    "ajv": "^8.18.0",
+    "ajv-formats": "^3.0.1",
     "async": "^3.2.6",
-    "lodash": "4.17.21",
-    "statuses": "2.0.1",
+    "lodash": "^4.18.1",
+    "statuses": "^2.0.2",
     "swagger-schema-official": "2.0.0-bab6bed"
   },
   "devDependencies": {
-    "chai": "^4.3.7",
-    "dirty-chai": "2.0.1",
+    "@eslint/js": "10.0.1",
+    "chai": "^6.2.2",
+    "dirty-chai": "^3.0.0",
     "documentation": "^14.0.3",
     "escodegen": "^2.1.0",
-    "eslint": "^8.33.0",
+    "eslint": "^10.2.0",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-prettier": "5.5.5",
+    "eslint-plugin-sonarjs": "4.0.2",
     "esprima": "4.0.1",
     "estree-walker": "^3.0.3",
-    "express": "^4.21.2",
-    "jsdoc": "^4.0.4",
-    "json-schema-ref-parser": "7.1.2",
-    "mocha": "^10.2.0",
-    "nyc": "^15.1.0",
-    "request": "^2.88.2",
-    "snyk": "^1.1296.0"
+    "express": "^4.22.1",
+    "globals": "^17.5.0",
+    "jsdoc": "^4.0.5",
+    "json-schema-ref-parser": "9.0.9",
+    "mocha": "^12.0.0-beta-10",
+    "npm-check": "^6.0.1",
+    "nyc": "^18.0.0",
+    "prettier": "^3.8.3",
+    "snyk": "^1.1304.0"
   }
 }

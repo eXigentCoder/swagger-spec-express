@@ -8,7 +8,7 @@ var os = require('os');
 var esprima = require('esprima');
 var escodegen = require('escodegen');
 var estreeWalker = require('estree-walker');
-var util = require("util");
+var util = require('util');
 var loadedDerefedSchemas = {};
 //var eol = os.EOL;
 /**
@@ -29,15 +29,9 @@ function injectSchemaForFile(filePath, callback) {
     console.info('Processing file', filePath, '...');
     var options = {
         filePath: filePath,
-        eol: '\n'
+        eol: '\n',
     };
-    async.waterfall([
-        async.apply(loadFile, options),
-        parseFile,
-        getCommentsToGenerate,
-        generateOutput,
-        writeFile
-    ], callback);
+    async.waterfall([async.apply(loadFile, options), parseFile, getCommentsToGenerate, generateOutput, writeFile], callback);
 }
 
 function loadFile(options, callback) {
@@ -57,7 +51,7 @@ function parseFile(options, callback) {
     var parserOptions = {
         sourceType: 'module',
         comment: false,
-        attachComment: true
+        attachComment: true,
     };
     options.parsedFile = esprima.parse(options.fileContent, parserOptions);
     console.info('\t\tDone.');
@@ -82,14 +76,21 @@ function getCommentsToGenerate(options, callback) {
             }
             var parts = line.trim().split(' ');
             if (parts.length !== 4) {
-                throw new Error(util.format("Invalid @paramSchema format, should have had 4 parts after splitting on spaces but was %s. Line : %s. Full comment block %s", parts.length, line, comment));
+                throw new Error(
+                    util.format(
+                        'Invalid @paramSchema format, should have had 4 parts after splitting on spaces but was %s. Line : %s. Full comment block %s',
+                        parts.length,
+                        line,
+                        comment
+                    )
+                );
             }
             options.commentsToGenerate.push({
                 comment: comment,
                 lines: lines,
                 paramName: parts[2],
                 schemaPath: parts[3],
-                eol: options.eol
+                eol: options.eol,
             });
         });
     });
@@ -116,12 +117,7 @@ function getCommentsToGenerate(options, callback) {
  */
 function generateCommentFromOptions(options, callback) {
     console.info('\t\tGenerating comments for', options.paramName, '...');
-    async.waterfall([
-        async.apply(loadSchema, options),
-        derefSchema,
-        generateComment,
-        addGeneratedComment
-    ], function (err) {
+    async.waterfall([async.apply(loadSchema, options), derefSchema, generateComment, addGeneratedComment], function (err) {
         if (err) {
             return callback(err);
         }
@@ -148,8 +144,7 @@ function loadSchema(options, callback) {
         console.info('\t\t\t\tparsing ...');
         try {
             options.schema = JSON.parse(content);
-        }
-        catch (parserError) {
+        } catch (parserError) {
             return callback(parserError);
         }
         console.info('\t\t\t\t\tDone.');
@@ -215,7 +210,10 @@ function removeOldComments(options) {
     var parts = options.comment.value.split('@');
     var pramNameRegExString = '((' + options.paramName + '\\..+)|(' + options.paramName + '))';
     var paramNameWithOrWithoutBrackets = '((\\[' + pramNameRegExString + '\\])|(' + pramNameRegExString + '))';
-    var regEx = new RegExp('^param\\s((\\{.*\\}\\s' + paramNameWithOrWithoutBrackets + ')|' + paramNameWithOrWithoutBrackets + ')\\s.*', 'i');
+    var regEx = new RegExp(
+        '^param\\s((\\{.*\\}\\s' + paramNameWithOrWithoutBrackets + ')|' + paramNameWithOrWithoutBrackets + ')\\s.*',
+        'i'
+    );
     parts.forEach(function (part) {
         if (!_.startsWith(part, 'param ')) {
             newParts.push(part);
@@ -238,11 +236,11 @@ function generateOutput(options, callback) {
         format: {
             newline: options.eol, //doesn't seem like the escodegen lib honours this, so have a workaround
             indent: {
-                adjustMultilineComment: true
+                adjustMultilineComment: true,
             },
-            quotes: 'single'
+            quotes: 'single',
         },
-        comment: true
+        comment: true,
     };
     options.fileOutput = escodegen.generate(options.parsedFile, generateOptions);
     if (options.eol !== os.EOL) {
@@ -271,14 +269,14 @@ function removeDuplicateComments(ast) {
     // so two comments with the same range are talking about the same comment.
     // So we'll just remove all trailing comments which are also a leading
     // comment somewhere.
-    //eslint-disable-next-line no-undef
+
     const rangesInLeadingComments = new Set();
     estreeWalker.walk(ast, {
         enter: (node) => {
             for (let leadingComment of node.leadingComments || []) {
                 rangesInLeadingComments.add(leadingComment.range.join(','));
             }
-        }
+        },
     });
     estreeWalker.walk(ast, {
         enter: (node) => {
@@ -288,7 +286,7 @@ function removeDuplicateComments(ast) {
             node.trailingComments = node.trailingComments.filter((comment) => {
                 return !rangesInLeadingComments.has(comment.range.join(','));
             });
-        }
+        },
     });
 }
 
@@ -309,7 +307,7 @@ function replaceComments(rootDocument) {
             if (hasParamSchema) {
                 leadingComments.push(node);
             }
-        }
+        },
     });
 
     leadingComments.forEach(function (leadingComment) {

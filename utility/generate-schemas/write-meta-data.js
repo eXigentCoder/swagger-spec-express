@@ -31,7 +31,7 @@ module.exports = function writeMetaDataFile(data, callback) {
     var operationExtraDataSchema = require('./schemas/operation-extra-data.json');
     var schema = _.merge({}, operationSchema, operationExtraDataSchema);
     delete schema.required;
-    schema.title = "Metadata";
+    schema.title = 'Metadata';
     var fileName = 'meta-data.json';
     schema.$id = schemaIds.prefix + fileName;
     convertSchema4To6(schema);

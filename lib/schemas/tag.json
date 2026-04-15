@@ -1,59 +1,55 @@
 {
-    "title": "Tag",
-    "type": "object",
-    "additionalProperties": false,
-    "required": [
-        "name"
-    ],
-    "properties": {
-        "name": {
-            "type": "string",
-            "description": "Required. The name of the tag."
-        },
+  "title": "Tag",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Required. The name of the tag."
+    },
+    "description": {
+      "type": "string",
+      "description": "A short description for the tag. GFM syntax can be used for rich text representation."
+    },
+    "externalDocs": {
+      "$ref": "#/definitions/externalDocs"
+    }
+  },
+  "patternProperties": {
+    "^x-": {
+      "$ref": "#/definitions/vendorExtension"
+    }
+  },
+  "definitions": {
+    "externalDocs": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "information about external documentation",
+      "required": ["url"],
+      "properties": {
         "description": {
-            "type": "string",
-            "description": "A short description for the tag. GFM syntax can be used for rich text representation."
+          "type": "string",
+          "description": "A short description of the target documentation. GFM syntax can be used for rich text representation."
         },
-        "externalDocs": {
-            "$ref": "#/definitions/externalDocs"
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Required. The URL for the target documentation. Value MUST be in the format of a URL."
         }
-    },
-    "patternProperties": {
+      },
+      "patternProperties": {
         "^x-": {
-            "$ref": "#/definitions/vendorExtension"
+          "$ref": "#/definitions/vendorExtension"
         }
+      }
     },
-    "definitions": {
-        "externalDocs": {
-            "type": "object",
-            "additionalProperties": false,
-            "description": "information about external documentation",
-            "required": [
-                "url"
-            ],
-            "properties": {
-                "description": {
-                    "type": "string",
-                    "description": "A short description of the target documentation. GFM syntax can be used for rich text representation."
-                },
-                "url": {
-                    "type": "string",
-                    "format": "uri",
-                    "description": "Required. The URL for the target documentation. Value MUST be in the format of a URL."
-                }
-            },
-            "patternProperties": {
-                "^x-": {
-                    "$ref": "#/definitions/vendorExtension"
-                }
-            }
-        },
-        "vendorExtension": {
-            "description": "Any property starting with x- is valid.",
-            "additionalProperties": true,
-            "additionalItems": true
-        }
-    },
-    "description": "Allows adding meta data to a single tag that is used by the Operation Object. It is not mandatory to have a Tag Object per tag used there.",
-    "$id": "https://raw.githubusercontent.com/eXigentCoder/swagger-spec-express/master/lib/schemas/tag.json"
+    "vendorExtension": {
+      "description": "Any property starting with x- is valid.",
+      "additionalProperties": true,
+      "additionalItems": true
+    }
+  },
+  "description": "Allows adding meta data to a single tag that is used by the Operation Object. It is not mandatory to have a Tag Object per tag used there.",
+  "$id": "https://raw.githubusercontent.com/eXigentCoder/swagger-spec-express/master/lib/schemas/tag.json"
 }

@@ -7,12 +7,7 @@ var writeMetaDataFile = require('./write-meta-data');
 var getSchemaForDefinition = require('./get-schema-for-definition');
 var convertSchema4To6 = require('./../../lib/convertSchema4To6');
 
-async.waterfall([
-    removeRemoteUrlsFromSchema,
-    writeMainSchemaToFile,
-    generateSchemas,
-    writeMetaDataFile
-], waterfallComplete);
+async.waterfall([removeRemoteUrlsFromSchema, writeMainSchemaToFile, generateSchemas, writeMetaDataFile], waterfallComplete);
 
 function waterfallComplete(err) {
     if (err) {
@@ -34,4 +29,3 @@ function generateSchemas(data, callback) {
         return callback(err, data);
     }
 }
-

@@ -26,7 +26,7 @@ module.exports = function generateJsDocCommentFromSchema(paramName, schema, eol)
 
 function addComment(message, eol, indentLevel) {
     if (!message) {
-        throw new Error("Message cannot be blank");
+        throw new Error('Message cannot be blank');
     }
     var prefix = '';
     if (_.isNil(indentLevel)) {
@@ -38,17 +38,15 @@ function addComment(message, eol, indentLevel) {
     return prefix + message + eol;
 }
 
-
 function generateJsDocCommentForProperties(properties, prefix, requiredFields, eol, loopCounter) {
     loopCounter++;
     if (loopCounter > 20) {
-        throw new Error(util.format("Too many loops, probably a circular schema %s", prefix));
+        throw new Error(util.format('Too many loops, probably a circular schema %s', prefix));
     }
     let comment = '';
     prefix = prefix || '';
     requiredFields = requiredFields || [];
     Object.keys(properties).forEach(function (key) {
-
         comment += generateJsDocCommentForProperty(key, properties[key], requiredFields, prefix, eol, loopCounter);
     });
     return comment;
@@ -76,19 +74,18 @@ function generateJsDocCommentForProperty(propertyName, property, requiredFields,
             });
         }
         if (!property.type) {
-            throw new Error(util.format("Todo : %j", property, propertyName, prefix));
+            throw new Error(util.format('Todo : %j', property, propertyName, prefix));
         }
     }
     var type = property.type;
     if (type === 'array') {
         if (!property.items) {
             type = 'Array.';
-        }
-        else if (!property.items.type) {
+        } else if (!property.items.type) {
             if (propertyName === 'parameters') {
                 type = ['object', 'string'];
             } else {
-                throw new Error("todo");
+                throw new Error('todo');
             }
         } else {
             type = property.items.type + '[]';

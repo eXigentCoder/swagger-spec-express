@@ -15,13 +15,11 @@ module.exports = function replaceHttpReferences(callback) {
     try {
         localise(schema);
         copyDefinitions(schema);
-    }
-    catch (err) {
+    } catch (err) {
         return callback(err);
     }
     callback(null, {baseSchema: schema});
 };
-
 
 function localise(schema, root) {
     root = root || schema;
@@ -56,7 +54,7 @@ function localise$ref(property, parent, root, propertyName) {
         return;
     }
     if (propertiesIndex > 0 && definitionsIndex > 0) {
-        throw new Error("Both search strings found items, unhandled");
+        throw new Error('Both search strings found items, unhandled');
     }
     if (propertiesIndex >= 0) {
         return setProperty(property, parent);

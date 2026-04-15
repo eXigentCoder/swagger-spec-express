@@ -1,232 +1,212 @@
 {
-    "title": "Header",
-    "type": "object",
-    "additionalProperties": false,
-    "required": [
-        "type",
-        "name"
-    ],
-    "properties": {
+  "title": "Header",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["type", "name"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["string", "number", "integer", "boolean", "array"],
+      "description": "**Required.** The type of the parameter. Since the parameter is not located at the request body, it is limited to simple types (that is, not an object). The value MUST be one of `string`, `number`, `integer`, `boolean`, `array` or `file`. If type is `file`, the [consumes](http://swagger.io/specification/#operationConsumes) MUST be either `multipart/form-data`, `application/x-www-form-urlencoded` or both and the parameter MUST be in `formData`."
+    },
+    "format": {
+      "type": "string",
+      "description": "The extending format for the previously mentioned [type](http://swagger.io/specification/#parameterType). See [Data Type Formats](http://swagger.io/specification/#dataTypeFormat) for further details."
+    },
+    "items": {
+      "$ref": "#/definitions/primitivesItems",
+      "description": "Required if [type](http://swagger.io/specification/#parameterType) is `array`. Describes the type of items in the array."
+    },
+    "collectionFormat": {
+      "$ref": "#/definitions/collectionFormat",
+      "description": "Determines the format of the array if type array is used. Possible values are:\r\n\r\n- csv comma separated values foo,bar.\r\n- ssv space separated values foo bar.\r\n- tsv tab separated values foo\tbar.\r\n- pipes pipe separated values foo|bar.\r\n- multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.\r\n\r\nDefault value is csv."
+    },
+    "default": {
+      "$ref": "#/definitions/default",
+      "description": "Declares the value of the parameter that the server will use if none is provided, for example a `count` to control the number of results per page might default to 100 if not supplied by the client in the request. (Note: `default` has no meaning for required parameters.) See [http://json-schema.org/latest/json-schema-validation.html#anchor101](http://json-schema.org/latest/json-schema-validation.html#anchor101). Unlike JSON Schema this value MUST conform to the defined type for this parameter."
+    },
+    "maximum": {
+      "$ref": "#/definitions/maximum",
+      "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor17)."
+    },
+    "exclusiveMaximum": {
+      "$ref": "#/definitions/exclusiveMaximum",
+      "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor17)."
+    },
+    "minimum": {
+      "$ref": "#/definitions/minimum",
+      "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor21)."
+    },
+    "exclusiveMinimum": {
+      "$ref": "#/definitions/exclusiveMinimum",
+      "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor21)."
+    },
+    "maxLength": {
+      "$ref": "#/definitions/maxLength",
+      "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor26)."
+    },
+    "minLength": {
+      "$ref": "#/definitions/minLength",
+      "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor29)."
+    },
+    "pattern": {
+      "$ref": "#/definitions/pattern",
+      "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor33)."
+    },
+    "maxItems": {
+      "$ref": "#/definitions/maxItems",
+      "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor42)."
+    },
+    "minItems": {
+      "$ref": "#/definitions/minItems",
+      "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor45)."
+    },
+    "uniqueItems": {
+      "$ref": "#/definitions/uniqueItems",
+      "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor49)."
+    },
+    "enum": {
+      "$ref": "#/definitions/enum",
+      "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor76)."
+    },
+    "multipleOf": {
+      "$ref": "#/definitions/multipleOf",
+      "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor14)."
+    },
+    "description": {
+      "type": "string",
+      "description": "A short description of the header."
+    },
+    "name": {
+      "type": "string",
+      "description": "The name used to refer to this header at a later stage."
+    }
+  },
+  "patternProperties": {
+    "^x-": {
+      "$ref": "#/definitions/vendorExtension"
+    }
+  },
+  "definitions": {
+    "primitivesItems": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
         "type": {
-            "type": "string",
-            "enum": [
-                "string",
-                "number",
-                "integer",
-                "boolean",
-                "array"
-            ],
-            "description": "**Required.** The type of the parameter. Since the parameter is not located at the request body, it is limited to simple types (that is, not an object). The value MUST be one of `string`, `number`, `integer`, `boolean`, `array` or `file`. If type is `file`, the [consumes](http://swagger.io/specification/#operationConsumes) MUST be either `multipart/form-data`, `application/x-www-form-urlencoded` or both and the parameter MUST be in `formData`."
+          "type": "string",
+          "enum": ["string", "number", "integer", "boolean", "array"]
         },
         "format": {
-            "type": "string",
-            "description": "The extending format for the previously mentioned [type](http://swagger.io/specification/#parameterType). See [Data Type Formats](http://swagger.io/specification/#dataTypeFormat) for further details."
+          "type": "string"
         },
         "items": {
-            "$ref": "#/definitions/primitivesItems",
-            "description": "Required if [type](http://swagger.io/specification/#parameterType) is `array`. Describes the type of items in the array."
+          "$ref": "#/definitions/primitivesItems"
         },
         "collectionFormat": {
-            "$ref": "#/definitions/collectionFormat",
-            "description": "Determines the format of the array if type array is used. Possible values are:\r\n\r\n- csv comma separated values foo,bar.\r\n- ssv space separated values foo bar.\r\n- tsv tab separated values foo\tbar.\r\n- pipes pipe separated values foo|bar.\r\n- multi corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz. This is valid only for parameters in `query` or `formData`.\r\n\r\nDefault value is csv."
+          "$ref": "#/definitions/collectionFormat"
         },
         "default": {
-            "$ref": "#/definitions/default",
-            "description": "Declares the value of the parameter that the server will use if none is provided, for example a `count` to control the number of results per page might default to 100 if not supplied by the client in the request. (Note: `default` has no meaning for required parameters.) See [http://json-schema.org/latest/json-schema-validation.html#anchor101](http://json-schema.org/latest/json-schema-validation.html#anchor101). Unlike JSON Schema this value MUST conform to the defined type for this parameter."
+          "$ref": "#/definitions/default"
         },
         "maximum": {
-            "$ref": "#/definitions/maximum",
-            "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor17)."
+          "$ref": "#/definitions/maximum"
         },
         "exclusiveMaximum": {
-            "$ref": "#/definitions/exclusiveMaximum",
-            "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor17)."
+          "$ref": "#/definitions/exclusiveMaximum"
         },
         "minimum": {
-            "$ref": "#/definitions/minimum",
-            "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor21)."
+          "$ref": "#/definitions/minimum"
         },
         "exclusiveMinimum": {
-            "$ref": "#/definitions/exclusiveMinimum",
-            "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor21)."
+          "$ref": "#/definitions/exclusiveMinimum"
         },
         "maxLength": {
-            "$ref": "#/definitions/maxLength",
-            "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor26)."
+          "$ref": "#/definitions/maxLength"
         },
         "minLength": {
-            "$ref": "#/definitions/minLength",
-            "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor29)."
+          "$ref": "#/definitions/minLength"
         },
         "pattern": {
-            "$ref": "#/definitions/pattern",
-            "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor33)."
+          "$ref": "#/definitions/pattern"
         },
         "maxItems": {
-            "$ref": "#/definitions/maxItems",
-            "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor42)."
+          "$ref": "#/definitions/maxItems"
         },
         "minItems": {
-            "$ref": "#/definitions/minItems",
-            "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor45)."
+          "$ref": "#/definitions/minItems"
         },
         "uniqueItems": {
-            "$ref": "#/definitions/uniqueItems",
-            "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor49)."
+          "$ref": "#/definitions/uniqueItems"
         },
         "enum": {
-            "$ref": "#/definitions/enum",
-            "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor76)."
+          "$ref": "#/definitions/enum"
         },
         "multipleOf": {
-            "$ref": "#/definitions/multipleOf",
-            "description": "See [json-schema.org](http://json-schema.org/latest/json-schema-validation.html#anchor14)."
-        },
-        "description": {
-            "type": "string",
-            "description": "A short description of the header."
-        },
-        "name": {
-            "type": "string",
-            "description": "The name used to refer to this header at a later stage."
+          "$ref": "#/definitions/multipleOf"
         }
-    },
-    "patternProperties": {
+      },
+      "patternProperties": {
         "^x-": {
-            "$ref": "#/definitions/vendorExtension"
+          "$ref": "#/definitions/vendorExtension"
         }
+      }
     },
-    "definitions": {
-        "primitivesItems": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "type": {
-                    "type": "string",
-                    "enum": [
-                        "string",
-                        "number",
-                        "integer",
-                        "boolean",
-                        "array"
-                    ]
-                },
-                "format": {
-                    "type": "string"
-                },
-                "items": {
-                    "$ref": "#/definitions/primitivesItems"
-                },
-                "collectionFormat": {
-                    "$ref": "#/definitions/collectionFormat"
-                },
-                "default": {
-                    "$ref": "#/definitions/default"
-                },
-                "maximum": {
-                    "$ref": "#/definitions/maximum"
-                },
-                "exclusiveMaximum": {
-                    "$ref": "#/definitions/exclusiveMaximum"
-                },
-                "minimum": {
-                    "$ref": "#/definitions/minimum"
-                },
-                "exclusiveMinimum": {
-                    "$ref": "#/definitions/exclusiveMinimum"
-                },
-                "maxLength": {
-                    "$ref": "#/definitions/maxLength"
-                },
-                "minLength": {
-                    "$ref": "#/definitions/minLength"
-                },
-                "pattern": {
-                    "$ref": "#/definitions/pattern"
-                },
-                "maxItems": {
-                    "$ref": "#/definitions/maxItems"
-                },
-                "minItems": {
-                    "$ref": "#/definitions/minItems"
-                },
-                "uniqueItems": {
-                    "$ref": "#/definitions/uniqueItems"
-                },
-                "enum": {
-                    "$ref": "#/definitions/enum"
-                },
-                "multipleOf": {
-                    "$ref": "#/definitions/multipleOf"
-                }
-            },
-            "patternProperties": {
-                "^x-": {
-                    "$ref": "#/definitions/vendorExtension"
-                }
-            }
-        },
-        "collectionFormat": {
-            "type": "string",
-            "enum": [
-                "csv",
-                "ssv",
-                "tsv",
-                "pipes"
-            ],
-            "default": "csv"
-        },
-        "default": {},
-        "maximum": {
-            "type": "number"
-        },
-        "exclusiveMaximum": {
-            "type": "boolean",
-            "default": false
-        },
-        "minimum": {
-            "type": "number"
-        },
-        "exclusiveMinimum": {
-            "type": "boolean",
-            "default": false
-        },
-        "maxLength": {
-            "$ref": "http://json-schema.org/draft-04/schema#/definitions/positiveInteger"
-        },
-        "minLength": {
-            "$ref": "http://json-schema.org/draft-04/schema#/definitions/positiveIntegerDefault0"
-        },
-        "pattern": {
-            "type": "string",
-            "format": "regex"
-        },
-        "maxItems": {
-            "$ref": "http://json-schema.org/draft-04/schema#/definitions/positiveInteger"
-        },
-        "minItems": {
-            "$ref": "http://json-schema.org/draft-04/schema#/definitions/positiveIntegerDefault0"
-        },
-        "uniqueItems": {
-            "type": "boolean",
-            "default": false
-        },
-        "enum": {
-            "type": "array",
-            "minItems": 1,
-            "uniqueItems": true
-        },
-        "multipleOf": {
-            "type": "number",
-            "minimum": 0,
-            "exclusiveMinimum": 0
-        },
-        "vendorExtension": {
-            "description": "Any property starting with x- is valid.",
-            "additionalProperties": true,
-            "additionalItems": true
-        }
+    "collectionFormat": {
+      "type": "string",
+      "enum": ["csv", "ssv", "tsv", "pipes"],
+      "default": "csv"
     },
-    "description": "todo",
-    "$id": "https://raw.githubusercontent.com/eXigentCoder/swagger-spec-express/master/lib/schemas/header.json"
+    "default": {},
+    "maximum": {
+      "type": "number"
+    },
+    "exclusiveMaximum": {
+      "type": "boolean",
+      "default": false
+    },
+    "minimum": {
+      "type": "number"
+    },
+    "exclusiveMinimum": {
+      "type": "boolean",
+      "default": false
+    },
+    "maxLength": {
+      "$ref": "http://json-schema.org/draft-04/schema#/definitions/positiveInteger"
+    },
+    "minLength": {
+      "$ref": "http://json-schema.org/draft-04/schema#/definitions/positiveIntegerDefault0"
+    },
+    "pattern": {
+      "type": "string",
+      "format": "regex"
+    },
+    "maxItems": {
+      "$ref": "http://json-schema.org/draft-04/schema#/definitions/positiveInteger"
+    },
+    "minItems": {
+      "$ref": "http://json-schema.org/draft-04/schema#/definitions/positiveIntegerDefault0"
+    },
+    "uniqueItems": {
+      "type": "boolean",
+      "default": false
+    },
+    "enum": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "multipleOf": {
+      "type": "number",
+      "minimum": 0,
+      "exclusiveMinimum": 0
+    },
+    "vendorExtension": {
+      "description": "Any property starting with x- is valid.",
+      "additionalProperties": true,
+      "additionalItems": true
+    }
+  },
+  "description": "todo",
+  "$id": "https://raw.githubusercontent.com/eXigentCoder/swagger-spec-express/master/lib/schemas/header.json"
 }
